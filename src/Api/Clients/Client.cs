@@ -35,21 +35,19 @@ namespace Library.Core
 			this.authentication = authentication;
 		}
 
-		public virtual ClientResponse<T> Get<T> (
+        protected virtual ClientResponse<T> Get<T> (
 			Dictionary<String, String> headers = null, 
 			Dictionary<String, String> parameters = null,
 			String resource = null)
 			where T : class
 		{
-			ClientResponse<T> result = null;
-
 			IRestClient client = BuildClient ();
 			IRestRequest request = BuildRequest (httpMethod: Method.GET, headers: headers, parameters: parameters, resource: resource);
 			IRestResponse response = client.Execute (request);
 			return HandleResponse<T> (response);
 		}
 
-		public virtual ClientResponse<T> Post<T> (String body, 
+        protected virtual ClientResponse<T> Post<T> (String body, 
 		                                          Dictionary<String, String> headers = null, 
 		                                          Dictionary<String, String> parameters = null,
 		                                          String resource = null)
@@ -65,7 +63,7 @@ namespace Library.Core
 			return HandleResponse <T> (response);
 		}
 
-		public virtual ClientResponse<T> Post<T> (T body, 
+        protected virtual ClientResponse<T> Post<T> (T body, 
 		                                          Dictionary<String, String> headers = null, 
 		                                          Dictionary<String, String> parameters = null,
 		                                          String resource = null)
@@ -82,7 +80,7 @@ namespace Library.Core
 			return HandleResponse <T> (response);
 		}
 
-		public virtual IRestResponse Put (String body, 
+        protected virtual IRestResponse Put (String body, 
 		                                  Dictionary<String, String> headers = null, 
 		                                  Dictionary<String, String> parameters = null,
 		                                  String resource = null)
@@ -90,7 +88,7 @@ namespace Library.Core
 			throw new NotImplementedException ();
 		}
 
-		public virtual ClientResponse<T>  Delete<T> (
+        protected virtual ClientResponse<T>  Delete<T> (
 			Dictionary<String, String> headers = null, 
 			Dictionary<String, String> parameters = null,
 			String resource = null)
@@ -188,6 +186,23 @@ namespace Library.Core
 			return clientResponse;
 		}
 
+        protected T Deserialize<T> (String data)
+            where T : class
+        {
+            return JsonConvert.DeserializeObject (data, typeof(T)) as T;
+        }
+
+        protected String Serialize<T> (T data)
+            where T : class
+        {
+            return JsonConvert.SerializeObject (data,
+                typeof(T),
+                Formatting.None, 
+                new JsonSerializerSettings { 
+                NullValueHandling = NullValueHandling.Ignore
+            });
+        }
+
 		private ClientResponse<T> HandleErrorResponse<T> (IRestResponse response)
 			where T : class
 		{
@@ -205,11 +220,6 @@ namespace Library.Core
 			return new ClientResponse<T> (response: response, result: Deserialize<T> (response.Content));
 		}
 
-		protected virtual Exception GetException (IRestResponse response, Errors errors)
-		{
-			return null;
-		}
-
 		private void AssertIfAnyErrors<T> (ClientResponse<T> response)
 			where T : class
 		{
@@ -219,23 +229,6 @@ namespace Library.Core
 					response.Errors,
 					response.Response.Content);
 			}
-		}
-
-		private T Deserialize<T> (String data)
-			where T : class
-		{
-			return JsonConvert.DeserializeObject (data, typeof(T)) as T;
-		}
-
-		private String Serialize<T> (T data)
-			where T : class
-		{
-			return JsonConvert.SerializeObject (data,
-				typeof(T),
-				Formatting.None, 
-				new JsonSerializerSettings { 
-					NullValueHandling = NullValueHandling.Ignore
-				});
 		}
 	}
 }

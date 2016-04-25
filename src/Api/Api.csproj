@@ -80,6 +80,18 @@
     <Compile Include="Interfaces\IResourceDelete.cs" />
     <Compile Include="Interfaces\IResourceList.cs" />
     <Compile Include="Converters\MetadataJsonConverter.cs" />
+    <Compile Include="Clients\MessagesClient.cs" />
+    <Compile Include="Clients\ConversationsClient.cs" />
+    <Compile Include="Data\Conversation.cs" />
+    <Compile Include="Data\Conversations.cs" />
+    <Compile Include="Clients\AdminConversationsClient.cs" />
+    <Compile Include="Clients\UserConversationsClient.cs" />
+    <Compile Include="Data\UserConversationMessage.cs" />
+    <Compile Include="Data\AdminConversationMessage.cs" />
+    <Compile Include="Data\Message.cs" />
+    <Compile Include="Data\Reply.cs" />
+    <Compile Include="Data\AdminConversationReply.cs" />
+    <Compile Include="Data\UserConversationReply.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
