@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A2269678-CBCC-4444-AD9D-5D82ABC52800}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Library</RootNamespace>
+    <AssemblyName>Library</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Model.cs" />
+    <Compile Include="Core\Authentication.cs" />
+    <Compile Include="Core\Models.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Data\Lead.cs" />
+    <Compile Include="Data\Avatar.cs" />
+    <Compile Include="Data\Companies.cs" />
+    <Compile Include="Data\Company.cs" />
+    <Compile Include="Data\LocationData.cs" />
+    <Compile Include="Data\Pages.cs" />
+    <Compile Include="Data\Segment.cs" />
+    <Compile Include="Data\Segments.cs" />
+    <Compile Include="Data\SocialProfile.cs" />
+    <Compile Include="Data\SocialProfiles.cs" />
+    <Compile Include="Data\Tag.cs" />
+    <Compile Include="Data\Tags.cs" />
+    <Compile Include="Data\Users.cs" />
+    <Compile Include="Data\Plan.cs" />
+    <Compile Include="Exceptions\IntercomException.cs" />
+    <Compile Include="Core\Constants.cs" />
+    <Compile Include="Clients\UserClient.cs" />
+    <Compile Include="Interfaces\IClient.cs" />
+    <Compile Include="Data\Error.cs" />
+    <Compile Include="Data\Errors.cs" />
+    <Compile Include="Clients\Client.cs" />
+    <Compile Include="Clients\ClientConfiguration.cs" />
+    <Compile Include="Clients\ClientResponse.cs" />
+    <Compile Include="Enums\OrderBy.cs" />
+    <Compile Include="Clients\LeadClient.cs" />
+    <Compile Include="Clients\CompanyClient.cs" />
+    <Compile Include="Converters\ListJsonConverter.cs" />
+    <Compile Include="Clients\EventClient.cs" />
+    <Compile Include="Data\Event.cs" />
+    <Compile Include="Data\Events.cs" />
+    <Compile Include="Data\Metadata.cs" />
+    <Compile Include="Interfaces\IResourceCreate.cs" />
+    <Compile Include="Interfaces\IResourceUpdate.cs" />
+    <Compile Include="Interfaces\IResourceView.cs" />
+    <Compile Include="Interfaces\IResourceDelete.cs" />
+    <Compile Include="Interfaces\IResourceList.cs" />
+    <Compile Include="Converters\MetadataJsonConverter.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Data\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Clients\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Converters\" />
+  </ItemGroup>
+</Project>
