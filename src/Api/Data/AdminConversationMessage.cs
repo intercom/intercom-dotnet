@@ -4,6 +4,7 @@ namespace Library
 {
     public class AdminConversationMessage : Message
 	{
+
         public class From { 
 			public String id { set; get; }
 			public String type { private set; get; }

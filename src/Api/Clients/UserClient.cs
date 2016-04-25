@@ -5,6 +5,7 @@ using System.Linq;
 using Library.Core;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.IO;
 
 namespace Library
 {
@@ -17,8 +18,10 @@ namespace Library
 			public const String signed_up_at = "signed_up_at";
 		}
 
-		public UserClient (String baseUrl, String resource, Authentication authentication)
-			: base (baseUrl, resource, authentication)
+        private const String USERS_RESOURCE = "users";
+
+		public UserClient (Authentication authentication)
+            : base (INTERCOM_API_BASE_URL, USERS_RESOURCE, authentication)
 		{
 		}
 
@@ -72,7 +75,7 @@ namespace Library
 			}
 
 			ClientResponse<User> result = null;
-			result = Get<User> (resource: id);
+            result = Get<User> (resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
 			return result.Result;		
 		}
 
@@ -86,7 +89,7 @@ namespace Library
 			ClientResponse<User> result = null;
 
 			if (!String.IsNullOrEmpty (user.id)) {
-				result = Get<User> (resource: user.id);
+                result = Get<User> (resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id);
 			} else if (!String.IsNullOrEmpty (user.user_id)) {
 				parameters.Add (Constants.USER_ID, user.id);
 				result = Get<User> (parameters: parameters);
@@ -138,7 +141,7 @@ namespace Library
 			ClientResponse<User> result = null;
 
 			if (!String.IsNullOrEmpty (user.id)) {
-				result = Delete<User> (resource: user.id);
+                result = Delete<User> (resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id);
 			} else if (!String.IsNullOrEmpty (user.user_id)) {
 				parameters.Add (Constants.USER_ID, user.id);
 				result = Delete<User> (parameters: parameters);
@@ -159,7 +162,7 @@ namespace Library
 			}
 
 			ClientResponse<User> result = null;
-			result = Delete<User> (resource: id);
+            result = Delete<User> (resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
 			return result.Result;			
 		}
 

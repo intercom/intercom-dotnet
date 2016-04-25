@@ -10,9 +10,10 @@ namespace Library
 {
 	public class EventsClient : Client
 	{
+		private const String COMPANIES_RESOURCE = "events";
 
-		public EventsClient (String baseUrl, String resource, Authentication authentication)
-			: base (baseUrl, resource, authentication)
+		public EventsClient (Authentication authentication)
+			: base (INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
 		{
 		}
 

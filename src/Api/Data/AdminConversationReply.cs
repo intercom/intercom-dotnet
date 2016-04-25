@@ -17,12 +17,17 @@ namespace Library
 
         public String assignee_id { set; get; }
 
-        public AdminConversationReply(String adminId, 
+        public AdminConversationReply(String conversationId,
+                                      String adminId, 
                                       String messageType = Reply.ReplyMessageType.COMMENT,
                                       String body = "",
                                       List<String> attachementUrls = null)
-            : base(messageType, body, attachementUrls)
+            : base(conversationId, Reply.ReplyMessageType.COMMENT, body, attachementUrls)
         {
+
+            if (String.IsNullOrEmpty(conversationId))
+                throw new ArgumentNullException("conversation_id is null or empty.");
+
             if ((messageType == Reply.ReplyMessageType.COMMENT ||
                 messageType == Reply.ReplyMessageType.NOTE) &&
                 String.IsNullOrEmpty(body))

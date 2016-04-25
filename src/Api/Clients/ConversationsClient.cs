@@ -19,8 +19,10 @@ namespace Library
             public const String NOTE = "note";
         }
 
-        public ConversationsClient(String baseUrl, String resource, Authentication authentication)
-            : base(baseUrl, resource, authentication)
+        private const String CONVERSATIONS_RESOURCE = "conversations";
+
+        public ConversationsClient( Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
         {
         }
 

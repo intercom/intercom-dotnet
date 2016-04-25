@@ -20,6 +20,7 @@ namespace Library
         public const String OPEN = "open";
         public const String DISPLAY_AS = "display_as";
         public const String PLAIN_TEXT = "plaintext";
+        public const String Reply = "reply";
 
 	}
 }

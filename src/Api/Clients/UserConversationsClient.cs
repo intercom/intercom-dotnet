@@ -5,14 +5,18 @@ using System.Linq;
 using Library.Core;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.IO;
 
 namespace Library
 {
     public class UserConversationsClient: Client
     {
+        private const String CONVERSATIONS_RESOURCE = "conversations";
+        private const String MESSAGES_RESOURCE = "messages";
+        private const String REPLY_RESOURCE = "r";
 
-        public UserConversationsClient(String baseUrl, String resource, Authentication authentication)
-            : base(baseUrl, resource, authentication)
+        public UserConversationsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
         {
         }
 
@@ -25,19 +29,19 @@ namespace Library
 
             ClientResponse<ConversationPart> result = null;
             String body = Serialize<UserConversationReply>(reply);
-            result = Post<ConversationPart>(body);
+            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar +  REPLY_RESOURCE );
             return result.Result;
         }
 
-        public UserConversationMessage Create (UserConversationMessage userMessage)
+        public UserConversationMessage Create(UserConversationMessage userMessage)
         {
             ClientResponse<UserConversationMessage> result = null;
-            result = Post<UserConversationMessage> (userMessage);
+            result = Post<UserConversationMessage>(userMessage, resource: MESSAGES_RESOURCE);
             return result.Result;
         }
 
         public Conversations ListByUser(
-            String intercomUserId = null, 
+            String intercomUserId = null,
             String email = null,
             String userId = null, 
             bool? unread = null, 

@@ -11,8 +11,10 @@ namespace Library
 {
 	public class CompanyClient : Client, IClient<Company, Companies>
 	{
-		public CompanyClient (String baseUrl, String resource, Authentication authentication)
-			: base (baseUrl, resource, authentication)
+        private const String COMPANIES_RESOURCE = "companies";
+
+		public CompanyClient (Authentication authentication)
+            : base (INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
 		{
 		}
 
@@ -65,7 +67,7 @@ namespace Library
 			}
 
 			ClientResponse<Company> result = null;
-			result = Get<Company> (resource: id);
+            result = Get<Company> (resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + id);
 			return result.Result;		
 		}
 
@@ -79,7 +81,7 @@ namespace Library
 			ClientResponse<Company> result = null;
 
 			if (!String.IsNullOrEmpty (company.id)) {
-				result = Delete<Company> (resource: company.id);
+                result = Delete<Company> (resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
 			} else if (!String.IsNullOrEmpty (company.name)) {
 				parameters.Add (Constants.NAME, company.name);
 				result = Delete<Company> (parameters: parameters);
@@ -132,7 +134,7 @@ namespace Library
 
 			String resource = company.id + Path.DirectorySeparatorChar + "users";
 			ClientResponse<Users> result = null;
-			result = Get<Users> (resource: resource);
+            result = Get<Users> (resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
 			return result.Result;
 		}
 
@@ -144,7 +146,7 @@ namespace Library
 
 			String resource = id + Path.DirectorySeparatorChar + "users";
 			ClientResponse<Users> result = null;
-			result = Get<Users> (resource: resource);
+            result = Get<Users> (resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
 			return result.Result;		
 		}
 	}
