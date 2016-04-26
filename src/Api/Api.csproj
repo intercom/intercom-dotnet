@@ -99,6 +99,9 @@
     <Compile Include="Data\ConversationMessage.cs" />
     <Compile Include="Data\Author.cs" />
     <Compile Include="Clients\ContactsClient.cs" />
+    <Compile Include="Clients\AdminsClient.cs" />
+    <Compile Include="Data\Admin.cs" />
+    <Compile Include="Data\Admins.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -27,6 +27,15 @@ namespace Library
 
 		public User Create (User user)
 		{
+            if (user == null) {
+                throw new ArgumentNullException ("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
+            {
+                throw new ArgumentNullException ("you need to provide either 'user.user_id', 'user.email' to create a user.");
+            }
+
 			ClientResponse<User> result = null;
 			result = Post<User> (user);
 			return result.Result;
@@ -34,6 +43,15 @@ namespace Library
 
 		public User Update (User user)
 		{
+            if (user == null) {
+                throw new ArgumentNullException ("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
+            {
+                throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            }
+
 			ClientResponse<User> result = null;
 			result = Post<User> (user);
 
@@ -42,9 +60,7 @@ namespace Library
 
 		private User CreateOrUpdate (User user)
 		{
-			if (user == null) {
-				throw new ArgumentNullException ("'user' argument is null.");
-			}
+
 
 			ClientResponse<User> result = null;
 			result = Post<User> (user);
