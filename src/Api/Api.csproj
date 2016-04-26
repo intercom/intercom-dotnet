@@ -102,6 +102,7 @@
     <Compile Include="Clients\AdminsClient.cs" />
     <Compile Include="Data\Admin.cs" />
     <Compile Include="Data\Admins.cs" />
+    <Compile Include="Clients\SegmentsClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -18,6 +18,7 @@ namespace Library.Core
         protected readonly String url;
         protected readonly String res;
         protected readonly Authentication authentication;
+
         protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
 
         public Client(String url, String resource, Authentication authentication)
