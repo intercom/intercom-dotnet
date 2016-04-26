@@ -5,6 +5,7 @@ using System.Linq;
 using Library.Core;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.IO;
 
 namespace Library
 {
@@ -41,7 +42,7 @@ namespace Library
             }
 
             ClientResponse<Conversation> result = null;
-            result = Get<Conversation>(resource: id);
+            result = Get<Conversation>(resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
         }
     }

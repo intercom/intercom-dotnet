@@ -67,7 +67,6 @@
     <Compile Include="Clients\ClientConfiguration.cs" />
     <Compile Include="Clients\ClientResponse.cs" />
     <Compile Include="Enums\OrderBy.cs" />
-    <Compile Include="Clients\LeadClient.cs" />
     <Compile Include="Clients\CompanyClient.cs" />
     <Compile Include="Converters\ListJsonConverter.cs" />
     <Compile Include="Clients\EventClient.cs" />
@@ -92,6 +91,14 @@
     <Compile Include="Data\Reply.cs" />
     <Compile Include="Data\AdminConversationReply.cs" />
     <Compile Include="Data\UserConversationReply.cs" />
+    <Compile Include="Data\Contact.cs" />
+    <Compile Include="Data\Contacts.cs" />
+    <Compile Include="Data\Attachment.cs" />
+    <Compile Include="Data\ConversationPart.cs" />
+    <Compile Include="Data\Assignee.cs" />
+    <Compile Include="Data\ConversationMessage.cs" />
+    <Compile Include="Data\Author.cs" />
+    <Compile Include="Clients\ContactsClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
