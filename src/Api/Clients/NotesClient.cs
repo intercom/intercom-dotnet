@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Library.Core;
+using RestSharp;
+using RestSharp.Authenticators;
+using System.IO;
+using Newtonsoft.Json;
+
+
+namespace Library
+{
+    public class NotesClient : Client
+    {
+        private const String NOTES_RESOURCE = "notes";
+
+        public NotesClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, NOTES_RESOURCE, authentication)
+        {
+        }
+
+        public Note Create(Note note)
+        {
+            if (note == null)
+            {
+                throw new ArgumentNullException("'note' argument is null.");
+            }
+
+            if (note.user == null)
+            {
+                throw new ArgumentNullException("'note.user' shouldnt be null.");
+            }
+
+            if (String.IsNullOrEmpty(note.user.id) && String.IsNullOrEmpty(note.user.user_id) && string.IsNullOrEmpty(note.user.email))
+            {
+                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to create a user.");
+            }
+
+            ClientResponse<Note> result = null;
+            String noteBody = JsonConvert.SerializeObject(new { 
+                user = new { 
+                    id = note.user.id, 
+                    user_id = note.user.user_id, 
+                    email = note.user.email 
+                }, 
+                body = note.body, 
+                admin_id = note == null ? note.author.id : null 
+            });
+            result = Post<Note>(noteBody);
+            return result.Result;
+        }
+
+
+        public Note Create(User user, String body, String adminId = null)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("'note' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
+            {
+                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to create a user.");
+            }
+
+            if (String.IsNullOrEmpty(body))
+            {
+                throw new ArgumentNullException("'body' argument is null or empty.");
+            }
+
+            ClientResponse<Note> result = null;
+            String noteBody = JsonConvert.SerializeObject(new { 
+                user = new { 
+                    id = user.id, 
+                    user_id = user.user_id, 
+                    email = user.email 
+                }, 
+                body = body, 
+                admin_id = adminId 
+            });
+
+            result = Post<Note>(noteBody);
+            return result.Result;
+        }
+
+        public Notes List (User user)
+        {
+            if (user == null) {
+                throw new ArgumentNullException ("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && String.IsNullOrEmpty(user.email))
+            {
+                throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            }
+
+            Dictionary<String, String> parameters = new Dictionary<String, String> ();
+            ClientResponse<Notes> result = null;
+
+            if (!String.IsNullOrEmpty (user.id)) {
+                result = Get<Notes> (resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + user.id);
+            } else if (!String.IsNullOrEmpty (user.user_id)) {
+                parameters.Add (Constants.USER_ID, user.id);
+                result = Get<Notes> (parameters: parameters);
+            } else if (!String.IsNullOrEmpty (user.email)) {
+                parameters.Add (Constants.EMAIL, user.email);
+                result = Get<Notes> (parameters: parameters);         
+            } else {
+                throw new ArgumentNullException ("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            }
+
+            return result.Result;
+        }
+    }
+}

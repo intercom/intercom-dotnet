@@ -43,7 +43,6 @@
     <Compile Include="Core\Authentication.cs" />
     <Compile Include="Core\Models.cs" />
     <Compile Include="Data\User.cs" />
-    <Compile Include="Data\Lead.cs" />
     <Compile Include="Data\Avatar.cs" />
     <Compile Include="Data\Companies.cs" />
     <Compile Include="Data\Company.cs" />
@@ -81,22 +80,13 @@
     <Compile Include="Converters\MetadataJsonConverter.cs" />
     <Compile Include="Clients\MessagesClient.cs" />
     <Compile Include="Clients\ConversationsClient.cs" />
-    <Compile Include="Data\Conversation.cs" />
-    <Compile Include="Data\Conversations.cs" />
     <Compile Include="Clients\AdminConversationsClient.cs" />
     <Compile Include="Clients\UserConversationsClient.cs" />
-    <Compile Include="Data\UserConversationMessage.cs" />
-    <Compile Include="Data\AdminConversationMessage.cs" />
     <Compile Include="Data\Message.cs" />
-    <Compile Include="Data\Reply.cs" />
-    <Compile Include="Data\AdminConversationReply.cs" />
-    <Compile Include="Data\UserConversationReply.cs" />
     <Compile Include="Data\Contact.cs" />
     <Compile Include="Data\Contacts.cs" />
     <Compile Include="Data\Attachment.cs" />
-    <Compile Include="Data\ConversationPart.cs" />
     <Compile Include="Data\Assignee.cs" />
-    <Compile Include="Data\ConversationMessage.cs" />
     <Compile Include="Data\Author.cs" />
     <Compile Include="Clients\ContactsClient.cs" />
     <Compile Include="Clients\AdminsClient.cs" />
@@ -104,6 +94,19 @@
     <Compile Include="Data\Admins.cs" />
     <Compile Include="Clients\SegmentsClient.cs" />
     <Compile Include="Clients\TagsClient.cs" />
+    <Compile Include="Clients\CountsClient.cs" />
+    <Compile Include="Data\Note.cs" />
+    <Compile Include="Data\Conversations\AdminConversationMessage.cs" />
+    <Compile Include="Data\Conversations\AdminConversationReply.cs" />
+    <Compile Include="Data\Conversations\Conversation.cs" />
+    <Compile Include="Data\Conversations\ConversationMessage.cs" />
+    <Compile Include="Data\Conversations\ConversationPart.cs" />
+    <Compile Include="Data\Conversations\Conversations.cs" />
+    <Compile Include="Data\Conversations\UserConversationMessage.cs" />
+    <Compile Include="Data\Conversations\UserConversationReply.cs" />
+    <Compile Include="Data\Conversations\Reply.cs" />
+    <Compile Include="Clients\NotesClient.cs" />
+    <Compile Include="Data\Notes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -117,5 +120,6 @@
     <Folder Include="Clients\" />
     <Folder Include="Enums\" />
     <Folder Include="Converters\" />
+    <Folder Include="Data\Conversations\" />
   </ItemGroup>
 </Project>
