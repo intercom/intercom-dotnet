@@ -57,22 +57,6 @@ namespace Library
             return result.Result;
         }
 
-        public Contact View (Dictionary<String, String> parameters)
-        {
-            if (parameters == null) {
-                throw new ArgumentNullException ("'parameters' argument is null.");
-            }
-
-            if (!parameters.Any ()) {
-                throw new ArgumentException ("'parameters' argument should include contact_id parameter.");
-            }
-
-            ClientResponse<Contact> result = null;
-
-            result = Get<Contact> (parameters: parameters);
-            return result.Result;
-        }
-
         public Contact View (String id)
         {
             if (String.IsNullOrEmpty (id)) {
@@ -126,21 +110,6 @@ namespace Library
             return result.Result;
         }
 
-        public Contacts List (Dictionary<String, String> parameters)
-        {
-            if (parameters == null) {
-                throw new ArgumentNullException ("'parameters' argument is null.");
-            }
-
-            if (!parameters.Any ()) {
-                throw new ArgumentException ("'parameters' argument should include email parameter.");
-            }
-
-            ClientResponse<Contacts> result = null;
-            result = Get<Contacts> (parameters: parameters);
-            return result.Result;
-        }
-
         public Contacts List (int page = 1, int per_page = 50, OrderBy orderby = OrderBy.Dsc, String sortby = ContactSortBy.created_at)
         {
             return null;
@@ -164,7 +133,7 @@ namespace Library
                 throw new ArgumentNullException ("you need to provide either 'contact.id', 'contact.user_id' to delete a contact.");
             }
 
-            return result.Result;       
+            return result.Result;
         }
 
         public Contact Delete (String id)
@@ -176,21 +145,6 @@ namespace Library
             ClientResponse<Contact> result = null;
             result = Delete<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;           
-        }
-
-        public Contact Delete (Dictionary<String, String> parameters)
-        {
-            if (parameters == null) {
-                throw new ArgumentNullException ("'parameters' argument is null.");
-            }
-
-            if (!parameters.Any ()) {
-                throw new ArgumentException ("'parameters' argument should include contact_id parameter.");
-            }
-
-            ClientResponse<Contact> result = null;
-            result = Delete<Contact> (parameters: parameters);
-            return result.Result;       
         }
     }
 }

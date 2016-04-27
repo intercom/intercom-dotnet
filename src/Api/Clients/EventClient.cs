@@ -17,29 +17,29 @@ namespace Library
 		{
 		}
 
-		public Event Create (Event ev)
+		public Event Create (Event @event)
 		{
 			ClientResponse<Event> result = null;
-			result = Post<Event> (ev);
+            result = Post<Event> (@event);
 			return result.Result;
 		}
 
-		public Events List (String intercomUserId = null, String userId = null, String email = null)
+        public Events List (User user)
 		{
 			Dictionary<String, String> parameters = new Dictionary<string, string> ();
+            parameters.Add (Constants.TYPE, "user");
+
 			ClientResponse<Events> result = null;
 
-			if (!String.IsNullOrEmpty (intercomUserId)) {
-				parameters.Add (Constants.INTERCOM_USER_ID, intercomUserId);
-			} else if (!String.IsNullOrEmpty (userId)) {
-				parameters.Add (Constants.USER_ID, userId);
-			} else if (!String.IsNullOrEmpty (email)) {
-				parameters.Add (Constants.EMAIL, email);
+            if (!String.IsNullOrEmpty (user.id)) {
+                parameters.Add (Constants.INTERCOM_USER_ID, user.id);
+            } else if (!String.IsNullOrEmpty (user.user_id)) {
+                parameters.Add (Constants.USER_ID, user.user_id);
+            } else if (!String.IsNullOrEmpty (user.email)) {
+                parameters.Add (Constants.EMAIL, user.email);
 			} else {
 				throw new ArgumentException (String.Format ("you should provide at least value for one of these parameters {0}, or {1}, or {2} .", Constants.INTERCOM_USER_ID, Constants.USER_ID, Constants.EMAIL));
 			}
-
-			parameters.Add (Constants.TYPE, "user");
 
 			result = Get<Events> (parameters: parameters);
 			return result.Result;

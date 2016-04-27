@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Library.Core;
 using RestSharp;
-using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

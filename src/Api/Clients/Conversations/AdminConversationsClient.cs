@@ -29,23 +29,25 @@ namespace Library
 
             ClientResponse<ConversationPart> result = null;
             String body = Serialize<AdminConversationReply>(reply);
-            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar +  REPLY_RESOURCE );
+            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
 
-        public AdminConversationMessage Create (AdminConversationMessage adminMessage)
+        public AdminConversationMessage Create(AdminConversationMessage adminMessage)
         {
             ClientResponse<AdminConversationMessage> result = null;
-            result = Post<AdminConversationMessage> (adminMessage, resource: MESSAGES_RESOURCE);
+            result = Post<AdminConversationMessage>(adminMessage, resource: MESSAGES_RESOURCE);
             return result.Result;
         }
 
-        public Conversations List(
-            String adminId, 
-            bool? open = null, 
-            bool? displayAsPlainText = null)
+        public Conversations List(Admin admin, bool? open = null, bool? displayAsPlainText = null)
         {
-            if (String.IsNullOrEmpty(adminId))
+            if (admin == null)
+            {
+                throw new ArgumentNullException("'admin' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(admin.id))
             {
                 throw new ArgumentNullException("'user' argument is null or empty.");
             }
@@ -65,7 +67,7 @@ namespace Library
                 parameters.Add(Constants.DISPLAY_AS, Constants.PLAIN_TEXT);
             }
 
-            parameters.Add(Constants.ADMIN_ID, adminId);
+            parameters.Add(Constants.ADMIN_ID, admin.id);
 
             result = Get<Conversations>(parameters: parameters);
             return result.Result;

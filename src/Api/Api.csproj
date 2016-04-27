@@ -59,30 +59,15 @@
     <Compile Include="Exceptions\IntercomException.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Clients\UserClient.cs" />
-    <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Data\Error.cs" />
     <Compile Include="Data\Errors.cs" />
-    <Compile Include="Clients\Client.cs" />
-    <Compile Include="Clients\ClientConfiguration.cs" />
-    <Compile Include="Clients\ClientResponse.cs" />
     <Compile Include="Enums\OrderBy.cs" />
     <Compile Include="Clients\CompanyClient.cs" />
-    <Compile Include="Converters\ListJsonConverter.cs" />
     <Compile Include="Clients\EventClient.cs" />
     <Compile Include="Data\Event.cs" />
     <Compile Include="Data\Events.cs" />
     <Compile Include="Data\Metadata.cs" />
-    <Compile Include="Interfaces\IResourceCreate.cs" />
-    <Compile Include="Interfaces\IResourceUpdate.cs" />
-    <Compile Include="Interfaces\IResourceView.cs" />
-    <Compile Include="Interfaces\IResourceDelete.cs" />
-    <Compile Include="Interfaces\IResourceList.cs" />
-    <Compile Include="Converters\MetadataJsonConverter.cs" />
     <Compile Include="Clients\MessagesClient.cs" />
-    <Compile Include="Clients\ConversationsClient.cs" />
-    <Compile Include="Clients\AdminConversationsClient.cs" />
-    <Compile Include="Clients\UserConversationsClient.cs" />
-    <Compile Include="Data\Message.cs" />
     <Compile Include="Data\Contact.cs" />
     <Compile Include="Data\Contacts.cs" />
     <Compile Include="Data\Attachment.cs" />
@@ -107,6 +92,25 @@
     <Compile Include="Data\Conversations\Reply.cs" />
     <Compile Include="Clients\NotesClient.cs" />
     <Compile Include="Data\Notes.cs" />
+    <Compile Include="Data\Conversations\Message.cs" />
+    <Compile Include="Data\Counts\Count.cs" />
+    <Compile Include="Data\Counts\ConversationCount.cs" />
+    <Compile Include="Data\Counts\AppCount.cs" />
+    <Compile Include="Data\Counts\ConversationAdminCount.cs" />
+    <Compile Include="Data\Counts\AdminCount.cs" />
+    <Compile Include="Clients\Conversations\AdminConversationsClient.cs" />
+    <Compile Include="Clients\Conversations\ConversationsClient.cs" />
+    <Compile Include="Clients\Conversations\UserConversationsClient.cs" />
+    <Compile Include="Core\Client.cs" />
+    <Compile Include="Core\ClientConfiguration.cs" />
+    <Compile Include="Core\ClientResponse.cs" />
+    <Compile Include="Data\Counts\TagCount.cs" />
+    <Compile Include="Data\Counts\SegmentCount.cs" />
+    <Compile Include="Data\Counts\UserCount.cs" />
+    <Compile Include="Converters\AppCountJsonAttributeConverter.cs" />
+    <Compile Include="Converters\ConversationAdminCountJsonClassConverter.cs" />
+    <Compile Include="Converters\ListJsonAttributeConverter.cs" />
+    <Compile Include="Converters\MetadataJsonAttributeConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -116,10 +120,11 @@
     <Folder Include="Core\" />
     <Folder Include="Data\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Clients\" />
     <Folder Include="Enums\" />
     <Folder Include="Converters\" />
     <Folder Include="Data\Conversations\" />
+    <Folder Include="Data\Counts\" />
+    <Folder Include="Clients\Conversations\" />
   </ItemGroup>
 </Project>

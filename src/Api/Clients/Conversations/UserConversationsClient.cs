@@ -29,7 +29,7 @@ namespace Library
 
             ClientResponse<ConversationPart> result = null;
             String body = Serialize<UserConversationReply>(reply);
-            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar +  REPLY_RESOURCE );
+            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
 
@@ -40,7 +40,7 @@ namespace Library
             return result.Result;
         }
 
-        public Conversations ListByUser(
+        public Conversations List(
             String intercomUserId = null,
             String email = null,
             String userId = null, 

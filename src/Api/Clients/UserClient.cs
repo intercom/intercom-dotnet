@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Library
 {
-	public class UserClient : Client
+    public class UserClient : Client
 	{
 		public static class UserSortBy
 		{
@@ -60,8 +60,6 @@ namespace Library
 
 		private User CreateOrUpdate (User user)
 		{
-
-
 			ClientResponse<User> result = null;
 			result = Post<User> (user);
 			return result.Result;
@@ -69,7 +67,6 @@ namespace Library
 
 		public User View (Dictionary<String, String> parameters)
 		{
-
 			if (parameters == null) {
 				throw new ArgumentNullException ("'parameters' argument is null.");
 			}
@@ -182,21 +179,6 @@ namespace Library
 			return result.Result;			
 		}
 
-		public User Delete (Dictionary<String, String> parameters)
-		{
-			if (parameters == null) {
-				throw new ArgumentNullException ("'parameters' argument is null.");
-			}
-
-			if (!parameters.Any ()) {
-				throw new ArgumentException ("'parameters' argument should include user_id parameter.");
-			}
-
-			ClientResponse<User> result = null;
-			result = Get<User> (parameters: parameters);
-			return result.Result;		
-		}
-			
 		public User UpdateLastSeenAt (int timestamp)
 		{
 			return null;

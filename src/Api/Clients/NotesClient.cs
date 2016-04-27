@@ -38,19 +38,9 @@ namespace Library
             }
 
             ClientResponse<Note> result = null;
-            String noteBody = JsonConvert.SerializeObject(new { 
-                user = new { 
-                    id = note.user.id, 
-                    user_id = note.user.user_id, 
-                    email = note.user.email 
-                }, 
-                body = note.body, 
-                admin_id = note == null ? note.author.id : null 
-            });
-            result = Post<Note>(noteBody);
+            result = Post<Note>(note);
             return result.Result;
         }
-
 
         public Note Create(User user, String body, String adminId = null)
         {
@@ -70,17 +60,12 @@ namespace Library
             }
 
             ClientResponse<Note> result = null;
-            String noteBody = JsonConvert.SerializeObject(new { 
-                user = new { 
-                    id = user.id, 
-                    user_id = user.user_id, 
-                    email = user.email 
-                }, 
-                body = body, 
-                admin_id = adminId 
+            result = Post<Note>(new Note() {
+                author = new Author() { id = adminId }, 
+                body = body,
+                user = new User() { id = user.id, user_id = user.user_id, email = user.email }
             });
 
-            result = Post<Note>(noteBody);
             return result.Result;
         }
 
@@ -112,5 +97,7 @@ namespace Library
 
             return result.Result;
         }
+
+
     }
 }

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Library
 {
-	public class CompanyClient : Client, IClient<Company, Companies>
+	public class CompanyClient : Client
 	{
         private const String COMPANIES_RESOURCE = "companies";
 
@@ -41,22 +41,6 @@ namespace Library
 
 			ClientResponse<Company> result = null;
 			result = Post<Company> (company);
-			return result.Result;
-		}
-
-		public Company View (Dictionary<String, String> parameters)
-		{
-			if (parameters == null) {
-				throw new ArgumentNullException ("'parameters' argument is null.");
-			}
-
-			if (!parameters.Any ()) {
-				throw new ArgumentException ("'parameters' argument should include company_id parameter.");
-			}
-
-			ClientResponse<Company> result = null;
-
-			result = Get<Company> (parameters: parameters);
 			return result.Result;
 		}
 
@@ -138,13 +122,13 @@ namespace Library
 			return result.Result;
 		}
 
-		public Users ListUsers(String id)
+		public Users ListUsers(String companyId)
 		{
-			if (String.IsNullOrEmpty (id)) {
+            if (String.IsNullOrEmpty (companyId)) {
 				throw new ArgumentNullException ("you must provied 'company.id'.");
 			}
 
-			String resource = id + Path.DirectorySeparatorChar + "users";
+            String resource = companyId + Path.DirectorySeparatorChar + "users";
 			ClientResponse<Users> result = null;
             result = Get<Users> (resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
 			return result.Result;		
