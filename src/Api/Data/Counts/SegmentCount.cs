@@ -6,7 +6,6 @@ namespace Library
     public class SegmentCount
     {
         public Dictionary<String, int> segments = new Dictionary<string, int>();
-
     }
 }
 

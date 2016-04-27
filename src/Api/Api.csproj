@@ -94,10 +94,8 @@
     <Compile Include="Data\Notes.cs" />
     <Compile Include="Data\Conversations\Message.cs" />
     <Compile Include="Data\Counts\Count.cs" />
-    <Compile Include="Data\Counts\ConversationCount.cs" />
     <Compile Include="Data\Counts\AppCount.cs" />
     <Compile Include="Data\Counts\ConversationAdminCount.cs" />
-    <Compile Include="Data\Counts\AdminCount.cs" />
     <Compile Include="Clients\Conversations\AdminConversationsClient.cs" />
     <Compile Include="Clients\Conversations\ConversationsClient.cs" />
     <Compile Include="Clients\Conversations\UserConversationsClient.cs" />
@@ -107,10 +105,19 @@
     <Compile Include="Data\Counts\TagCount.cs" />
     <Compile Include="Data\Counts\SegmentCount.cs" />
     <Compile Include="Data\Counts\UserCount.cs" />
-    <Compile Include="Converters\AppCountJsonAttributeConverter.cs" />
-    <Compile Include="Converters\ConversationAdminCountJsonClassConverter.cs" />
-    <Compile Include="Converters\ListJsonAttributeConverter.cs" />
-    <Compile Include="Converters\MetadataJsonAttributeConverter.cs" />
+    <Compile Include="Data\Counts\UserTagCount.cs" />
+    <Compile Include="Converters\AttributeConverters\ListJsonConverter.cs" />
+    <Compile Include="Converters\AttributeConverters\AppCountJsonConverter.cs" />
+    <Compile Include="Converters\ClassConverters\ConversationAdminCountJsonConverter.cs" />
+    <Compile Include="Converters\AttributeConverters\MetadataJsonConverter.cs" />
+    <Compile Include="Data\Counts\UserSegmentCount.cs" />
+    <Compile Include="Converters\ClassConverters\CompanyCountJsonConverter.cs" />
+    <Compile Include="Converters\ClassConverters\UserCountJsonConverter.cs" />
+    <Compile Include="Data\Counts\CompanyTagCount.cs" />
+    <Compile Include="Data\Counts\CompanySegmentCount.cs" />
+    <Compile Include="Data\Counts\CompanyUserCount.cs" />
+    <Compile Include="Data\Counts\ConversationAppCount.cs" />
+    <Compile Include="Converters\ClassConverters\ConversationAppCountJsonConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -126,5 +133,7 @@
     <Folder Include="Data\Conversations\" />
     <Folder Include="Data\Counts\" />
     <Folder Include="Clients\Conversations\" />
+    <Folder Include="Converters\ClassConverters\" />
+    <Folder Include="Converters\AttributeConverters\" />
   </ItemGroup>
 </Project>

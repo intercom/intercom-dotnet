@@ -9,11 +9,11 @@ using Newtonsoft.Json.Linq;
 
 namespace Library
 {
-    public class AppCountJsonConverter: JsonConverter
+    public class ConversationAppCountJsonConverter: JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(AppCount);
+            return objectType == typeof(ConversationAdminCount);
         }
 
         public override object ReadJson(JsonReader reader, 
@@ -22,8 +22,13 @@ namespace Library
             JsonSerializer serializer)
         {
             JObject j = JObject.Load(reader);
-            int result = j.Value<int>("count");
-            return result;
+            JObject result = j["conversation"] as JObject;
+            ConversationAppCount count = new ConversationAppCount();
+            count.assigned = result["assigned"].Value<int>();
+            count.unassigned = result["unassigned"].Value<int>();
+            count.open = result["open"].Value<int>();
+            count.closed = result["closed"].Value<int>();
+            return count;
         }
 
         public override void WriteJson(JsonWriter writer, 

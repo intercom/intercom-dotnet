@@ -23,11 +23,11 @@ namespace Library
         {
             JObject j = JObject.Load(reader);
             JArray result = j["conversation"]["admin"] as JArray;
-            List<AdminCount> admins = new List<AdminCount>();
+            List<ConversationAdminCount.AdminCount> admins = new List<ConversationAdminCount.AdminCount>();
 
             foreach (var r in result)
             {
-                admins.Add(new AdminCount()
+                admins.Add(new ConversationAdminCount.AdminCount()
                     { 
                         id = r["id"].Value<String>(),
                         name = r["name"].Value<String>(),
