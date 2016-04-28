@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{A2269678-CBCC-4444-AD9D-5D82ABC52800}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intercom", "Intercom\Intercom.csproj", "{A2269678-CBCC-4444-AD9D-5D82ABC52800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{CC907EDA-7B33-4E85-8E45-60714B79CACB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intercom.Tests", "Intercom.Tests\Intercom.Tests.csproj", "{CC907EDA-7B33-4E85-8E45-60714B79CACB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intercom.Integration.Tests", "Intercom.Tests.Integration\Intercom.Integration.Tests.csproj", "{D5BFF82C-AF15-4528-86DA-D83509ABF64B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +21,9 @@ Global
 		{CC907EDA-7B33-4E85-8E45-60714B79CACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC907EDA-7B33-4E85-8E45-60714B79CACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC907EDA-7B33-4E85-8E45-60714B79CACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BFF82C-AF15-4528-86DA-D83509ABF64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BFF82C-AF15-4528-86DA-D83509ABF64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BFF82C-AF15-4528-86DA-D83509ABF64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BFF82C-AF15-4528-86DA-D83509ABF64B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

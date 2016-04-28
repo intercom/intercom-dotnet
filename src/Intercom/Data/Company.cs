@@ -1,0 +1,29 @@
+﻿using System;
+using Library.Core;
+using Library.Data;
+
+
+using Library.Clients;
+
+using Library.Exceptions;
+
+using System.Collections.Generic;
+
+namespace Library.Data
+{
+	public class Company : Model
+	{
+		public bool? remove { set; get; }
+		public string name { get; set; }
+		public Plan plan { get; set; }
+		public string company_id { get; set; }
+		public int? remote_created_at { get; set; }
+		public int? created_at { get; set; }
+		public int? updated_at { get; set; }
+		public int? last_request_at { get; set; }
+		public int? monthly_spend { get; set; }
+		public int? session_count { get; set; }
+		public int? user_count { get; set; }
+		public Dictionary<String, String> custom_attributes { get; set; }
+	}
+}

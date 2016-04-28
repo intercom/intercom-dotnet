@@ -34,7 +34,8 @@ bld/
 # NUNIT
 *.VisualState.xml
 TestResult.xml
-
+src/Intercom.Tests/Test.cs
+src/Intercom.Tests/TestBase.cs
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
