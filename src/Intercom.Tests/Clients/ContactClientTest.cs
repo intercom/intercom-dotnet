@@ -6,7 +6,6 @@ using Library.Clients;
 using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
-using Library.Test.Server;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Moq;

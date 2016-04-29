@@ -6,7 +6,6 @@ using Library.Clients;
 using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
-using Library.Test.Server;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Moq;
@@ -14,7 +13,7 @@ using Moq;
 namespace Library.Test
 {
     [TestFixture()]
-    public class UserClientTest : TestBase
+    public class UserClientTest  : TestBase
     {
         private UserClient usersClient;
 

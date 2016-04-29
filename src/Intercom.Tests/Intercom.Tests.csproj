@@ -64,6 +64,7 @@
     <Compile Include="Clients\EventsClientTest.cs" />
     <Compile Include="Clients\TagsClientTest.cs" />
     <Compile Include="Clients\SegmentsClientTest.cs" />
+    <Compile Include="Data\MetadataTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -72,6 +73,7 @@
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Clients\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Intercom\Intercom.csproj">
