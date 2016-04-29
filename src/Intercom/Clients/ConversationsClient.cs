@@ -36,6 +36,11 @@ namespace Library.Clients
         {
         }
 
+        public ConversationsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
         public Conversation View(String id, bool? displayAsPlainText = null)
         {
             if (String.IsNullOrEmpty(id))

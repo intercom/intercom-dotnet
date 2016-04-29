@@ -25,6 +25,11 @@ namespace Library.Clients
 		{
 		}
 
+        public EventsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
+        {
+        }
+
 		public Event Create (Event @event)
 		{
 			ClientResponse<Event> result = null;

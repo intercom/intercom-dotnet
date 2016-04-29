@@ -33,6 +33,11 @@ namespace Library.Clients
 		{
 		}
 
+        public UserClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, USERS_RESOURCE, authentication)
+        {
+        }
+
 		public User Create (User user)
 		{
             if (user == null) {

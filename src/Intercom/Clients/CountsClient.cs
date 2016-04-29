@@ -1,19 +1,15 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Library.Clients;
 using Library.Core;
+using Library.Core;
+using Library.Data;
+using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.IO;
 
 namespace Library.Clients
 {
@@ -23,6 +19,11 @@ namespace Library.Clients
 
         public CountsClient (Authentication authentication)
             : base (INTERCOM_API_BASE_URL, COUNTS_RESOURCE, authentication)
+        {
+        }
+
+        public CountsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COUNTS_RESOURCE, authentication)
         {
         }
 

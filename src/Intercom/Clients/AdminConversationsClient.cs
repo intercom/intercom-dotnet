@@ -25,6 +25,11 @@ namespace Library.Clients
         {
         }
 
+        public AdminConversationsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
         public ConversationPart Reply(AdminConversationReply reply)
         {
             if (reply == null)

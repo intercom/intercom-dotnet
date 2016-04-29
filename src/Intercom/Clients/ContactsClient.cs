@@ -29,6 +29,11 @@ namespace Library.Clients
         {
         }
 
+        public ContactsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONTACTS_RESOURCE, authentication)
+        {
+        }
+
         public Contact Create (Contact contact)
         {
             if (contact == null) {

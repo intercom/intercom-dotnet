@@ -28,6 +28,11 @@ namespace Library.Clients
         {
         }
 
+        public NotesClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, NOTES_RESOURCE, authentication)
+        {
+        }
+
         public Note Create(Note note)
         {
             if (note == null)

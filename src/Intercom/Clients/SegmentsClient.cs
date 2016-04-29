@@ -19,10 +19,14 @@ namespace Library.Clients
     public class SegmentsClient: Client
     {
         private const String SEGMENTS_RESOURCE = "segments";
-        private const String SEGMENTS_TYPE_COMPANY = "company";
 
         public SegmentsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, SEGMENTS_RESOURCE, authentication)
+        {
+        }
+
+        public SegmentsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, SEGMENTS_RESOURCE, authentication)
         {
         }
 
@@ -33,7 +37,7 @@ namespace Library.Clients
             if (company)
             {
                 Dictionary<String, String> parameters = new Dictionary<string, string>();
-                parameters.Add(Constants.TYPE, SEGMENTS_TYPE_COMPANY);
+                parameters.Add(Constants.TYPE, Constants.COMPANY);
                 result = Get<Segments>(parameters: parameters);
             }
             else

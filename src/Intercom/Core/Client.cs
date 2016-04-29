@@ -19,26 +19,32 @@ namespace Library.Core
 {
     public class Client
     {
-        protected readonly String url;
-        protected readonly String res;
-        protected readonly Authentication authentication;
+        public const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
+        protected const String CONTENT_TYPE_HEADER = "Content-Type";
+        protected const String CONTENT_TYPE_VALUE = "application/json";
+        protected const String ACCEPT_HEADER = "Accept";
+        protected const String ACCEPT_VALUE = "application/json";
+        protected const String ACCEPT_CHARSET_HEADER = "Accept-Charset";
+        protected const String ACCEPT_CHARSET_VALUE = "UTF-8";
 
-        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
+        protected readonly String URL;
+        protected readonly String RESRC;
+        protected readonly Authentication AUTH;
 
         public Client(String url, String resource, Authentication authentication)
         {
             if (authentication == null)
                 throw new ArgumentNullException("'basicAuthentication' argument is null.");
-
+                
             if (String.IsNullOrEmpty(url))
                 throw new ArgumentNullException("'baseUrl' argument is null.");
 
             if (String.IsNullOrEmpty(resource))
                 throw new ArgumentNullException("'resource' argument is null.");
 
-            this.url = url;
-            this.res = resource;
-            this.authentication = authentication;
+            this.URL = url;
+            this.RESRC = resource;
+            this.AUTH = authentication;
         }
 
         protected virtual ClientResponse<T> Get<T>(
@@ -89,11 +95,10 @@ namespace Library.Core
         }
 
         protected virtual ClientResponse<T> Put<T>(String body, 
-                                            Dictionary<String, String> headers = null, 
-                                            Dictionary<String, String> parameters = null,
-                                            String resource = null)
+                                                   Dictionary<String, String> headers = null, 
+                                                   Dictionary<String, String> parameters = null,
+                                                   String resource = null)
             where T : class
-        
         {
             if (String.IsNullOrEmpty(body))
             {
@@ -107,9 +112,9 @@ namespace Library.Core
         }
 
         protected virtual ClientResponse<T> Put<T>(T body, 
-            Dictionary<String, String> headers = null, 
-            Dictionary<String, String> parameters = null,
-            String resource = null)
+                                                   Dictionary<String, String> headers = null, 
+                                                   Dictionary<String, String> parameters = null,
+                                                   String resource = null)
             where T : class
         {
             if (body == null)
@@ -142,34 +147,29 @@ namespace Library.Core
                                                     String body = null,
                                                     String resource = null)
         {
-            String final = String.IsNullOrEmpty(resource) ? res : resource;
+            String final = String.IsNullOrEmpty(resource) ? RESRC : resource;
+
             IRestRequest request = new RestRequest(final, httpMethod);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Accept-Charset", "UTF-8");
+            request.AddHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
+            request.AddHeader(ACCEPT_CHARSET_HEADER, ACCEPT_CHARSET_VALUE);
+            request.AddHeader(ACCEPT_HEADER, ACCEPT_VALUE);
 
             if (headers != null && headers.Any())
-            {
                 AddHeaders(request, headers);
-            }
 
             if (parameters != null && parameters.Any())
-            {
                 AddParameters(request, parameters);
-            }
 
             if (!String.IsNullOrEmpty(body))
-            {
                 AddBody(request, body);
-            }
 
             return request;
         }
 
         protected virtual IRestClient BuildClient()
         {
-            RestClient client = new RestClient(url);
-            client.Authenticator = new HttpBasicAuthenticator(authentication.AppId, authentication.AppKey);
+            RestClient client = new RestClient(URL);
+            client.Authenticator = new HttpBasicAuthenticator(AUTH.AppId, AUTH.AppKey);
             return client;
         }
 

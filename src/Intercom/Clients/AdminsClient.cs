@@ -22,6 +22,11 @@ namespace Library.Clients
         {
         }
 
+        public AdminsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, ADMINS_RESOURCE, authentication)
+        {
+        }
+
         public Admins List ()
         {
             ClientResponse<Admins> result = null;

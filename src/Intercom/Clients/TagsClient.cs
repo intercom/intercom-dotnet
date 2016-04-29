@@ -34,6 +34,11 @@ namespace Library.Clients
         {
         }
 
+        public TagsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
+        {
+        }
+
         public Tag Create(Tag tag)
         {
             if (tag == null)
