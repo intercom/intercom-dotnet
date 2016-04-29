@@ -1,6 +1,6 @@
-﻿using System;
-using Library.Core;
+﻿using Library.Core;
 using Library.Data;
+using System;
 
 
 using Library.Clients;
@@ -12,174 +12,224 @@ using System.Linq;
 
 namespace Library.Data
 {
-	public class Metadata
-	{
-		public class RichLink: ICloneable { 
-			public String url { set; get; }
-			public String value {set;get; }
+    public class Metadata
+    {
+        public class RichLink: ICloneable
+        {
+            public String url { set; get; }
 
-			public RichLink()
-			{}
+            public String value { set; get; }
 
-			public object Clone()
-			{
-				return new RichLink () { url = url, value = value };
-			}
-		}
+            public RichLink(String url, String value)
+            {
+                if (String.IsNullOrEmpty(url) == null)
+                {
+                    throw new ArgumentNullException("'url' argument is null or empty.");
+                }
 
-		public class MonetaryAmount :ICloneable {
-			public int amount { set; get; }
-			public String currency {set;get;}
+                if (String.IsNullOrEmpty(value) == null)
+                {
+                    throw new ArgumentNullException("'value' argument is null or empty.");
+                }
 
-			public MonetaryAmount()
-			{
-			}
+                this.url = url;
+                this.value = value;
+            }
 
-			public object Clone()
-			{
-				return new MonetaryAmount () { amount = amount, currency = currency };
-			}
-		}
+            public object Clone()
+            {
+                return new RichLink(url, value);
+            }
+        }
 
-		private Dictionary<String, Object> data = new Dictionary<String, Object> ();
+        public class MonetaryAmount :ICloneable
+        {
+            public int amount { set; get; }
 
-		// TODO: Implement indexer
-		public Object this[String key]
-		{
-			get 
-			{
-				return null;
-			}
-			set { }
-		}
+            public String currency { set; get; }
 
-		public Metadata ()
-		{
-		}
+            public MonetaryAmount(int amount, String currency)
+            {
+                if (String.IsNullOrEmpty(currency) == null)
+                {
+                    throw new ArgumentNullException("'currency' argument is null or empty.");
+                }
 
-		public void AddMetadata(String key, object value){
+                this.amount = amount;
+                this.currency = currency;
+            }
+
+            public object Clone()
+            {
+                return new MonetaryAmount(amount, currency);
+            }
+        }
+
+        private Dictionary<String, Object> data = new Dictionary<String, Object>();
+
+        // TODO: Implement indexer
+        public Object this [String key]
+        {
+            get
+            {
+                return null;
+            }
+            set { }
+        }
+
+        public Metadata()
+        {
+        }
+
+        public void Add(String key, object value)
+        {
 			
-			if (String.IsNullOrEmpty(key) == null) {
-				throw new ArgumentNullException ("'key' argument is null or empty.");
-			}
+            if (String.IsNullOrEmpty(key) == null)
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
 
-			if (value == null) {
-				throw new ArgumentException ("'value' argument is null.");
-			}
+            if (value == null)
+            {
+                throw new ArgumentNullException("'value' argument is null.");
+            }
 
-			data.Add (key, value);
-		}
+            data.Add(key, value);
+        }
 
-		public void AddMetadata(Dictionary<String, Object> metadata)
-		{
-			if (metadata == null) {
-				throw new ArgumentException ("'metadata' argument is null.");
-			}
+        public void Add(Dictionary<String, Object> metadata)
+        {
+            if (metadata == null)
+            {
+                throw new ArgumentNullException("'metadata' argument is null.");
+            }
 
-			if (!metadata.Any()) {
-				throw new ArgumentException ("'metadata' argument is empty.");
-			}
+            if (!metadata.Any())
+            {
+                throw new ArgumentException("'metadata' argument is empty.");
+            }
 
-			foreach (var m in metadata) {
-				data.Add (m.Key, m.Value);
-			}
-		}
+            foreach (var m in metadata)
+            {
+                data.Add(m.Key, m.Value);
+            }
+        }
 
-		public void AddMetadata(String key, Metadata.RichLink richLink)
-		{
-			if (String.IsNullOrEmpty (key)) {
-				throw new ArgumentException ("'key' argument is null or empty.");
-			}
+        public void Add(String key, Metadata.RichLink richLink)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
 
-			if (richLink == null) {
-				throw new ArgumentException ("'richLink' argument is null.");
-			}
+            if (richLink == null)
+            {
+                throw new ArgumentException("'richLink' argument is null.");
+            }
 
-			data.Add (key, richLink);
-		}
+            data.Add(key, richLink);
+        }
 
-		public void AddMetadata(String key, Metadata.MonetaryAmount monetaryAmount)
-		{
-			data.Add (key, monetaryAmount);
-		}
+        public void Add(String key, Metadata.MonetaryAmount monetaryAmount)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
 
-		public Dictionary<String, Object> GetMetadata()
-		{
-			Dictionary<String, Object> result = new Dictionary<String, Object>(data.Count, data.Comparer);
+            if (monetaryAmount == null)
+            {
+                throw new ArgumentException("'monetaryAmount' argument is null.");
+            }
 
-			foreach (KeyValuePair<String, Object> entry in data)
-				result.Add (entry.Key, entry.Value is ICloneable ? ((ICloneable)entry.Value).Clone() : entry.Value);
+            data.Add(key, monetaryAmount);
+        }
 
-			return result;
-		}
+        public Dictionary<String, Object> GetMetadata()
+        {
+            Dictionary<String, Object> result = new Dictionary<String, Object>(data.Count, data.Comparer);
 
-		public object GetMetadata(String key)
-		{
-			if (String.IsNullOrEmpty (key)) {
-				throw new ArgumentException ("'key' argument is null or empty.");
-			}
+            foreach (KeyValuePair<String, Object> entry in data)
+                result.Add(entry.Key, entry.Value is ICloneable ? ((ICloneable)entry.Value).Clone() : entry.Value);
 
-			object result = null;
+            return result;
+        }
 
-			if (data.ContainsKey (key)) {
-				result = data [key];
-			}
+        public object GetMetadata(String key)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
+
+            object result = null;
+
+            if (data.ContainsKey(key))
+            {
+                result = data[key];
+            }
 			
-			return result;
-		}
+            return result;
+        }
 
-		public MonetaryAmount GetMonetaryAmount(String key)
-		{
-			if (String.IsNullOrEmpty (key)) {
-				throw new ArgumentException ("'key' argument is null or empty.");
-			}
+        public MonetaryAmount GetMonetaryAmount(String key)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
 
-			MonetaryAmount result = null;
+            MonetaryAmount result = null;
 
-			if (data.ContainsKey (key) && data[key] is MonetaryAmount) {
-				result = data [key] as MonetaryAmount;
-			}
+            if (data.ContainsKey(key) && data[key] is MonetaryAmount)
+            {
+                result = ((ICloneable)data[key]).Clone() as MonetaryAmount;
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public List<MonetaryAmount> GetMonetaryAmounts()
-		{
-			List<MonetaryAmount> result = new List<MonetaryAmount>();
+        public List<MonetaryAmount> GetMonetaryAmounts()
+        {
+            List<MonetaryAmount> result = new List<MonetaryAmount>();
 
-			foreach (var d in data) {
-				if (d.Value is MonetaryAmount)
-					result.Add(d.Value as MonetaryAmount);
-			}
+            foreach (var d in data)
+            {
+                if (d.Value is MonetaryAmount)
+                    result.Add(((ICloneable)d.Value).Clone() as MonetaryAmount);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public RichLink GetRichLink(String key)
-		{
-			if (String.IsNullOrEmpty (key)) {
-				throw new ArgumentException ("'key' argument is null or empty.");
-			}
+        public RichLink GetRichLink(String key)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("'key' argument is null or empty.");
+            }
 
-			RichLink result = null;
+            RichLink result = null;
 
-			if (data.ContainsKey (key) && data[key] is RichLink) {
-				result = data [key] as RichLink;
-			}
+            if (data.ContainsKey(key) && data[key] is RichLink)
+            {
+                result = ((ICloneable)data[key]).Clone() as RichLink;
+            }
 
-			return result;		
-		}
+            return result;
+        }
 
-		public List<RichLink> GetRichLinks()
-		{
-			List<RichLink> result = new List<RichLink>();
+        public List<RichLink> GetRichLinks()
+        {
+            List<RichLink> result = new List<RichLink>();
 
-			foreach (var d in data) {
-				if (d.Value is RichLink)
-					result.Add(d.Value as RichLink);
-			}
+            foreach (var d in data)
+            {
+                if (d.Value is RichLink)
+                    result.Add(((ICloneable)d.Value).Clone() as RichLink);
+            }
 
-			return result;		
-		}
-	}
+            return result;		
+        }
+    }
 }

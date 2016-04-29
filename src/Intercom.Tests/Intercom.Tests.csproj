@@ -65,6 +65,16 @@
     <Compile Include="Clients\TagsClientTest.cs" />
     <Compile Include="Clients\SegmentsClientTest.cs" />
     <Compile Include="Data\MetadataTest.cs" />
+    <Compile Include="Clients\ConversationsClientTest.cs" />
+    <Compile Include="Converters\ClassConverters\CompanyCountJsonConverterTest.cs" />
+    <Compile Include="Converters\ClassConverters\ConversationAdminCountJsonConverterTest.cs" />
+    <Compile Include="Converters\ClassConverters\ConversationAppCountJsonConverterTest.cs" />
+    <Compile Include="Converters\ClassConverters\UserCountJsonConverterTest.cs" />
+    <Compile Include="Converters\AttributeConverters\AppCountJsonConverterTest.cs" />
+    <Compile Include="Converters\AttributeConverters\ListJonConverterTest.cs" />
+    <Compile Include="Converters\AttributeConverters\MetadataJsonConverterTest.cs" />
+    <Compile Include="Data\AdminConversationMessageTest.cs" />
+    <Compile Include="Data\AdminConversationReplyTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -74,6 +84,9 @@
     <Folder Include="Core\" />
     <Folder Include="Clients\" />
     <Folder Include="Data\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Converters\ClassConverters\" />
+    <Folder Include="Converters\AttributeConverters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Intercom\Intercom.csproj">

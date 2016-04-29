@@ -25,9 +25,22 @@ namespace Library.Converters.AttributeConverters
                                         object existingValue,
                                         JsonSerializer serializer)
         {
-            JObject j = JObject.Load(reader);
-            int result = j.Value<int>("count");
-            return result;
+            JObject j = null;
+
+            try
+            {
+                j = JObject.Load(reader);
+                int result = j.Value<int>("count");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new JsonConverterException("Error while serializing AppCount endpoint json result.", ex)
+                { 
+                    Json = j == null ? String.Empty : j.ToString(),
+                    SerializationType = objectType.FullName
+                };
+            }
         }
 
         public override void WriteJson(JsonWriter writer, 

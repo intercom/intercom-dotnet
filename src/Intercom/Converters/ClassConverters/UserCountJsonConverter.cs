@@ -25,32 +25,45 @@ namespace Library.Converters.ClassConverters
                                         object existingValue,
                                         JsonSerializer serializer)
         {
-            JObject j = JObject.Load(reader);
-            JArray result = null;
+            JObject j = null;
 
-            if (objectType == typeof(UserTagCount))
-                result = j["user"]["tag"] as JArray;
-            else
-                result = j["user"]["segment"] as JArray;
-
-            Dictionary<String, int> count = new Dictionary<String, int>();
-
-            foreach (var r in result)
+            try
             {
-                JProperty c = r.First as JProperty;
+                j = JObject.Load(reader);
+                JArray result = null;
 
-                if (c != null)
+                if (objectType == typeof(UserTagCount))
+                    result = j["user"]["tag"] as JArray;
+                else
+                    result = j["user"]["segment"] as JArray;
+
+                Dictionary<String, int> count = new Dictionary<String, int>();
+
+                foreach (var r in result)
                 {
-                    int value = 0;
-                    int.TryParse(c.Value.ToString(), out value);
-                    count.Add(c.Name, value);
-                }
-            }
+                    JProperty prop = r.First as JProperty;
 
-            if (objectType == typeof(UserTagCount))
-                return  new UserTagCount() { tags = count };
-            else
-                return  new UserSegmentCount() { segments = count };
+                    if (prop != null)
+                    {
+                        int value = 0;
+                        int.TryParse(prop.Value.ToString(), out value);
+                        count.Add(prop.Name, value);
+                    }
+                }
+
+                if (objectType == typeof(UserTagCount))
+                    return  new UserTagCount() { tags = count };
+                else
+                    return  new UserSegmentCount() { segments = count };
+            }
+            catch (Exception ex)
+            {
+                throw new JsonConverterException("Error while serializing UserCount endpoint json result.", ex)
+                { 
+                    Json = j == null ? String.Empty : j.ToString(),
+                    SerializationType = objectType.FullName
+                };
+            }
         }
 
         public override void WriteJson(JsonWriter writer, 

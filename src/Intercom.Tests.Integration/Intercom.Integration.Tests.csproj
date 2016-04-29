@@ -34,10 +34,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestBase.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Intercom\Intercom.csproj">
+      <Project>{A2269678-CBCC-4444-AD9D-5D82ABC52800}</Project>
+      <Name>Intercom</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

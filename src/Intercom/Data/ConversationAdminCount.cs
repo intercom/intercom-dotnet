@@ -22,9 +22,9 @@ namespace Library.Data
 
             public String name { set; get; }
 
-            public String open { set; get; }
+            public int open { set; get; }
 
-            public String closed { set; get ; }
+            public int closed { set; get ; }
         }
 
         public List<AdminCount> admins  { set; get; }

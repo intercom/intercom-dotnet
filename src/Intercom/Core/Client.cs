@@ -88,12 +88,40 @@ namespace Library.Core
             return HandleResponse <T>(response);
         }
 
-        protected virtual IRestResponse Put(String body, 
+        protected virtual ClientResponse<T> Put<T>(String body, 
                                             Dictionary<String, String> headers = null, 
                                             Dictionary<String, String> parameters = null,
                                             String resource = null)
+            where T : class
+        
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(body))
+            {
+                throw new ArgumentNullException("'body' argument is null.");
+            }
+
+            IRestClient client = BuildClient();
+            IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: body, resource: resource);
+            IRestResponse response = client.Execute(request);
+            return HandleResponse <T>(response);
+        }
+
+        protected virtual ClientResponse<T> Put<T>(T body, 
+            Dictionary<String, String> headers = null, 
+            Dictionary<String, String> parameters = null,
+            String resource = null)
+            where T : class
+        {
+            if (body == null)
+            {
+                throw new ArgumentNullException("'body' argument is null.");
+            }
+
+            String requestBody = Serialize<T>(body);
+            IRestClient client = BuildClient();
+            IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: requestBody, resource: resource);
+            IRestResponse response = client.Execute(request);
+            return HandleResponse <T>(response);
         }
 
         protected virtual ClientResponse<T>  Delete<T>(
@@ -243,7 +271,7 @@ namespace Library.Core
         {
             if (response.Errors != null && response.Errors.errors != null && response.Errors.errors.Any())
             {
-                throw new IntercomException((int)response.Response.StatusCode, 
+                throw new EndpointException((int)response.Response.StatusCode, 
                     response.Response.StatusDescription,
                     response.Errors,
                     response.Response.Content);

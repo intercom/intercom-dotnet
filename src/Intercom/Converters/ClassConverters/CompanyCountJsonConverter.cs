@@ -25,37 +25,50 @@ namespace Library.Converters.ClassConverters
         }
 
         public override object ReadJson(JsonReader reader, 
-            Type objectType, 
-            object existingValue,
-            JsonSerializer serializer)
+                                        Type objectType, 
+                                        object existingValue,
+                                        JsonSerializer serializer)
         {
-            JObject j = JObject.Load(reader);
-            JArray result = null;
+            JObject j = null;
 
-            if (objectType == typeof(CompanyTagCount))
+            try
             {
-                Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j, j["user"]["tag"] as JArray);
-                return new CompanyTagCount() { tags = count };
+                j = JObject.Load(reader);
+                JArray result = null;
+
+                if (objectType == typeof(CompanyTagCount))
+                {
+                    Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["tag"] as JArray);
+                    return new CompanyTagCount() { tags = count };
+                }
+                else if (objectType == typeof(CompanySegmentCount))
+                {
+                    Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j, j["company"]["segment"] as JArray);
+                    return new CompanySegmentCount() { segments = count };
+                }
+                else
+                {
+                    List<UserCount.UserCountEntry> count = GetCompanyUserCount(j, j["company"]["user"] as JArray);
+                    return new CompanyUserCount() { counts = count };
+                }
             }
-            else if (objectType == typeof(CompanySegmentCount))
+            catch (Exception ex)
             {
-                Dictionary<String, int> count = GetCompanyTagOrSegmentCount(j,  j["company"]["segment"] as JArray);
-                return new CompanySegmentCount() { segments = count };
-            }
-            else
-            {
-                List<UserCount.UserCountEntry> count = GetCompanyUserCount(j, j["company"]["user"] as JArray);
-                return new CompanyUserCount() { counts = count };
+                throw new JsonConverterException("Error while serializing CompanyCount endpoint json result.", ex)
+                { 
+                    Json = j == null ? String.Empty : j.ToString(),
+                    SerializationType = objectType.FullName
+                };
             }
         }
 
         public override void WriteJson(JsonWriter writer, 
-            object value,
-            JsonSerializer serializer)
+                                       object value,
+                                       JsonSerializer serializer)
         {
             String s = JsonConvert.SerializeObject(value,
-                Formatting.None,
-                new JsonSerializerSettings
+                           Formatting.None,
+                           new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 });
@@ -102,11 +115,12 @@ namespace Library.Converters.ClassConverters
                     int.TryParse(prop.Value.ToString(), out value);
 
                     count.Add(
-                        new UserCount.UserCountEntry() {
-                        count = value,
-                        name = name,
-                        remote_company_id = remoteCompanyId
-                    });
+                        new UserCount.UserCountEntry()
+                        {
+                            count = value,
+                            name = name,
+                            remote_company_id = remoteCompanyId
+                        });
                 }
             }
 

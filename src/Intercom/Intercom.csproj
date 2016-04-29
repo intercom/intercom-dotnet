@@ -133,6 +133,7 @@
     <Compile Include="Exceptions\TokenExpiredException.cs" />
     <Compile Include="Exceptions\MissingAuthorizationException.cs" />
     <Compile Include="Exceptions\RetryAfterException.cs" />
+    <Compile Include="Exceptions\EndpointException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

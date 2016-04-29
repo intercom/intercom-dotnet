@@ -1,15 +1,23 @@
 ﻿using NUnit.Framework;
 using System;
+using Library.Core;
 
 namespace Intercom.Integration.Tests
 {
-    [TestFixture()]
-    public class Test
+    [TestFixture]
+    public class Test : TestBase
     {
-        [Test()]
-        public void TestCase()
+
+        [SetUp]
+        public void SetUp()
+        {
+            CheckForApiCredentials();
+        }
+
+        [Test]
+        public void Testing()
         {
         }
+     
     }
 }
-

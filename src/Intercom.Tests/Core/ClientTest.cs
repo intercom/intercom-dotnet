@@ -6,7 +6,6 @@ using Library.Clients;
 using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
-using Library.Test.Server;
 using System.Collections.Generic;
 using RestSharp;
 using Newtonsoft.Json;
@@ -20,7 +19,6 @@ namespace Library.Test
 	[TestFixture()]
 	public class ServiceTest
 	{
-		private MockHttpServer server;
 
 //		[SetUp()]
 //		public void Before()

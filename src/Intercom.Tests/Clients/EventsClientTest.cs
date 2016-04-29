@@ -19,7 +19,7 @@ namespace Library.Test
 
         public EventsClientTest()
         {
-            this.eventsClient = new UserClient(new Authentication(AppId, AppKey));
+            this.eventsClient = new EventsClient(new Authentication(AppId, AppKey));
         }
 
         [Test()]
@@ -31,16 +31,16 @@ namespace Library.Test
 
         [Test()]
         [ExpectedException(typeof(ArgumentException))]
-        public void Create_NoUserIdOrEmail_ThrowException()
+        public void List_NoIdOrUserIdOrEmail_ThrowException()
         {
-            eventsClient.Create(new User());
+            eventsClient.List(new User());
         }
 
         [Test()]
         [ExpectedException(typeof(ArgumentException))]
-        public void Delete_NoIdOrUserIdOrEmail_ThrowException()
+        public void ListByParams_NoIdOrUserIdOrEmail_ThrowException()
         {
-            eventsClient.Delete(new User());
+            eventsClient.List(new Dictionary<String,String>());
         }
     }
 }

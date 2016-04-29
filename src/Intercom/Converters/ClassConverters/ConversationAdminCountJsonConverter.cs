@@ -26,43 +26,63 @@ namespace Library.Converters.ClassConverters
         }
 
         public override object ReadJson(JsonReader reader, 
-            Type objectType, 
-            object existingValue,
-            JsonSerializer serializer)
+                                        Type objectType, 
+                                        object existingValue,
+                                        JsonSerializer serializer)
         {
-            JObject j = JObject.Load(reader);
-            JArray result = j["conversation"]["admin"] as JArray;
-            List<ConversationAdminCount.AdminCount> admins = new List<ConversationAdminCount.AdminCount>();
+            JObject j = null;
 
-            foreach (var r in result)
+            try
             {
-                admins.Add(new ConversationAdminCount.AdminCount()
-                    { 
-                        id = r["id"].Value<String>(),
-                        name = r["name"].Value<String>(),
-                        open = r["open"].Value<String>(),
-                        closed = r["closed"].Value<String>()
-                    });
-            }
+                j = JObject.Load(reader);
+                JArray result = j["conversation"]["admin"] as JArray;
+                List<ConversationAdminCount.AdminCount> admins = new List<ConversationAdminCount.AdminCount>();
 
-            return new ConversationAdminCount() { admins = admins };
+                foreach (var r in result)
+                {
+                    int open = 0;
+                    int closed = 0;
+                    int.TryParse(r["open"].Value<String>(), out open);
+                    int.TryParse(r["closed"].Value<String>(), out closed);
+
+                    admins.Add(new ConversationAdminCount.AdminCount()
+                        { 
+                            id = r["id"].Value<String>(),
+                            name = r["name"].Value<String>(),
+                            open = open,
+                            closed = closed
+                        });
+                }
+
+                return new ConversationAdminCount() { admins = admins };
+            }
+            catch (Exception ex)
+            {
+                throw new JsonConverterException("Error while serializing ConversationAdminCount endpoint json result.", ex)
+                {
+                    Json = j == null ? String.Empty : j.ToString(),
+                    SerializationType = objectType.FullName
+                };
+            }
         }
 
         public override void WriteJson(JsonWriter writer, 
-            object value,
-            JsonSerializer serializer)
+                                       object value,
+                                       JsonSerializer serializer)
         {
-            String s = JsonConvert.SerializeObject (value,
-                Formatting.None,
-                new JsonSerializerSettings {
-                NullValueHandling = NullValueHandling.Ignore
-            });
+            String s = JsonConvert.SerializeObject(value,
+                           Formatting.None,
+                           new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
 
-            writer.WriteRawValue (s);
+            writer.WriteRawValue(s);
         }
 
-        public override bool CanRead {
-            get { return true;}
+        public override bool CanRead
+        {
+            get { return true; }
         }
     }
 }
