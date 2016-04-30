@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Library.Clients;
+using Library.Converters.ClassConverters;
 using Library.Core;
 using Library.Data;
 using Library.Exceptions;
@@ -11,7 +12,6 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using RestSharp.Authenticators;
-using Library.Converters.AttributeConverters;
 
 namespace Library.Test
 {
@@ -28,19 +28,20 @@ namespace Library.Test
         [Test()]
         public void ReadJson_ForConversationAppCount_ReturnsValidCount()
         {
-            String input = "{\"count\":6}";
+            String input = "{\"type\":\"count.hash\",\"company\":{\"count\":6},\"user\":{\"count\":2025082},\"lead\":{\"count\":1},\"tag\":{\"count\":17},\"segment\":{\"count\":7}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
-            int company = (int)appCountJsonConverter.ReadJson(reader, typeof(int), null, null);
+            AppCount appCount = appCountJsonConverter.ReadJson(reader, typeof(int), null, null) as AppCount;
 
-            Assert.AreEqual(6, company);
+            Assert.AreEqual(6, appCount.company);
+            Assert.AreEqual(2025082, appCount.user);
         }
 
         [Test()]
         [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidJson_ThrowsException()
         {
-            String input = "\"count\":6}";
+            String input = "{\"type\t\":2025082},\"lead\":{\"count\":{\"count\":17},\"segment\":{\"count\":7}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 

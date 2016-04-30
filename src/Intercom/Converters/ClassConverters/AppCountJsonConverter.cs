@@ -11,7 +11,7 @@ using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Library.Converters.AttributeConverters
+namespace Library.Converters.ClassConverters
 {
     public class AppCountJsonConverter: JsonConverter
     {
@@ -30,8 +30,20 @@ namespace Library.Converters.AttributeConverters
             try
             {
                 j = JObject.Load(reader);
-                int result = j.Value<int>("count");
-                return result;
+                int companyCount = j["company"].Value<int>("count");
+                int segmentCount = j["segment"].Value<int>("count");
+                int userCount = j["user"].Value<int>("count");
+                int tagCount = j["tag"].Value<int>("count");
+                int contactCount = j["lead"].Value<int>("count");
+
+                return new AppCount()
+                { 
+                    company = companyCount, 
+                    segment = segmentCount, 
+                    tag = tagCount, 
+                    user = userCount ,
+                    lead = contactCount
+                };
             }
             catch (Exception ex)
             {

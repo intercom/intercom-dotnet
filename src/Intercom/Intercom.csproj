@@ -85,7 +85,6 @@
     <Compile Include="Core\ClientConfiguration.cs" />
     <Compile Include="Core\ClientResponse.cs" />
     <Compile Include="Converters\AttributeConverters\ListJsonConverter.cs" />
-    <Compile Include="Converters\AttributeConverters\AppCountJsonConverter.cs" />
     <Compile Include="Converters\ClassConverters\ConversationAdminCountJsonConverter.cs" />
     <Compile Include="Converters\AttributeConverters\MetadataJsonConverter.cs" />
     <Compile Include="Converters\ClassConverters\CompanyCountJsonConverter.cs" />
@@ -134,6 +133,7 @@
     <Compile Include="Exceptions\MissingAuthorizationException.cs" />
     <Compile Include="Exceptions\RetryAfterException.cs" />
     <Compile Include="Exceptions\EndpointException.cs" />
+    <Compile Include="Converters\ClassConverters\AppCountJsonConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

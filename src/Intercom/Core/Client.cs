@@ -19,7 +19,7 @@ namespace Library.Core
 {
     public class Client
     {
-        public const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
+        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
         protected const String CONTENT_TYPE_HEADER = "Content-Type";
         protected const String CONTENT_TYPE_VALUE = "application/json";
         protected const String ACCEPT_HEADER = "Accept";

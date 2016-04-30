@@ -1,20 +1,16 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Library.Clients;
 using Library.Core;
+using Library.Core;
+using Library.Data;
+using Library.Exceptions;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.IO;
-using Newtonsoft.Json;
 
 
 namespace Library.Clients

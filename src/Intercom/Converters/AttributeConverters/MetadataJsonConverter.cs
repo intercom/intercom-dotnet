@@ -1,12 +1,8 @@
 ﻿using System;
 using Library.Core;
 using Library.Data;
-
-
 using Library.Clients;
-
 using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,36 +26,49 @@ namespace Library.Converters.AttributeConverters
                                         object existingValue, 
                                         JsonSerializer serializer)
         {
-            JObject jobject = JObject.Load(reader);
-            Metadata result = new Metadata();
+            JObject jobject = null;
 
-            foreach (var j in jobject)
+            try
             {
-                if (j.Value is JObject)
+                jobject = JObject.Load(reader);
+                Metadata result = new Metadata();
+
+                foreach (var j in jobject)
                 {
+                    if (j.Value is JObject)
+                    {
 					
-                    JObject complex = j.Value as JObject;
+                        JObject complex = j.Value as JObject;
 
-                    if (complex["url"] != null && complex["value"] != null)
-                    {
-                        result.Add(j.Key, new Metadata.RichLink(complex["url"].ToString(), complex["value"].ToString()));
+                        if (complex["url"] != null && complex["value"] != null)
+                        {
+                            result.Add(j.Key, new Metadata.RichLink(complex["url"].Value<String>(), complex["value"].Value<String>()));
+                        }
+                        else if (complex["amount"] != null && complex["currency"] != null)
+                        {
+                            int amount = 0;
+                            int.TryParse(complex["amount"].ToString(), out amount);
+
+                            result.Add(j.Key, new Metadata.MonetaryAmount(amount, complex["currency"].ToString()));
+                        }
                     }
-                    else if (complex["amount"] != null && complex["currency"] != null)
+                    else
                     {
-
-                        int amount = 0;
-                        int.TryParse(complex["amount"].ToString(), out amount);
-
-                        result.Add(j.Key, new Metadata.MonetaryAmount(amount, complex["currency"].ToString()));
+                        result.Add(j.Key, j.Value.Value<String>());
                     }
                 }
-                else
-                {
-                    result.Add(j.Key, j.Value);
-                }
+
+                return result;
+
             }
-
-            return result;
+            catch (Exception ex)
+            {
+                throw new JsonConverterException("Error while serializing AppCount endpoint json result.", ex)
+                { 
+                    Json = jobject == null ? String.Empty : jobject.ToString(),
+                    SerializationType = objectType.FullName
+                };
+            }
         }
 
         public override void WriteJson(JsonWriter writer, 

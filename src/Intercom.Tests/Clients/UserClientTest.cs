@@ -15,11 +15,11 @@ namespace Library.Test
     [TestFixture()]
     public class UserClientTest  : TestBase
     {
-        private UserClient usersClient;
+        private UsersClient usersClient;
 
         public UserClientTest()
         {
-            this.usersClient = new UserClient(new Authentication(AppId, AppKey));
+            this.usersClient = new UsersClient(new Authentication(AppId, AppKey));
         }
 
         [Test()]

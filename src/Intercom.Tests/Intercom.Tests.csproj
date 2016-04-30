@@ -70,11 +70,12 @@
     <Compile Include="Converters\ClassConverters\ConversationAdminCountJsonConverterTest.cs" />
     <Compile Include="Converters\ClassConverters\ConversationAppCountJsonConverterTest.cs" />
     <Compile Include="Converters\ClassConverters\UserCountJsonConverterTest.cs" />
-    <Compile Include="Converters\AttributeConverters\AppCountJsonConverterTest.cs" />
     <Compile Include="Converters\AttributeConverters\ListJonConverterTest.cs" />
     <Compile Include="Converters\AttributeConverters\MetadataJsonConverterTest.cs" />
     <Compile Include="Data\AdminConversationMessageTest.cs" />
     <Compile Include="Data\AdminConversationReplyTest.cs" />
+    <Compile Include="Converters\ClassConverters\AppCountJsonConverterTest.cs" />
+    <Compile Include="Clients\CountsClientTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
