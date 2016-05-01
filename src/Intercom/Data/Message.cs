@@ -18,7 +18,7 @@ namespace Library.Data
 		public static class MessageTemplate
 		{
 			public const String PLAIN = "plain";
-			public const String PERSONAL = "email";
+			public const String PERSONAL = "personal";
 		}
 
 		public static class MessageFromOrToType

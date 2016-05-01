@@ -1,6 +1,6 @@
 # intercom-dotnet
 
-.NET bindings for the [Intercom API](https://api.intercom.io/docs)
+.NET bindings for the [Intercom API](https://developers.intercom.io/reference)
 
  - [Installation](#installation)
  - [Resources](#resources)
@@ -225,11 +225,146 @@ foreach (Note n in notes.notes)
 
 ### Counts
 
+```cs
+// Create NotesClient instance
+CountsClient countsClient = new CountsClient(new Authentication("AppId", "AppKey"));
+
+// Get AppCount
+AppCount appCount = countsClient.GetAppCount();
+
+// Get ConversationAppCount
+ConversationAppCount conversationAppCount = countsClient.GetConversationAppCount();
+
+// Get ConversationAdminCount
+ConversationAdminCount conversationAdminCount = countsClient.GetConversationAdminCount();
+
+// Get CompanySegmentCount
+CompanySegmentCount companySegmentCount = countsClient.GetCompanySegmentCount();
+
+// Get CompanyTagCount
+CompanyTagCount companyTagCount = countsClient.GetCompanyTagCount();
+
+// Get CompanyUserCount
+CompanyUserCount companyUserCount = countsClient.GetCompanyUserCount();
+
+// Get UserSegmentCount
+UserSegmentCount userSegmentCount = countsClient.GetUserSegmentCount();
+
+// Get UserTagCount
+UserTagCount userTagCount = countsClient.GetUserTagCount();
+```
+
 ### Tags
+
+```cs
+// Create UsersClient instance
+TagsClient tagsClient = new TagsClient(new Authentication("AppId", "AppKey"));
+
+// Create a tag
+Tag tag = tagsClient.Create(new Tag() { name = "new_tag" });
+
+// List tags and iterate through
+Tags tags = tagsClient.List();
+
+foreach(Tag t in tags.tags)
+    Console.WriteLine(t.name);
+
+// Delete a tag
+tagsClient.Delete(new Tag() { id = "100300231" });
+
+
+// Tag User, Company or Contact (Lead)
+tagsClient.Tag("new_tag", new List<Company>() { new Company(){ id = "1000_company_id" } });
+tagsClient.Tag("new_tag", new List<Contact>() { new Company(){ id = "1000_contact_id" } });
+tagsClient.Tag("new_tag", new List<User>() { new Company(){ id = "1000_user_id" } });
+tagsClient.Tag("new_tag", new List<String>() {"1000_company_id" ,"1001_company_id" }, TagsClient.EntityType.Company);
+
+
+// Untag User, Company or Contact (Lead)
+tagsClient.Untag("new_tag", new List<Company>() { new Company(){ id = "1000_company_id" } });
+tagsClient.Untag("new_tag", new List<Contact>() { new Company(){ id = "1000_contact_id" } });
+tagsClient.Untag("new_tag", new List<User>() { new Company(){ id = "1000_user_id" } });
+tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company_id" }, TagsClient.EntityType.Company);
+
+```
 
 ### Events
 
+```cs
+// Create UsersClient instance
+EventsClient eventsClient = new EventsClient(new Authentication("AppId", "AppKey"));
+
+// Create a tag
+Tag tag = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718  });
+
+// Create a tag with Metadata (Simple, MonetaryAmounts and RichLinks)
+Metadata metadata = new Metadata();
+metadata.Add("simple", 100);
+metadata.Add("simple_1", "two");
+metadata.Add("money", new Metadata.MonetaryAmount(100, "eur"));
+metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
+
+Tag tag1 = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
+
+// List tags and iterate through
+Tags tags = eventsClient.List();
+
+foreach(Tag t in tags.tags)
+    Console.WriteLine(t.name);
+```
+
 ### Conversations
+
+```cs
+// Create ConversationsClient instance
+ConversationsClient conversationsClient = new ConversationsClient(new Authentication("AppId", "AppKey"));
+
+// View any type of conversation
+conversationsClient.View("100300231");
+conversationsClient.View("100300231", displayAsPlainText: true);
+
+// Create AdminConversationsClient instance
+AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("AppId", "AppKey"));
+
+// Create Admin initiated Conversation
+AdminConversationMessage admin_message = 
+    adminConversationsClient.Create(new AdminConversationMessage(
+            from: new AdminConversationMessage.From("1000_admin_id"),
+            to: new AdminConversationMessage.To(id: "1000_user_id"),
+            message_type: AdminConversationMessage.MessageType.EMAIL,
+            template: AdminConversationMessage.MessageTemplate.PERSONAL,
+            subject: "this is a subject",
+            body: "this is an email body"));
+
+
+// Create Admin initiated Conversation's reply
+AdminConversationReply admin_reply = 
+    adminConversationsClient.Reply(
+        new AdminConversationReply(
+            conversationId: "1000_conversation_id", 
+            adminId: "1000_admin_id",
+            messageType: AdminConversationReply.ReplyMessageType.COMMENT,
+            body: "this is a reply body"));
+
+
+// Create AdminConversationsClient instance
+UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("AppId", "AppKey"));
+
+// Create Admin initiated Conversation
+UserConversationMessage user_message = 
+    userConversationsClient.Create(
+        new UserConversationMessage(
+            from: new UserConversationMessage.From(id: "1000_user_id"),
+            body: "this is a user's message body"));
+
+// Create Admin initiated Conversation's reply
+UserConversationReply user_reply = 
+    userConversationsClient.Reply(
+        new UserConversationReply(
+            conversationId: "1000_conversation_id",
+            body: "this is a user's reply body",
+            attachementUrls: new List<String>() { "www.example.com/example.png", "www.example.com/example.txt" }));
+```
 
 ### Webhooks
 

@@ -28,6 +28,21 @@ namespace Library.Clients
 
 		public Event Create (Event @event)
 		{
+            if (@event == null)
+            {
+                throw new ArgumentNullException ("'event' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(@event.event_name))
+            {
+                throw new ArgumentNullException ("'event_name' argument is null or empty.");
+            }
+
+            if (!@event.created_at.HasValue)
+            {
+                throw new ArgumentNullException ("'created_at' argument must have value.");
+            }
+
 			ClientResponse<Event> result = null;
             result = Post<Event> (@event);
 			return result.Result;
