@@ -1,11 +1,8 @@
 ﻿using System;
 using Library.Core;
 using Library.Data;
-
-
 using Library.Clients;
 using Library.Exceptions;
-
 using RestSharp;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,6 +47,50 @@ namespace Library.Clients
         {
             ClientResponse<UserConversationMessage> result = null;
             result = Post<UserConversationMessage>(userMessage, resource: MESSAGES_RESOURCE);
+            return result.Result;
+        }
+
+        public Conversations List(
+            User user, 
+            bool? unread = null, 
+            bool? displayAsPlainText = null)
+        {
+            ClientResponse<Conversations> result = null;
+
+            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            parameters.Add(Constants.TYPE, Constants.USER);
+
+            if (unread != null && unread.HasValue)
+            {
+                parameters.Add(Constants.UNREAD, unread.Value.ToString());
+            }
+
+            if (displayAsPlainText != null && displayAsPlainText.HasValue)
+            {
+                parameters.Add(Constants.DISPLAY_AS, Constants.PLAIN_TEXT);
+            }
+
+            if (!String.IsNullOrEmpty(user.id))
+            {
+                parameters.Add(Constants.INTERCOM_USER_ID, user.id);
+                result = Get<Conversations>(parameters: parameters);
+            }
+            else if (!String.IsNullOrEmpty(user.user_id))
+            {
+                parameters.Add(Constants.USER_ID, user.user_id);
+                result = Get<Conversations>(parameters: parameters);
+            }
+            else if (!String.IsNullOrEmpty(user.email))
+            {
+                parameters.Add(Constants.EMAIL, user.email);
+                result = Get<Conversations>(parameters: parameters);            
+            }
+            else
+            {
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            }
+
+            result = Get<Conversations>(parameters: parameters);
             return result.Result;
         }
 
@@ -100,4 +141,3 @@ namespace Library.Clients
         }
     }
 }
-

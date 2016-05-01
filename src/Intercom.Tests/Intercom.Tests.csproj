@@ -75,7 +75,8 @@
     <Compile Include="Data\AdminConversationMessageTest.cs" />
     <Compile Include="Data\AdminConversationReplyTest.cs" />
     <Compile Include="Converters\ClassConverters\AppCountJsonConverterTest.cs" />
-    <Compile Include="Clients\CountsClientTest.cs" />
+    <Compile Include="Data\UserConversationReplyTest.cs" />
+    <Compile Include="Data\UserConversationMessageTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

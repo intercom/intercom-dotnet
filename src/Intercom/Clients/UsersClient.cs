@@ -10,6 +10,7 @@ using Library.Data;
 using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
+using Newtonsoft.Json;
 
 namespace Library.Clients
 {
@@ -145,6 +146,13 @@ namespace Library.Clients
             return result.Result;
         }
 
+        public Users List(Dictionary<String, String> parameters)
+        {
+            ClientResponse<Users> result = null;
+            result = Get<Users>(parameters: parameters);
+            return result.Result;
+        }
+
         // TODO: Implement paging (by Pages argument)
         public Users Next(Pages pages)
         {
@@ -201,28 +209,163 @@ namespace Library.Clients
             return result.Result;			
         }
 
-        // TODO: Implement UpdateLastSeenAt
-        private User UpdateLastSeenAt(int timestamp)
+        public User UpdateLastSeenAt(String id, long timestamp)
         {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            if (timestamp <= 0)
+            {
+                throw new ArgumentException("'timestamp' argument should be bigger than zero.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { user_id = id, last_request_at = timestamp });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User UpdateLastSeenAt(User user, long timestamp)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("'user' argument is null.");
+            }
+            
+            if (String.IsNullOrEmpty(user.id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            if (timestamp <= 0)
+            {
+                throw new ArgumentException("'timestamp' argument should be bigger than zero.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { user_id = user.id, last_request_at = timestamp });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User UpdateLastSeenAt(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { user_id = id, update_last_request_at = true });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User UpdateLastSeenAt(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { user_id = user.id, update_last_request_at = true });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User IncrementUserSession(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { id = id, new_session = true });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User IncrementUserSession(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id))
+            {
+                throw new ArgumentNullException("'id' argument is null.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { id = user.id, new_session = true });
+            result = Post<User>(body);
+            return result.Result;   
+        }
+
+        public User RemoveCompanyFromUser(String userId, List<String> companyIds)
+        {
+            if (String.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException("'userId' argument is null.");
+            }
+
+            if (companyIds == null)
+            {
+                throw new ArgumentNullException("'companyIds' argument is null.");
+            }
+
+            if (!companyIds.Any() == null)
+            {
+                throw new ArgumentNullException("'companyIds' shouldnt be empty.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { id = userId, companies = companyIds.Select(c => new { id = c, remove = true })});
+            result = Post<User>(body);
+            return result.Result;   
+
             return null;
         }
 
-        // TODO: Implement UpdateLastSeenAt
-        private User UpdateLastSeenAt()
+        public User RemoveCompanyFromUser(User user, List<String> companyIds)
         {
-            return null;
+            if (user == null)
+            {
+                throw new ArgumentNullException("'user' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(user.id))
+            {
+                throw new ArgumentNullException("'user.id' is null.");
+            }
+
+            if (companyIds == null)
+            {
+                throw new ArgumentNullException("'companyIds' argument is null.");
+            }
+
+            if (!companyIds.Any() == null)
+            {
+                throw new ArgumentException("'companyIds' shouldnt be empty.");
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true })});
+            result = Post<User>(body);
+            return result.Result;   
+
+            return null;        
         }
 
-        // TODO: Implement IncrementUserSession
-        private User IncrementUserSession(int count = 1)
-        {
-            return null;
-        }
-
-        // TODO: Implement DeleteUserCompany
-        private User DeleteUserCompany(String userId, String companyId)
-        {
-            return null;
-        }
     }
 }

@@ -24,25 +24,24 @@ namespace Library.Test
         }
 
         [Test()]
-        //[ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Reply_WithNull_ThrowException()
+        {
+            adminConversationsClient.Reply(null);
+        }
+
+        [Test()]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            //adminConversationsClient.Create(null);
+            adminConversationsClient.Create(null);
         }
 
         [Test()]
-        //[ExpectedException(typeof(ArgumentException))]
-        public void Create_NoUserIdOrEmail_ThrowException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void List_NoId_ThrowException()
         {
-            //adminConversationsClient.Create(new User());
+            adminConversationsClient.List(new Admin());
         }
-
-        [Test()]
-        //[ExpectedException(typeof(ArgumentException))]
-        public void Delete_NoIdOrUserIdOrEmail_ThrowException()
-        {
-            //adminConversationsClient.Delete(new User());
-        }
-
     }
 }

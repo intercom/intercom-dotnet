@@ -150,5 +150,11 @@ namespace Library.Clients
             result = Delete<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;           
         }
+
+        // TODO: Implement converting a lead into a user
+        public User Convert(Contact contact)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,8 +6,6 @@ using System.Linq;
 using Library.Core;
 using Library.Core;
 using Library.Data;
-
-
 using Library.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -45,6 +43,11 @@ namespace Library.Clients
 
         public AdminConversationMessage Create(AdminConversationMessage adminMessage)
         {
+            if (adminMessage == null)
+            {
+                throw new ArgumentNullException("'adminMessage' argument is null.");
+            }
+
             ClientResponse<AdminConversationMessage> result = null;
             result = Post<AdminConversationMessage>(adminMessage, resource: MESSAGES_RESOURCE);
             return result.Result;
@@ -59,7 +62,7 @@ namespace Library.Clients
 
             if (String.IsNullOrEmpty(admin.id))
             {
-                throw new ArgumentNullException("'user' argument is null or empty.");
+                throw new ArgumentNullException("'admin.id' argument is null or empty.");
             }
 
             ClientResponse<Conversations> result = null;

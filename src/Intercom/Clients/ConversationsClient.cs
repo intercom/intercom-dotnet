@@ -1,12 +1,8 @@
 ﻿using System;
 using Library.Core;
 using Library.Data;
-
-
 using Library.Clients;
-
 using Library.Exceptions;
-
 using RestSharp;
 using System.Collections;
 using System.Collections.Generic;

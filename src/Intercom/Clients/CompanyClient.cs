@@ -1,12 +1,8 @@
 ﻿using System;
 using Library.Core;
 using Library.Data;
-
-
 using Library.Clients;
-
 using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +13,7 @@ using System.IO;
 
 namespace Library.Clients
 {
+    // TODO: List companies by Tag or Segment
     public class CompanyClient : Client
     {
         private const String COMPANIES_RESOURCE = "companies";
@@ -115,7 +112,7 @@ namespace Library.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide either 'company.id', 'company.company_id', 'company.email' to view a company.");
+                throw new ArgumentNullException("you need to provide either 'company.id', 'company.company_id' to view a company.");
             }
 
             return result.Result;
@@ -145,11 +142,6 @@ namespace Library.Clients
             return result.Result;
         }
 
-        public Companies List(int page = 1, int per_page = 50, OrderBy orderby = OrderBy.Dsc)
-        {
-            return null;
-        }
-
         public Users ListUsers(Company company)
         {
             if (company == null)
@@ -157,14 +149,25 @@ namespace Library.Clients
                 throw new ArgumentNullException("'company' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(company.id))
+            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            ClientResponse<Users> result = null;
+
+            if (!String.IsNullOrEmpty(company.id))
             {
-                throw new ArgumentNullException("you must provied 'company.id'.");
+                String resource = company.id + Path.DirectorySeparatorChar + "users";
+                result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
+            }
+            else if (!String.IsNullOrEmpty(company.company_id))
+            {
+                parameters.Add(Constants.TYPE, Constants.USER);
+                parameters.Add(Constants.COMPANY_ID, company.company_id);
+                result = Get<Users>(parameters: parameters);
+            }
+            else
+            {
+                throw new ArgumentNullException("you need to provide either 'company.id', 'company.company_id' to list users of a company.");
             }
 
-            String resource = company.id + Path.DirectorySeparatorChar + "users";
-            ClientResponse<Users> result = null;
-            result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
             return result.Result;
         }
 
@@ -172,7 +175,7 @@ namespace Library.Clients
         {
             if (String.IsNullOrEmpty(companyId))
             {
-                throw new ArgumentNullException("you must provied 'company.id'.");
+                throw new ArgumentNullException("'company.id' is null or empty.");
             }
 
             String resource = companyId + Path.DirectorySeparatorChar + "users";
