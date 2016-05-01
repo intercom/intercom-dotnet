@@ -165,9 +165,63 @@ Users users = companyClient.ListUsers(new Company() { company_id = "my_company_i
 
 ### Admins
 
+```cs
+// Create ContactsClient instance
+AdminsClient adminsClient = new AdminsClient(new Authentication("AppId", "AppKey"));
+
+// View an admin (by id)
+Admin admin = adminsClient.View("100300231");
+admin = adminsClient.View(new Admin() { id = "100300231" });
+
+// List companies and iterating through
+Admins admins = adminsClient.List();
+
+foreach (Admin admin in admins.admins)
+    Console.WriteLine(admin.name);
+```
+
 ### Segments
 
+```cs
+// Create ContactsClient instance
+SegmentsClient segmentsClient = new SegmentsClient(new Authentication("AppId", "AppKey"));
+
+// View a segment (by id)
+Admin admin = segmentsClient.View("100300231");
+admin = segmentsClient.View(new Segment() { id = "100300231" });
+
+// List companies and iterating through
+Segments segments = segmentsClient.List();
+
+foreach (Segment segment in segments.segments)
+    Console.WriteLine(segment.name);
+```
+
 ### Notes
+
+```cs
+// Create NotesClient instance
+NotesClient notesClient = new NotesClient(new Authentication("AppId", "AppKey"));
+
+// Create a note (by User, body and admin_id)
+Note note = notesClient.Create(
+    new Note() { 
+    author = new Author() { id = "100300231_admin_id" },
+    user =  new User() { email = "example@example.com" },
+    body = "this is a new note"
+});
+
+Note note = notesClient.Create(new User() { email = "example@example.com" }, "this is a new note", "100300231_admin_id");
+
+// View a note
+Note note = notesClient.View("2001");
+
+// List User's notes
+Notes notes = notesClient.List(new User() { id = "100300231"});
+
+foreach (Note n in notes.notes)
+    Console.WriteLine(n.user.name);
+```
 
 ### Counts
 

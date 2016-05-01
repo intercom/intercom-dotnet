@@ -83,6 +83,18 @@ namespace Library.Clients
             return result.Result;
         }
 
+        public Note View(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException("'id' argument is null or empty.");
+            }
+
+            ClientResponse<Note> result = null;
+            result = Get<Note>(resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + id);
+            return result.Result;       
+        }
+
         public Notes List (User user)
         {
             if (user == null) {
