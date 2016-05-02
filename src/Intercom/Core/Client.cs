@@ -5,17 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Library.Clients;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Core
+namespace Intercom.Core
 {
     public class Client
     {
@@ -26,6 +26,8 @@ namespace Library.Core
         protected const String ACCEPT_VALUE = "application/json";
         protected const String ACCEPT_CHARSET_HEADER = "Accept-Charset";
         protected const String ACCEPT_CHARSET_VALUE = "UTF-8";
+        protected const String USER_AGENT_HEADER = "User-Agent";
+        protected const String USER_AGENT_VALUE = "intercom-dotnet/2.0.0";
 
         protected readonly String URL;
         protected readonly String RESRC;
@@ -53,10 +55,35 @@ namespace Library.Core
             String resource = null)
 			where T : class
         {
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.GET, headers: headers, parameters: parameters, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse<T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.GET, headers: headers, parameters: parameters, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse<T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
+                        "GET", URL, RESRC, resource), ex); 
+            }
+            finally
+            {
+                AssertIfAnyErrors(clientResponse);
+            }
+
+            return clientResponse;
         }
 
         protected virtual ClientResponse<T> Post<T>(String body, 
@@ -70,10 +97,31 @@ namespace Library.Core
                 throw new ArgumentNullException("'body' argument is null.");
             }
 
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: body, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse <T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: body, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse <T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
+                        "POST", URL, RESRC, resource, body), ex); 
+            }
+
+            return clientResponse;
         }
 
         protected virtual ClientResponse<T> Post<T>(T body, 
@@ -87,11 +135,32 @@ namespace Library.Core
                 throw new ArgumentNullException("'body' argument is null.");
             }
 
-            String requestBody = Serialize<T>(body);
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: requestBody, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse <T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                String requestBody = Serialize<T>(body);
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: requestBody, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse <T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body-Type: {4}",
+                        "POST", URL, RESRC, resource, typeof(T)), ex); 
+            }
+
+            return clientResponse;
         }
 
         protected virtual ClientResponse<T> Put<T>(String body, 
@@ -105,10 +174,31 @@ namespace Library.Core
                 throw new ArgumentNullException("'body' argument is null.");
             }
 
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: body, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse <T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: body, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse <T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
+                        "POST", URL, RESRC, resource, body), ex); 
+            }
+
+            return clientResponse;
         }
 
         protected virtual ClientResponse<T> Put<T>(T body, 
@@ -122,11 +212,36 @@ namespace Library.Core
                 throw new ArgumentNullException("'body' argument is null.");
             }
 
-            String requestBody = Serialize<T>(body);
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: requestBody, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse <T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                String requestBody = Serialize<T>(body);
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: requestBody, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse <T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
+                        "POST", URL, RESRC, resource), ex); 
+            }
+            finally
+            {
+                AssertIfAnyErrors(clientResponse);
+            }
+
+            return clientResponse;
         }
 
         protected virtual ClientResponse<T>  Delete<T>(
@@ -135,10 +250,31 @@ namespace Library.Core
             String resource = null)
 			where T : class
         {
-            IRestClient client = BuildClient();
-            IRestRequest request = BuildRequest(httpMethod: Method.DELETE, headers: headers, parameters: parameters, resource: resource);
-            IRestResponse response = client.Execute(request);
-            return HandleResponse<T>(response);
+            ClientResponse<T> clientResponse = null;
+
+            try
+            {
+                IRestClient client = BuildClient();
+                IRestRequest request = BuildRequest(httpMethod: Method.DELETE, headers: headers, parameters: parameters, resource: resource);
+                IRestResponse response = client.Execute(request);
+                clientResponse = HandleResponse<T>(response);
+            }
+            catch(ApiException ex)
+            {
+                throw ex;
+            }
+            catch (JsonConverterException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new IntercomException(String.Format("An exception occurred " +
+                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
+                        "POST", URL, RESRC, resource), ex); 
+            }
+        
+            return clientResponse;
         }
 
         protected virtual IRestRequest BuildRequest(Method httpMethod = Method.GET,
@@ -153,6 +289,7 @@ namespace Library.Core
             request.AddHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE_VALUE);
             request.AddHeader(ACCEPT_CHARSET_HEADER, ACCEPT_CHARSET_VALUE);
             request.AddHeader(ACCEPT_HEADER, ACCEPT_VALUE);
+            request.AddHeader(USER_AGENT_HEADER, USER_AGENT_VALUE);
 
             if (headers != null && headers.Any())
                 AddHeaders(request, headers);
@@ -215,13 +352,9 @@ namespace Library.Core
             int statusCode = (int)response.StatusCode;
 
             if (statusCode >= 200 && statusCode < 300)
-            {
                 clientResponse = HandleNormalResponse <T>(response) as ClientResponse<T>;
-            }
             else
-            {
                 clientResponse = HandleErrorResponse <T>(response) as ClientResponse<T>;
-            }	
 
             AssertIfAnyErrors(clientResponse);
 
@@ -271,7 +404,7 @@ namespace Library.Core
         {
             if (response.Errors != null && response.Errors.errors != null && response.Errors.errors.Any())
             {
-                throw new EndpointException((int)response.Response.StatusCode, 
+                throw new ApiException((int)response.Response.StatusCode, 
                     response.Response.StatusDescription,
                     response.Errors,
                     response.Response.Content);

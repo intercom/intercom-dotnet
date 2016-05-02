@@ -1,33 +1,11 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
-using Library.Core;
-using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Clients;
+using Intercom.Exceptions;
 using RestSharp;
 
-namespace Library.Core
+namespace Intercom.Core
 {
 	public class Authentication
 	{

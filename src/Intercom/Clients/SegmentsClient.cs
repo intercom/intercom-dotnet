@@ -1,20 +1,14 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class SegmentsClient: Client
     {
@@ -45,6 +39,23 @@ namespace Library.Clients
                 result = Get<Segments>();
             }
 
+            return result.Result;
+        }
+
+        public Segments List(Dictionary<String, String> parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("'parameters' argument is null.");
+            }
+
+            if (!parameters.Any())
+            {
+                throw new ArgumentException ("'parameters' argument is empty.");
+            }
+
+            ClientResponse<Segments> result = null;
+            result = Get<Segments>(parameters: parameters);
             return result.Result;
         }
 

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using Library.Clients;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Test
+namespace Intercom.Test
 {
     [TestFixture()]
     public class TagsClientTest : TestBase

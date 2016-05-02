@@ -1,22 +1,16 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Library.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.IO;
-using Newtonsoft.Json;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class TagsClient: Client
     {
@@ -111,6 +105,23 @@ namespace Library.Clients
         {
             ClientResponse<Tags> result = null;
             result = Get<Tags>();
+            return result.Result;
+        }
+
+        public Tags List(Dictionary<String, String> parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("'parameters' argument is null.");
+            }
+
+            if (!parameters.Any())
+            {
+                throw new ArgumentException ("'parameters' argument is empty.");
+            }
+
+            ClientResponse<Tags> result = null;
+            result = Get<Tags>(parameters: parameters);
             return result.Result;
         }
 
@@ -224,16 +235,12 @@ namespace Library.Clients
             {
                 case EntityType.Company:
                     return Tag(name, ids.Select(id => new Company() { id = id }).ToList());
-                    break;
                 case EntityType.Contact:
                     return Tag(name, ids.Select(id => new Contact() { id = id }).ToList());
-                    break;
                 case EntityType.User:
                     return Tag(name, ids.Select(id => new User() { id = id }).ToList());
-                    break;
                 default:
                     return Tag(name, ids.Select(id => new User() { id = id }).ToList());
-                    break;
             }
         }
 
@@ -323,16 +330,12 @@ namespace Library.Clients
             {
                 case EntityType.Company:
                     return Untag(name, ids.Select(id => new Company() { id = id }).ToList());
-                    break;
                 case EntityType.Contact:
                     return Untag(name, ids.Select(id => new Contact() { id = id }).ToList());
-                    break;
                 case EntityType.User:
                     return Untag(name, ids.Select(id => new User() { id = id }).ToList());
-                    break;
                 default:
                     return Untag(name, ids.Select(id => new User() { id = id }).ToList());
-                    break;
             }
         }
 

@@ -1,3 +1,5 @@
+![Build Status](https://www.myget.org/BuildSource/Badge/intercom-dotnet?identifier=9009384b-3f0e-4d23-aa53-3bac173f29bb)
+
 # intercom-dotnet
 
 .NET bindings for the [Intercom API](https://developers.intercom.io/reference)
@@ -6,10 +8,11 @@
  - [Resources](#resources)
  - [Authorization](#authorization)
  - [Usage](#usage)
+ - [Idioms](#idioms)
+ - [Roadmap](#roadmap)
 
 
 ## Add a dependency
-
 
 ### nuget
 
@@ -70,9 +73,10 @@ foreach(User u in users.users)
     Console.WriteLine(u.email);
 
 // Update a user with a new company (with user assigned company_id)
-usersClient.Update(new User() { 
-email = "example@example.com", 
-companies = new List<Company>() { new Company() { company_id = "new_company" } } });
+User user = usersClient.Update(new User() { 
+                                email = "example@example.com", 
+                                companies = new List<Company>() { 
+                                        new Company() { company_id = "new_company" } } });
 
 // Delete a user
 usersClient.Delete("100300231"); // with intercom generated user's id
@@ -101,20 +105,20 @@ ContactsClient contactsClient = new ContactsClient(new Authentication("AppId", "
 
 // Create a contact
 Contact contact = contactsClient.Create(new Contact() { });
-contact = contactsClient.Create(new Contact() { name = "lead_name" });
+Contact contact = contactsClient.Create(new Contact() { name = "lead_name" });
 
 // View a contact (by id, or user_id)
-Contact contact1 = contactsClient.View("100300231");
-contact1 = contactsClient.View(new Contact() { id = "100300231" });
-contact1 = contactsClient.View(new Contact() { user_id = "my_lead_id" });
+Contact contact = contactsClient.View("100300231");
+Contact contact = contactsClient.View(new Contact() { id = "100300231" });
+Contact contact = contactsClient.View(new Contact() { user_id = "my_lead_id" });
 
 // Update a contact (by id, or user_id)
-contactsClient.Update(
-    new Contact()
-    {   
-        email = "example@example", 
-        companies = new List<Company>() { new Company() { company_id = "new_company" } }
-    });
+Contact contact = contactsClient.Update(
+                    new Contact()
+                    {   
+                        email = "example@example", 
+                        companies = new List<Company>() { new Company() { company_id = "new_company" } }
+                    });
 
 // List users and iterating through users
 Contacts contacts = contactsClient.List();
@@ -136,21 +140,21 @@ CompanyClient companyClient = new CompanyClient(new Authentication("AppId", "App
 
 // Create a contact
 Company company = companyClient.Create(new Company());
-company = companyClient.Create(new Company() { name = "company_name" });
+Company company = companyClient.Create(new Company() { name = "company_name" });
 
 // View a contact (by id, or user_id)
-Company company1 = companyClient.View("100300231");
-company1 = companyClient.View(new Company() { id = "100300231" });
-company1 = companyClient.View(new Company() { company_id = "my_company_id" });
-company1 = companyClient.View(new Company() { name = "my_company_name" });
+Company company = companyClient.View("100300231");
+Company company = companyClient.View(new Company() { id = "100300231" });
+Company company = companyClient.View(new Company() { company_id = "my_company_id" });
+Company company = companyClient.View(new Company() { name = "my_company_name" });
 
 // Update a contact (by id, or user_id)
-companyClient.Update(
-    new Company()
-    {   
-        company_id = "example@example", 
-        monthly_spend = 100
-    });
+Company company = companyClient.Update(
+                    new Company()
+                    {   
+                        company_id = "example@example", 
+                        monthly_spend = 100
+                    });
 
 // List companies and iterating through
 Companies companies = companyClient.List();
@@ -171,7 +175,7 @@ AdminsClient adminsClient = new AdminsClient(new Authentication("AppId", "AppKey
 
 // View an admin (by id)
 Admin admin = adminsClient.View("100300231");
-admin = adminsClient.View(new Admin() { id = "100300231" });
+Admin admin = adminsClient.View(new Admin() { id = "100300231" });
 
 // List companies and iterating through
 Admins admins = adminsClient.List();
@@ -187,8 +191,8 @@ foreach (Admin admin in admins.admins)
 SegmentsClient segmentsClient = new SegmentsClient(new Authentication("AppId", "AppKey"));
 
 // View a segment (by id)
-Admin admin = segmentsClient.View("100300231");
-admin = segmentsClient.View(new Segment() { id = "100300231" });
+Segment segment = segmentsClient.View("100300231");
+Segment segment = segmentsClient.View(new Segment() { id = "100300231" });
 
 // List companies and iterating through
 Segments segments = segmentsClient.List();
@@ -294,8 +298,8 @@ tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company
 // Create UsersClient instance
 EventsClient eventsClient = new EventsClient(new Authentication("AppId", "AppKey"));
 
-// Create a tag
-Tag tag = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718  });
+// Create an event
+Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718  });
 
 // Create a tag with Metadata (Simple, MonetaryAmounts and RichLinks)
 Metadata metadata = new Metadata();
@@ -304,13 +308,13 @@ metadata.Add("simple_1", "two");
 metadata.Add("money", new Metadata.MonetaryAmount(100, "eur"));
 metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
 
-Tag tag1 = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
+Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
 
 // List tags and iterate through
-Tags tags = eventsClient.List();
+Events events = eventsClient.List();
 
-foreach(Tag t in tags.tags)
-    Console.WriteLine(t.name);
+foreach(Event ev in events.event)
+    Console.WriteLine(ev.event_name);
 ```
 
 ### Conversations
@@ -347,17 +351,17 @@ AdminConversationReply admin_reply =
             body: "this is a reply body"));
 
 
-// Create AdminConversationsClient instance
+// Create UserConversationsClient instance
 UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("AppId", "AppKey"));
 
-// Create Admin initiated Conversation
+// Create User initiated Conversation
 UserConversationMessage user_message = 
     userConversationsClient.Create(
         new UserConversationMessage(
             from: new UserConversationMessage.From(id: "1000_user_id"),
             body: "this is a user's message body"));
 
-// Create Admin initiated Conversation's reply
+// Create User initiated Conversation's reply
 UserConversationReply user_reply = 
     userConversationsClient.Reply(
         new UserConversationReply(
@@ -368,6 +372,28 @@ UserConversationReply user_reply =
 
 ### Webhooks
 
+Not supported.
+
 ### Bulk APIs
 
+Not supported.
 
+## Idioms
+
+### Exceptions
+
+To be written.
+
+### Pagination
+
+To be written.
+
+## Roadmap
+
+- Functions Comments (for IntelliSense support)
+- Support Pagination
+- Support Bulk Apis
+- Support Webhooks
+- Support Async
+- More Integration tests
+- Remove RestSharp dependency

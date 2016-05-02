@@ -1,11 +1,11 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Clients;
+using Intercom.Exceptions;
 using RestSharp;
 
-namespace Library.Exceptions
+namespace Intercom.Exceptions
 {
 	public class IntercomException : Exception
 	{

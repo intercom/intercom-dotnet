@@ -1,17 +1,11 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
+using Intercom.Clients;
+using Intercom.Exceptions;
 using System.Collections.Generic;
-using Library.Core;
+using Intercom.Core;
 using System.Collections;
 
-namespace Library.Data
+namespace Intercom.Data
 {
 	public class Companies : Models
 	{

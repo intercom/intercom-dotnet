@@ -3,17 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Clients;
-using Library.Core;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 
-
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class NotesClient : Client
     {
@@ -118,5 +116,7 @@ namespace Library.Clients
 
             return result.Result;
         }
+
+        // TODO: Add List function for Notes to allow pagination
     }
 }

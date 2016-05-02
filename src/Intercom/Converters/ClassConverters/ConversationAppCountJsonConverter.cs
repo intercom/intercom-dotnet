@@ -1,21 +1,17 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Clients;
+using Intercom.Exceptions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Library.Core;
+using Intercom.Core;
 using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Library.Converters.ClassConverters
+namespace Intercom.Converters.ClassConverters
 {
     public class ConversationAppCountJsonConverter: JsonConverter
     {

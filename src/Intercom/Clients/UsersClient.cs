@@ -3,20 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Clients;
-using Library.Core;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class UsersClient : Client
     {
-        public static class UserSortBy
+        // TODO: Implement paging
+        private static class UserSortBy
         {
             public const String created_at = "created_at";
             public const String updated_at = "updated_at";
@@ -154,13 +155,13 @@ namespace Library.Clients
         }
 
         // TODO: Implement paging (by Pages argument)
-        public Users Next(Pages pages)
+        private Users Next(Pages pages)
         {
             return null;
         }
 
         // TODO: Implement paging
-        public Users Next(int page = 1, int perPage = 50, OrderBy orderBy = OrderBy.Dsc, String sortBy = UserSortBy.created_at)
+        private Users Next(int page = 1, int perPage = 50, OrderBy orderBy = OrderBy.Dsc, String sortBy = UserSortBy.created_at)
         {
             return null;
         }
@@ -324,17 +325,15 @@ namespace Library.Clients
                 throw new ArgumentNullException("'companyIds' argument is null.");
             }
 
-            if (!companyIds.Any() == null)
+            if (!companyIds.Any())
             {
-                throw new ArgumentNullException("'companyIds' shouldnt be empty.");
+                throw new ArgumentException("'companyIds' shouldnt be empty.");
             }
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = userId, companies = companyIds.Select(c => new { id = c, remove = true })});
             result = Post<User>(body);
             return result.Result;   
-
-            return null;
         }
 
         public User RemoveCompanyFromUser(User user, List<String> companyIds)
@@ -354,7 +353,7 @@ namespace Library.Clients
                 throw new ArgumentNullException("'companyIds' argument is null.");
             }
 
-            if (!companyIds.Any() == null)
+            if (!companyIds.Any())
             {
                 throw new ArgumentException("'companyIds' shouldnt be empty.");
             }
@@ -363,9 +362,6 @@ namespace Library.Clients
             String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true })});
             result = Post<User>(body);
             return result.Result;   
-
-            return null;        
         }
-
     }
 }

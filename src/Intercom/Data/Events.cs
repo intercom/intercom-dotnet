@@ -1,18 +1,14 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-
-
-using Library.Clients;
-
-using Library.Exceptions;
-
-using Library.Core;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 
-namespace Library.Data
+namespace Intercom.Data
 {
 	public class Events : Models
 	{

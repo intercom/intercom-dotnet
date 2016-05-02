@@ -1,7 +1,6 @@
 ﻿using System;
-using Library.Exceptions;
 
-namespace Library
+namespace Intercom.Exceptions
 {
     public class JsonConverterException : IntercomException
     {

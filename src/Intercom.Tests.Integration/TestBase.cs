@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using Library.Core;
+using Intercom.Core;
 
 namespace Intercom.Integration.Tests
 {

@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Core\ClientTest.cs" />
     <Compile Include="Clients\UserClientTest.cs" />

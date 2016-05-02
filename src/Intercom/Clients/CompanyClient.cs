@@ -1,17 +1,16 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Library.Core;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.IO;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     // TODO: List companies by Tag or Segment
     public class CompanyClient : Client
@@ -134,7 +133,7 @@ namespace Library.Clients
 
             if (!parameters.Any())
             {
-                throw new ArgumentException("'parameters' argument should include company_id parameter.");
+                throw new ArgumentException ("'parameters' argument is empty.");
             }
 
             ClientResponse<Companies> result = null;

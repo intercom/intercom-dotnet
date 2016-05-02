@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Clients;
-using Library.Converters.ClassConverters;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Converters.ClassConverters;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Test
+namespace Intercom.Test
 {
     [TestFixture()]
     public class UserCountJsonConverterTest : TestBase

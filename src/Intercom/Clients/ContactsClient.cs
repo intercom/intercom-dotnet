@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Clients;
-using Library.Core;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class ContactsClient : Client
     {
@@ -119,6 +118,23 @@ namespace Library.Clients
             return result.Result;
         }
 
+        public Contacts List(Dictionary<String, String> parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("'parameters' argument is null.");
+            }
+
+            if (!parameters.Any())
+            {
+                throw new ArgumentException ("'parameters' argument is empty.");
+            }
+
+            ClientResponse<Contacts> result = null;
+            result = Get<Contacts>(parameters: parameters);
+            return result.Result;
+        }
+
         public Contact Delete (Contact contact)
         {
             if (contact == null) {
@@ -152,7 +168,7 @@ namespace Library.Clients
         }
 
         // TODO: Implement converting a lead into a user
-        public User Convert(Contact contact)
+        private User Convert(Contact contact)
         {
             throw new NotImplementedException();
         }

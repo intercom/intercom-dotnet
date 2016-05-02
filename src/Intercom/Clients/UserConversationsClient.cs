@@ -1,18 +1,18 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
-using RestSharp;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Library.Core;
+using Intercom.Clients;
+using Intercom.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
+using RestSharp;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.IO;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class UserConversationsClient: Client
     {

@@ -1,11 +1,11 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Clients;
+using Intercom.Exceptions;
 using System.Collections.Generic;
 
-namespace Library.Data
+namespace Intercom.Data
 {
     public class SegmentCount
     {

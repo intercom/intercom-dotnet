@@ -1,13 +1,13 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Clients;
+using Intercom.Exceptions;
 using Newtonsoft.Json;
-using Library.Converters.AttributeConverters;
-using Library.Converters.ClassConverters;
+using Intercom.Converters.AttributeConverters;
+using Intercom.Converters.ClassConverters;
 
-namespace Library.Data
+namespace Intercom.Data
 {
     [JsonConverter(typeof(CompanyCountJsonConverter))]
     public class CompanyTagCount : TagCount

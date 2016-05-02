@@ -1,14 +1,14 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
+using Intercom.Core;
+using Intercom.Data;
 
 
-using Library.Clients;
+using Intercom.Clients;
 
-using Library.Exceptions;
+using Intercom.Exceptions;
  
 
-namespace Library.Core
+namespace Intercom.Core
 {
 	public class Model
 	{

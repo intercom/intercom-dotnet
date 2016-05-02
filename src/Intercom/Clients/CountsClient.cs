@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Clients;
-using Library.Core;
-using Library.Core;
-using Library.Data;
-using Library.Exceptions;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class CountsClient: Client
     {

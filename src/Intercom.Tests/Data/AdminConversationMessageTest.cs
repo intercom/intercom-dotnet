@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Library.Test
+namespace Intercom.Test
 {
     // TODO: write tests for AdminConversationMessageTest
     public class AdminConversationMessageTest

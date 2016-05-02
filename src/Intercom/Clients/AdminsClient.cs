@@ -1,17 +1,15 @@
 ﻿using System;
-using Library.Core;
-using Library.Data;
-using Library.Clients;
-using Library.Exceptions;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Core;
+using Intercom.Core;
+using Intercom.Data;
+using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Library.Clients
+namespace Intercom.Clients
 {
     public class AdminsClient : Client
     {
@@ -29,6 +27,23 @@ namespace Library.Clients
 
         public Admins List ()
         {
+            ClientResponse<Admins> result = null;
+            result = Get<Admins> ();
+            return result.Result;
+        }
+
+        public Admins List (Dictionary<String, String> parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException ("'parameters' argument is null.");
+            }
+
+            if (!parameters.Any())
+            {
+                throw new ArgumentException ("'parameters' argument is empty.");
+            }
+
             ClientResponse<Admins> result = null;
             result = Get<Admins> ();
             return result.Result;

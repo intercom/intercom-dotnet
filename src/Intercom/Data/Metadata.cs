@@ -1,16 +1,16 @@
-﻿using Library.Core;
-using Library.Data;
+﻿using Intercom.Core;
+using Intercom.Data;
 using System;
 
 
-using Library.Clients;
+using Intercom.Clients;
 
-using Library.Exceptions;
+using Intercom.Exceptions;
 
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.Data
+namespace Intercom.Data
 {
     public class Metadata
     {

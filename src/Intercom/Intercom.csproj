@@ -116,24 +116,9 @@
     <Compile Include="Clients\UserConversationsClient.cs" />
     <Compile Include="Clients\AdminConversationsClient.cs" />
     <Compile Include="Clients\UsersClient.cs" />
-    <Compile Include="Exceptions\JsonConverterException.cs" />
-    <Compile Include="Exceptions\ServerErrorException.cs" />
-    <Compile Include="Exceptions\TypeMismatchException.cs" />
-    <Compile Include="Exceptions\ParameterNotFoundException.cs" />
-    <Compile Include="Exceptions\ParameterInvalidException.cs" />
-    <Compile Include="Exceptions\ActionForbiddenException.cs" />
-    <Compile Include="Exceptions\ConflictException.cs" />
-    <Compile Include="Exceptions\ApiPlanRestrictedException.cs" />
-    <Compile Include="Exceptions\RateLimitExceededEexception.cs" />
-    <Compile Include="Exceptions\UnsupportedOperationException.cs" />
-    <Compile Include="Exceptions\TokenBlockedException.cs" />
-    <Compile Include="Exceptions\TokenNotFoundException.cs" />
-    <Compile Include="Exceptions\TokenUnauthorizedException.cs" />
-    <Compile Include="Exceptions\TokenExpiredException.cs" />
-    <Compile Include="Exceptions\MissingAuthorizationException.cs" />
-    <Compile Include="Exceptions\RetryAfterException.cs" />
-    <Compile Include="Exceptions\EndpointException.cs" />
     <Compile Include="Converters\ClassConverters\AppCountJsonConverter.cs" />
+    <Compile Include="Exceptions\ApiException.cs" />
+    <Compile Include="Exceptions\JsonConverterException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
