@@ -11,12 +11,11 @@
  - [Idioms](#idioms)
  - [Roadmap](#roadmap)
 
-
 ## Add a dependency
 
 ### nuget
 
-install command
+Run the nuget command for installing the client as `Install-Package Intercom.Dotnet.Client -Pre`
 
 ## Resources
 
