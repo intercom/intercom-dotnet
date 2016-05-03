@@ -15,7 +15,7 @@
 
 ### nuget
 
-Run the nuget command for installing the client as `Install-Package Intercom.Dotnet.Client -Pre`
+Run the nuget command for installing the client as `Install-Package Intercom.Dotnet.Client`
 
 ## Resources
 
