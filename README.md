@@ -33,7 +33,7 @@ Resources this API supports:
 - [Counts](#counts)
 - [Webhooks](#webhooks)
 
-Each of these resources is represented through the dontnet client by a Class as `ResourceClient`.
+Each of these resources is represented through the dotnet client by a Class as `ResourceClient`.
 
 **E.g.**: for **users**, you can use the `UsersClient`. For **segments**, you can use `SegmentsClient`.
 
