@@ -22,12 +22,12 @@ namespace Intercom.Data
 
             public RichLink(String url, String value)
             {
-                if (String.IsNullOrEmpty(url) == null)
+                if (String.IsNullOrEmpty(url))
                 {
                     throw new ArgumentNullException("'url' argument is null or empty.");
                 }
 
-                if (String.IsNullOrEmpty(value) == null)
+                if (String.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException("'value' argument is null or empty.");
                 }
@@ -50,7 +50,7 @@ namespace Intercom.Data
 
             public MonetaryAmount(int amount, String currency)
             {
-                if (String.IsNullOrEmpty(currency) == null)
+                if (String.IsNullOrEmpty(currency))
                 {
                     throw new ArgumentNullException("'currency' argument is null or empty.");
                 }
@@ -84,7 +84,7 @@ namespace Intercom.Data
         public void Add(String key, object value)
         {
 			
-            if (String.IsNullOrEmpty(key) == null)
+            if (String.IsNullOrEmpty(key))
             {
                 throw new ArgumentNullException("'key' argument is null or empty.");
             }

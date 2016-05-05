@@ -8,7 +8,7 @@ using Intercom.Clients;
 using Intercom.Exceptions;
 
 using System.Collections.Generic;
-using Intercom.Core;
+
 using System.Collections;
 
 namespace Intercom.Data

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using Intercom.Clients;
 using Intercom.Core;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using RestSharp;

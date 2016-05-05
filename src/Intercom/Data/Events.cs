@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Intercom.Clients;
 using Intercom.Core;
-using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 

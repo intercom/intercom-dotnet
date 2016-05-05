@@ -32,7 +32,7 @@ namespace Intercom.Clients
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
         {
         }
-
+			
         public Tag Create(Tag tag)
         {
             if (tag == null)
@@ -83,10 +83,9 @@ namespace Intercom.Clients
         {
             if (tag == null)
             {
-                throw new ArgumentNullException("'tag' argument is null.");
+				throw new ArgumentNullException("'tag' argument is null.");
             }
 
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
             ClientResponse<Tag> result = null;
 
             if (!String.IsNullOrEmpty(tag.id))
@@ -147,7 +146,6 @@ namespace Intercom.Clients
                 throw new ArgumentNullException("'id' argument is null or empty.");
             }
 
-            ClientResponse<Tag> result = null;
             Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
         }
 

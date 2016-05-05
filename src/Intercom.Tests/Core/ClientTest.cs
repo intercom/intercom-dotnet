@@ -7,7 +7,6 @@ using Intercom.Exceptions;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Collections.Generic;
-using RestSharp;
 using Newtonsoft.Json;
 
 

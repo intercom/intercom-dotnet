@@ -7,7 +7,6 @@ using Intercom.Clients;
 
 using Intercom.Exceptions;
 
-
 namespace Intercom.Data
 {
 	public class SocialProfile : Model
