@@ -78,10 +78,6 @@ namespace Intercom.Core
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
                         "GET", URL, RESRC, resource), ex); 
             }
-            finally
-            {
-                AssertIfAnyErrors(clientResponse);
-            }
 
             return clientResponse;
         }
@@ -235,10 +231,6 @@ namespace Intercom.Core
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
                         "POST", URL, RESRC, resource), ex); 
-            }
-            finally
-            {
-                AssertIfAnyErrors(clientResponse);
             }
 
             return clientResponse;
