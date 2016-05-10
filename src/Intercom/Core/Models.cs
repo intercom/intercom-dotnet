@@ -1,13 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-
-
-using Intercom.Clients;
-
 using Intercom.Exceptions;
- 
-using System.Collections.Generic;
 
 namespace Intercom.Core
 {
