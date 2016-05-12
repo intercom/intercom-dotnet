@@ -39,6 +39,8 @@ namespace Intercom.Converters.AttributeConverters
                     result = GetList<Tag>(jobject, "tags");
                 else if (objectType == typeof(List<Segment>))
                     result = GetList<Segment>(jobject, "segments");
+                else if (objectType == typeof(List<ConversationPart>))
+                    result = GetList<ConversationPart>(jobject, "conversation_parts");
 
                 return result;
             }
