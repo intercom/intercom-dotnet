@@ -36,21 +36,51 @@ namespace Intercom.Clients
 
             if (note.user == null)
             {
-                throw new ArgumentNullException("'note.user' shouldnt be null.");
+                throw new ArgumentNullException("'note.user' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(note.user.id) && String.IsNullOrEmpty(note.user.user_id) && string.IsNullOrEmpty(note.user.email))
-            {
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to create a user.");
-            }
+            object u = null;
+
+            if (!String.IsNullOrEmpty(note.user.id))
+                u = new { id = note.user.id };
+            else if (!String.IsNullOrEmpty(note.user.user_id))
+                u = new { user_id = note.user.user_id };
+            else if (!String.IsNullOrEmpty(note.user.email))
+                u = new { email = note.user.email };
+            else
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
 
             if (String.IsNullOrEmpty(note.body))
             {
-                throw new ArgumentNullException("'note.body' shouldnt be null.");
+                throw new ArgumentNullException("'note.body' argument is null or empty.");
+            }
+
+            if (note.author == null)
+            {
+                throw new ArgumentException("'note.author' argument is null.");
+            }
+
+            if (String.IsNullOrEmpty(note.author.id))
+            {
+                throw new ArgumentException("'note.author.id' argument is null.");
             }
 
             ClientResponse<Note> result = null;
-            result = Post<Note>(note);
+
+            var body = new {
+                admin_id = note.author.id,
+                body = note.body,
+                user = u
+            };
+
+            String b = JsonConvert.SerializeObject(body,
+                Formatting.None, 
+                new JsonSerializerSettings
+                { 
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            result = Post<Note>(b);
             return result.Result;
         }
 
@@ -58,13 +88,19 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'note' argument is null.");
+                throw new ArgumentNullException("'user' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
-            {
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to create a user.");
-            }
+            object u = null;
+
+            if (!String.IsNullOrEmpty(user.id))
+                u = new { id = user.id };
+            else if (!String.IsNullOrEmpty(user.user_id))
+                u = new { user_id = user.user_id };
+            else if (!String.IsNullOrEmpty(user.email))
+                u = new { email = user.email };
+            else
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
 
             if (String.IsNullOrEmpty(body))
             {
@@ -72,11 +108,21 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Note> result = null;
-            result = Post<Note>(new Note() {
-                author = new Author() { id = adminId }, 
+
+            var note = new {
+                admin_id = adminId,
                 body = body,
-                user = new User() { id = user.id, user_id = user.user_id, email = user.email }
-            });
+                user = u
+            };
+
+            String b = JsonConvert.SerializeObject(note,
+                           Formatting.None, 
+                           new JsonSerializerSettings
+                { 
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            result = Post<Note>(b);
 
             return result.Result;
         }
@@ -93,25 +139,34 @@ namespace Intercom.Clients
             return result.Result;       
         }
 
-        public Notes List (User user)
+        public Notes List(User user)
         {
-            if (user == null) {
-                throw new ArgumentNullException ("'user' argument is null.");
+            if (user == null)
+            {
+                throw new ArgumentNullException("'user' argument is null.");
             }
 
-            Dictionary<String, String> parameters = new Dictionary<String, String> ();
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
             ClientResponse<Notes> result = null;
 
-            if (!String.IsNullOrEmpty (user.id)) {
-                result = Get<Notes> (resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + user.id);
-            } else if (!String.IsNullOrEmpty (user.user_id)) {
-                parameters.Add (Constants.USER_ID, user.id);
-                result = Get<Notes> (parameters: parameters);
-            } else if (!String.IsNullOrEmpty (user.email)) {
-                parameters.Add (Constants.EMAIL, user.email);
-                result = Get<Notes> (parameters: parameters);         
-            } else {
-                throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            if (!String.IsNullOrEmpty(user.id))
+            {
+                parameters.Add(Constants.ID, user.id);
+                result = Get<Notes>(parameters: parameters);
+            }
+            else if (!String.IsNullOrEmpty(user.user_id))
+            {
+                parameters.Add(Constants.USER_ID, user.id);
+                result = Get<Notes>(parameters: parameters);
+            }
+            else if (!String.IsNullOrEmpty(user.email))
+            {
+                parameters.Add(Constants.EMAIL, user.email);
+                result = Get<Notes>(parameters: parameters);         
+            }
+            else
+            {
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
             }
 
             return result.Result;
