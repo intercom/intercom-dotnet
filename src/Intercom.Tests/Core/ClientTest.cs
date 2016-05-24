@@ -8,11 +8,16 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Intercom.Test
 {
-	[TestFixture()]
-	public class ClientTest
-	{
-	}
+    [TestFixture()]
+    public class ClientTest
+    {
+        [Test]
+        public void Test()
+        {
+        }
+    }
 }
