@@ -61,7 +61,7 @@ namespace Intercom.Clients
 
             if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
             {
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user.");
             }
 
             ClientResponse<User> result = null;
@@ -123,7 +123,7 @@ namespace Intercom.Clients
             }
             else if (!String.IsNullOrEmpty(user.user_id))
             {
-                parameters.Add(Constants.USER_ID, user.id);
+                parameters.Add(Constants.USER_ID, user.user_id);
                 result = Get<User>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(user.email))

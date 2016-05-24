@@ -119,6 +119,8 @@
     <Compile Include="Converters\ClassConverters\AppCountJsonConverter.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\JsonConverterException.cs" />
+    <Compile Include="Clients\VisitorsClient.cs" />
+    <Compile Include="Data\Visitor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
