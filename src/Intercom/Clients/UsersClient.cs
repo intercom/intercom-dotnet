@@ -181,7 +181,7 @@ namespace Intercom.Clients
             }
             else if (!String.IsNullOrEmpty(user.user_id))
             {
-                parameters.Add(Constants.USER_ID, user.id);
+                parameters.Add(Constants.USER_ID, user.user_id);
                 result = Delete<User>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(user.email))
@@ -222,7 +222,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { user_id = id, last_request_at = timestamp });
+            String body = JsonConvert.SerializeObject(new { id = id, last_request_at = timestamp });
             result = Post<User>(body);
             return result.Result;   
         }
@@ -234,18 +234,23 @@ namespace Intercom.Clients
                 throw new ArgumentNullException("'user' argument is null.");
             }
             
-            if (String.IsNullOrEmpty(user.id))
-            {
-                throw new ArgumentNullException("'id' argument is null.");
-            }
-
             if (timestamp <= 0)
             {
                 throw new ArgumentException("'timestamp' argument should be bigger than zero.");
             }
 
+            String body = String.Empty;
+
+            if (!String.IsNullOrEmpty(user.id))
+                body = JsonConvert.SerializeObject(new { id = user.id, last_request_at = timestamp });
+            else if (!String.IsNullOrEmpty(user.user_id))
+                body = JsonConvert.SerializeObject(new { user_id = user.user_id, last_request_at = timestamp });
+            else if (!String.IsNullOrEmpty(user.email))
+                body = JsonConvert.SerializeObject(new { email = user.email, last_request_at = timestamp });
+            else
+                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { user_id = user.id, last_request_at = timestamp });
             result = Post<User>(body);
             return result.Result;   
         }
@@ -254,11 +259,11 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentNullException("'userId' argument is null.");
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { user_id = id, update_last_request_at = true });
+            String body = JsonConvert.SerializeObject(new { id = id, update_last_request_at = true });
             result = Post<User>(body);
             return result.Result;   
         }
@@ -270,15 +275,20 @@ namespace Intercom.Clients
                 throw new ArgumentNullException("'user' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(user.id))
-            {
-                throw new ArgumentNullException("'id' argument is null.");
-            }
+            String body = String.Empty;
+
+            if (!String.IsNullOrEmpty(user.id))
+                body = JsonConvert.SerializeObject(new { id = user.id, update_last_request_at = true });
+            else if (!String.IsNullOrEmpty(user.user_id))
+                body = JsonConvert.SerializeObject(new { user_id = user.user_id, update_last_request_at = true });
+            else if (!String.IsNullOrEmpty(user.email))
+                body = JsonConvert.SerializeObject(new { email = user.email, update_last_request_at = true });
+            else
+                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { user_id = user.id, update_last_request_at = true });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User IncrementUserSession(String id)
@@ -312,9 +322,9 @@ namespace Intercom.Clients
             return result.Result;   
         }
 
-        public User RemoveCompanyFromUser(String userId, List<String> companyIds)
+        public User RemoveCompanyFromUser(String id, List<String> companyIds)
         {
-            if (String.IsNullOrEmpty(userId))
+            if (String.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException("'userId' argument is null.");
             }
@@ -330,9 +340,9 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { id = userId, companies = companyIds.Select(c => new { id = c, remove = true })});
+            String body = JsonConvert.SerializeObject(new { id = id, companies = companyIds.Select(c => new { id = c, remove = true })});
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User RemoveCompanyFromUser(User user, List<String> companyIds)
