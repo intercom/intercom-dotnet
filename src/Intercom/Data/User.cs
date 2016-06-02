@@ -42,11 +42,7 @@ namespace Intercom.Data
 
 		public User()
 		{
-            custom_attributes = new Dictionary<string, object>();
-            social_profiles = new List<SocialProfile>();
-            companies = new List<Company>();
-            segments = new List<Segments>();
-            tags = new List<Tag>();
+            
 		}
 	}
 }
