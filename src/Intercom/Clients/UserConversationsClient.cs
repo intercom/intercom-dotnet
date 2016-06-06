@@ -16,7 +16,7 @@ namespace Intercom.Clients
     {
         private const String CONVERSATIONS_RESOURCE = "conversations";
         private const String MESSAGES_RESOURCE = "messages";
-        private const String REPLY_RESOURCE = "r";
+        private const String REPLY_RESOURCE = "reply";
 
         public UserConversationsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
