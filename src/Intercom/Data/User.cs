@@ -28,7 +28,7 @@ namespace Intercom.Data
 		public string user_agent_data { get; set; }
 		public object pseudonym { get; set; }
 		public bool? anonymous { get; set; }
-		public Dictionary<String, String> custom_attributes { get; set; }
+		public Dictionary<string, object> custom_attributes { get; set; }
 		public Avatar avatar { get; set; }
 		public LocationData location_data { get; set; }
 		[JsonConverter(typeof(ListJsonConverter))]
@@ -42,6 +42,7 @@ namespace Intercom.Data
 
 		public User()
 		{
+            
 		}
 	}
 }
