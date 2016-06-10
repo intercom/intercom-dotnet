@@ -72,6 +72,24 @@ namespace Intercom.Clients
 
         private User CreateOrUpdate(User user)
         {
+            if (user.custom_attributes != null && user.custom_attributes.Any())
+            {
+                if (user.custom_attributes.Count > 100)
+                    throw new ArgumentException("Maximum of 100 fields.");
+
+                foreach (var attr in user.custom_attributes)
+                {
+                    if (attr.Key.Contains(".") || attr.Key.Contains("$"))
+                        throw new ArgumentException(String.Format("Field names must not contain Periods (.) or Dollar ($) characters. key: {0}", attr.Key));
+
+                    if (attr.Key.Length > 190)
+                        throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
+
+                    if(attr.Value == null)
+                        throw new ArgumentException(String.Format("'value' is null. key: {0}", attr.Key));
+                }
+            }
+
             ClientResponse<User> result = null;
             result = Post<User>(user);
             return result.Result;

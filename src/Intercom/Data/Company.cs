@@ -24,6 +24,6 @@ namespace Intercom.Data
 		public int? monthly_spend { get; set; }
 		public int? session_count { get; set; }
 		public int? user_count { get; set; }
-		public Dictionary<String, String> custom_attributes { get; set; }
+		public Dictionary<String, Object> custom_attributes { get; set; }
 	}
 }
