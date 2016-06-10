@@ -55,16 +55,14 @@ namespace Intercom.Clients
 
                 foreach (var attr in company.custom_attributes)
                 {
-                    String company_id = String.IsNullOrEmpty(company.company_id) ? String.Empty : company.company_id;
-
                     if (attr.Key.Contains(".") || attr.Key.Contains("$"))
-                        throw new ArgumentException(String.Format("Field names must not contain Periods (.) or Dollar ($) characters. company_id: {0}", company_id));
+                        throw new ArgumentException(String.Format("Field names must not contain Periods (.) or Dollar ($) characters. key: {0}", attr.Key));
 
                     if (attr.Key.Length > 190)
-                        throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. company_id: {0}", company_id));
+                        throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
 
-                    if (attr.Value.Length > 255)
-                        throw new ArgumentException(String.Format("String field values must be no longer than 255 characters. company_id: {0}", company_id));
+                    if(attr.Value == null)
+                        throw new ArgumentException(String.Format("'value' is null. key: {0}", attr.Key));
                 }
             }
 
