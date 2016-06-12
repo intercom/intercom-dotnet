@@ -168,7 +168,7 @@ namespace Intercom.Clients
         }
 
         // TODO: Implement converting a lead into a user
-        private User Convert(Contact contact)
+        private User ConvertToUser(Contact contact)
         {
             throw new NotImplementedException();
         }
