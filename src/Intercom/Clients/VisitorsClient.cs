@@ -13,9 +13,10 @@ using Newtonsoft.Json;
 
 namespace Intercom.Clients
 {
-    internal class VisitorsClient : Client
+    public class VisitorsClient : Client
     {
         private const String VISITORS_RESOURCE = "visitors";
+        private const String VISITORS_CONVERT = "convert";
 
         public VisitorsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, VISITORS_RESOURCE, authentication)
@@ -93,7 +94,7 @@ namespace Intercom.Clients
 
             if (String.IsNullOrEmpty(visitor.id) && String.IsNullOrEmpty(visitor.user_id))
             {
-                throw new ArgumentException("you need to provide either 'visitor.id', 'visitor.user_id' to update a user.");
+                throw new ArgumentException("you need to provide either 'visitor.id', 'visitor.user_id' to update a visitor.");
             }
 
             ClientResponse<Visitor> result = null;
@@ -132,35 +133,88 @@ namespace Intercom.Clients
             return result.Result;           
         }
 
-        private Visitor Convert(Visitor visitor, Contact contact)
+        public User ConvertToUser(Visitor visitor, User user)
         {
             if (visitor == null)
             {
                 throw new ArgumentNullException("'visitor' argument is null.");
             }
 
-            if (contact == null)
+            if (user == null)
             {
-                throw new ArgumentNullException("'contact' argument is null.");
+                throw new ArgumentNullException("'user' argument is null.");
             }
 
-            if (String.IsNullOrEmpty(visitor.id) && String.IsNullOrEmpty(visitor.user_id))
-            {
-                throw new ArgumentException("you need to provide either 'visitor.id', 'visitor.user_id' to convert a visitor to a lead.");
-            }
+            object userBody = null;
 
+            if (!String.IsNullOrEmpty (user.id))
+                userBody = new { id = user.id };
+            else if (!String.IsNullOrEmpty (user.user_id))
+                userBody = new { user_id = user.user_id };
+            else if (!String.IsNullOrEmpty (user.email))
+                userBody = new { email = user.email };
+            else
+                throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', or 'user.email' to convert a visitor.");
 
-            if (String.IsNullOrEmpty(contact.id) && String.IsNullOrEmpty(contact.user_id))
-            {
-                throw new ArgumentException("you need to provide either 'contact.id', 'contact.user_id' to convert a visitor to a lead.");
-            }
+            object visitorBody = null;
 
-            throw new NotImplementedException();
+            if (!String.IsNullOrEmpty (visitor.id))
+                visitorBody = new { id = visitor.id};
+            else if (!String.IsNullOrEmpty (visitor.user_id))
+                visitorBody = new {user_id = visitor.user_id };
+            else if (!String.IsNullOrEmpty (visitor.email))
+                visitorBody = new { email = visitor.email };
+            else
+                throw new ArgumentException ("you need to provide either 'visitor.id', 'visitor.user_id', or 'visitor.email' to convert a visitor.");
+
+            var body = new {
+                visitor = visitorBody,
+                user = userBody,
+                type = "user"
+            };
+
+            String b = JsonConvert.SerializeObject (body,
+                Formatting.None,
+                new JsonSerializerSettings {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            ClientResponse<User> result = null;
+            result = Post<User>(b, resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + VISITORS_CONVERT);
+            return result.Result;
         }
 
-        private Visitor Convert(Visitor visitor, User user)
+        public Contact ConvertToContact(Visitor visitor)
         {
-            throw new NotImplementedException();
+            if (visitor == null) {
+                throw new ArgumentNullException ("'visitor' argument is null.");
+            }
+
+            object visitorBody = null;
+
+            if (!String.IsNullOrEmpty (visitor.id))
+                visitorBody = new { id = visitor.id };
+            else if (!String.IsNullOrEmpty (visitor.user_id))
+                visitorBody = new { user_id = visitor.user_id };
+            else if (!String.IsNullOrEmpty (visitor.email))
+                visitorBody = new { email = visitor.email };
+            else
+                throw new ArgumentException ("you need to provide either 'visitor.id', 'visitor.user_id', or 'visitor.email' to convert a visitor.");
+
+            var body = new {
+                visitor = visitorBody,
+                type = "lead"
+            };
+
+            String b = JsonConvert.SerializeObject (body,
+                Formatting.None,
+                new JsonSerializerSettings {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            ClientResponse<Contact> result = null;
+            result = Post<Contact> (b, resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + VISITORS_CONVERT);
+            return result.Result;
         }
     }
 }

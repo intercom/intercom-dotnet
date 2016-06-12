@@ -16,7 +16,7 @@ namespace Intercom.Test
     public class ClientTest
     {
         [Test]
-        public void Test()
+        public void Test ()
         {
         }
     }
