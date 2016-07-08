@@ -119,7 +119,7 @@ Contact contact = contactsClient.Update(
                         companies = new List<Company>() { new Company() { company_id = "new_company" } }
                     });
 
-// List users and iterating through users
+// List contacts and iterating through contacts
 Contacts contacts = contactsClient.List();
 
 foreach (Contact c in contacts.contacts)
@@ -134,20 +134,20 @@ contactsClient.Delete(new Contact() { user_id = "my_id" });
 ### Companies
 
 ```cs
-// Create ContactsClient instance
+// Create CompanyClient instance
 CompanyClient companyClient = new CompanyClient(new Authentication("AppId", "AppKey"));
 
-// Create a contact
+// Create a company
 Company company = companyClient.Create(new Company());
 Company company = companyClient.Create(new Company() { name = "company_name" });
 
-// View a contact (by id, or user_id)
+// View a company (by id, or user_id)
 Company company = companyClient.View("100300231");
 Company company = companyClient.View(new Company() { id = "100300231" });
 Company company = companyClient.View(new Company() { company_id = "my_company_id" });
 Company company = companyClient.View(new Company() { name = "my_company_name" });
 
-// Update a contact (by id, or user_id)
+// Update a company (by id, or user_id)
 Company company = companyClient.Update(
                     new Company()
                     {   
@@ -169,14 +169,14 @@ Users users = companyClient.ListUsers(new Company() { company_id = "my_company_i
 ### Admins
 
 ```cs
-// Create ContactsClient instance
+// Create AdminsClient instance
 AdminsClient adminsClient = new AdminsClient(new Authentication("AppId", "AppKey"));
 
 // View an admin (by id)
 Admin admin = adminsClient.View("100300231");
 Admin admin = adminsClient.View(new Admin() { id = "100300231" });
 
-// List companies and iterating through
+// List admins and iterating through
 Admins admins = adminsClient.List();
 
 foreach (Admin admin in admins.admins)
@@ -186,14 +186,14 @@ foreach (Admin admin in admins.admins)
 ### Segments
 
 ```cs
-// Create ContactsClient instance
+// Create SegmentsClient instance
 SegmentsClient segmentsClient = new SegmentsClient(new Authentication("AppId", "AppKey"));
 
 // View a segment (by id)
 Segment segment = segmentsClient.View("100300231");
 Segment segment = segmentsClient.View(new Segment() { id = "100300231" });
 
-// List companies and iterating through
+// List segments and iterating through
 Segments segments = segmentsClient.List();
 
 foreach (Segment segment in segments.segments)
@@ -229,7 +229,7 @@ foreach (Note n in notes.notes)
 ### Counts
 
 ```cs
-// Create NotesClient instance
+// Create CountsClient instance
 CountsClient countsClient = new CountsClient(new Authentication("AppId", "AppKey"));
 
 // Get AppCount
@@ -260,7 +260,7 @@ UserTagCount userTagCount = countsClient.GetUserTagCount();
 ### Tags
 
 ```cs
-// Create UsersClient instance
+// Create TagsClient instance
 TagsClient tagsClient = new TagsClient(new Authentication("AppId", "AppKey"));
 
 // Create a tag
@@ -294,13 +294,13 @@ tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company
 ### Events
 
 ```cs
-// Create UsersClient instance
+// Create EventsClient instance
 EventsClient eventsClient = new EventsClient(new Authentication("AppId", "AppKey"));
 
 // Create an event
 Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718  });
 
-// Create a tag with Metadata (Simple, MonetaryAmounts and RichLinks)
+// Create an event with Metadata (Simple, MonetaryAmounts and RichLinks)
 Metadata metadata = new Metadata();
 metadata.Add("simple", 100);
 metadata.Add("simple_1", "two");
@@ -309,7 +309,7 @@ metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
 
 Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
 
-// List tags and iterate through
+// List events and iterate through
 Events events = eventsClient.List();
 
 foreach(Event ev in events.event)
