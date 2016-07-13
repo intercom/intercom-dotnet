@@ -309,8 +309,8 @@ metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
 
 Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
 
-// List events and iterate through
-Events events = eventsClient.List();
+// List events by user and iterate through
+Events events = eventsClient.List(new User() { user_id = "my_id" });
 
 foreach(Event ev in events.event)
     Console.WriteLine(ev.event_name);
