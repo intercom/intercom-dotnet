@@ -50,7 +50,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
 
             if (user.companies != null)
-                user.companies = user.companies.Select (c => new Company () { company_id = c.company_id }).ToList ();
+                user.companies = user.companies.Select (c => new Company () { id = c.id, company_id = c.company_id }).ToList ();
 
             result = Post<User>(user);
             return result.Result;
@@ -71,7 +71,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
 
             if (user.companies != null)
-                user.companies = user.companies.Select (c => new Company () { company_id = c.company_id }).ToList ();
+                user.companies = user.companies.Select (c => new Company () { id = c.id, company_id = c.company_id }).ToList ();
             
             result = Post<User>(user);
 
