@@ -29,16 +29,12 @@ namespace Intercom.Clients
 
         public Company Create(Company company)
         {
-            ClientResponse<Company> result = null;
-            CreateOrUpdate(company);
-            return result.Result;
+            return CreateOrUpdate(company);
         }
 
         public Company Update(Company company)
         {
-            ClientResponse<Company> result = null;
-            CreateOrUpdate(company);
-            return result.Result;
+			return CreateOrUpdate(company);
         }
 
         private Company CreateOrUpdate(Company company)
