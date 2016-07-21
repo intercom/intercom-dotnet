@@ -390,14 +390,14 @@ namespace Intercom.Clients
             return result.Result;   
         }
 
-        private User Transform (User user)
+        private String Transform (User user)
         {
             List<Company> companies = null;
 
             if (user.companies != null && user.companies.Any ())
                 companies = user.companies.Select (c => new Company () { id = c.id, company_id = c.company_id }).ToList ();
 
-            return new User () {
+            var body = new {
                 id = user.id,
                 user_id = user.user_id,
                 email = user.email,
@@ -405,11 +405,17 @@ namespace Intercom.Clients
                 name = user.name,
                 last_seen_ip = user.last_seen_ip,
                 custom_attributes = user.custom_attributes,
-                user_agent_data = user.user_agent_data,
+                last_seen_user_agent = user.user_agent_data,
                 companies = companies,
                 last_request_at = user.last_request_at,
                 unsubscribed_from_emails = user.unsubscribed_from_emails
             };
+
+            return JsonConvert.SerializeObject (body,
+                           Formatting.None,
+                           new JsonSerializerSettings {
+                               NullValueHandling = NullValueHandling.Ignore
+                           });
         }
     }
 }
