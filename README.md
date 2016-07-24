@@ -298,7 +298,7 @@ tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company
 EventsClient eventsClient = new EventsClient(new Authentication("AppId", "AppKey"));
 
 // Create an event
-Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718  });
+Event ev = eventsClient.Create(new Event() { user_id = "1000_user_id", email = "user_email@example.com", event_name = "new_event", created_at = 1462110718  });
 
 // Create an event with Metadata (Simple, MonetaryAmounts and RichLinks)
 Metadata metadata = new Metadata();
@@ -307,7 +307,7 @@ metadata.Add("simple_1", "two");
 metadata.Add("money", new Metadata.MonetaryAmount(100, "eur"));
 metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
 
-Event event = eventsClient.Create(new Event() { event_name = "new_event", created_at = 1462110718, metadata = metadata  });
+Event ev = eventsClient.Create(new Event() { user_id = "1000_user_id", email = "user_email@example.com", event_name = "new_event", created_at = 1462110718, metadata = metadata  });
 
 // List events by user and iterate through
 Events events = eventsClient.List(new User() { user_id = "my_id" });
