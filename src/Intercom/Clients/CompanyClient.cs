@@ -92,17 +92,17 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(company.id))
             {
-                result = Delete<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
+                result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
             }
             else if (!String.IsNullOrEmpty(company.name))
             {
                 parameters.Add(Constants.NAME, company.name);
-                result = Delete<Company>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(company.company_id))
             {
                 parameters.Add(Constants.COMPANY_ID, company.company_id);
-                result = Delete<Company>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else
             {
