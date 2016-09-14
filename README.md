@@ -43,9 +43,14 @@ Each of these resources is represented through the dotnet client by a Class as `
 You can set the app's id and api key via creating an `Authentication` object and passing it to the suitable `Client` class:
 
 ```cs
-UsersClient countsClient = new UsersClient(new Authentication("AppId", "AppKey"));
+UsersClient countsClient = new UsersClient(new Authentication("MyAppId", "MyAppKey"));
 ```
 
+You can also set the `Personal Access Token` via creating an `Authentication` object by invoking the single paramter constructor:
+
+```cs
+UsersClient countsClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
+```
 
 ## Usage
 
