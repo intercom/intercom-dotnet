@@ -38,7 +38,7 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void List_NoId_ThrowException()
         {
             adminConversationsClient.List(new Admin());

@@ -36,7 +36,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException ("'parameters' argument is null.");
+                throw new ArgumentNullException (nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -53,7 +53,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException ("'id' argument is null or empty.");
+                throw new ArgumentNullException (nameof(id));
             }
 
             ClientResponse<Admin> result = null;
@@ -64,12 +64,12 @@ namespace Intercom.Clients
         public Admin View(Admin admin)
         {
             if (admin == null) {
-                throw new ArgumentNullException ("'admin' argument is null.");
+                throw new ArgumentNullException (nameof(admin));
             }
 
             if (String.IsNullOrEmpty(admin.id))
             {
-                throw new ArgumentNullException ("you must provide value for 'admin.id'.");
+                throw new ArgumentException ("you must provide value for 'admin.id'.");
             }
 
             ClientResponse<Admin> result = null;

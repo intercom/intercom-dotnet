@@ -30,7 +30,7 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void Create_NoIdOrName_ThrowException()
         {
             tagsClient.Create(new Tag());
@@ -45,7 +45,7 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void Delete_NoId_ThrowException()
         {
             tagsClient.Delete(new Tag());

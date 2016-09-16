@@ -17,7 +17,7 @@ namespace Intercom.Data
 			public From(String id)
 			{
 				if(String.IsNullOrEmpty(id))
-					throw new ArgumentNullException ("'id' is null or empty.");
+					throw new ArgumentNullException (nameof(id));
 				
 				this.id = id;
                 this.type = Message.MessageFromOrToType.ADMIN;
@@ -33,7 +33,7 @@ namespace Intercom.Data
             public To(String type = Message.MessageFromOrToType.USER,  String id = null, String email = null, String user_id = null)
 			{
 				if(String.IsNullOrEmpty(type))
-					throw new ArgumentNullException ("'type' is null or empty.");
+					throw new ArgumentNullException (nameof(type));
 
 				if(String.IsNullOrEmpty(id) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(user_id))
 					throw new ArgumentException ("you need to provide either 'id', 'user_id', 'email' to view a user.");

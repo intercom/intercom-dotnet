@@ -36,13 +36,13 @@ namespace Intercom.Core
         public Client(String url, String resource, Authentication authentication)
         {
             if (authentication == null)
-                throw new ArgumentNullException("'basicAuthentication' argument is null.");
+                throw new ArgumentNullException(nameof(authentication));
                 
             if (String.IsNullOrEmpty(url))
-                throw new ArgumentNullException("'baseUrl' argument is null.");
+                throw new ArgumentNullException(nameof(url));
 
             if (String.IsNullOrEmpty(resource))
-                throw new ArgumentNullException("'resource' argument is null.");
+                throw new ArgumentNullException(nameof(resource));
 
             this.URL = url;
             this.RESRC = resource;
@@ -90,7 +90,7 @@ namespace Intercom.Core
         {
             if (String.IsNullOrEmpty(body))
             {
-                throw new ArgumentNullException("'body' argument is null.");
+                throw new ArgumentNullException(nameof(body));
             }
 
             ClientResponse<T> clientResponse = null;
@@ -128,7 +128,7 @@ namespace Intercom.Core
         {
             if (body == null)
             {
-                throw new ArgumentNullException("'body' argument is null.");
+                throw new ArgumentNullException(nameof(body));
             }
 
             ClientResponse<T> clientResponse = null;
@@ -167,7 +167,7 @@ namespace Intercom.Core
         {
             if (String.IsNullOrEmpty(body))
             {
-                throw new ArgumentNullException("'body' argument is null.");
+                throw new ArgumentNullException(nameof(body));
             }
 
             ClientResponse<T> clientResponse = null;
@@ -205,7 +205,7 @@ namespace Intercom.Core
         {
             if (body == null)
             {
-                throw new ArgumentNullException("'body' argument is null.");
+                throw new ArgumentNullException(nameof(body));
             }
 
             ClientResponse<T> clientResponse = null;
@@ -311,10 +311,10 @@ namespace Intercom.Core
                                           Dictionary<String, String> headers)
         {
             if (request == null)
-                throw new ArgumentNullException("'request' argument is null.");
+                throw new ArgumentNullException(nameof(request));
 
             if (headers == null)
-                throw new ArgumentNullException("'headers' argument is null.");
+                throw new ArgumentNullException(nameof(headers));
 
             foreach (var header in headers)
                 request.AddParameter(header.Key, header.Value, ParameterType.HttpHeader);
@@ -324,10 +324,10 @@ namespace Intercom.Core
                                              Dictionary<String, String> parameters)
         {
             if (request == null)
-                throw new ArgumentNullException("'request' argument is null.");
+                throw new ArgumentNullException(nameof(request));
 
             if (parameters == null)
-                throw new ArgumentNullException("'headers' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
 
             foreach (var parameter in parameters)
                 request.AddParameter(parameter.Key, parameter.Value, ParameterType.QueryString);
@@ -336,7 +336,7 @@ namespace Intercom.Core
         protected virtual void AddBody(IRestRequest request, String body)
         {
             if (request == null)
-                throw new ArgumentNullException("'request' argument is null.");
+                throw new ArgumentNullException(nameof(request));
 
             if (!String.IsNullOrEmpty(body))
                 request.AddParameter("application/json", body, ParameterType.RequestBody);

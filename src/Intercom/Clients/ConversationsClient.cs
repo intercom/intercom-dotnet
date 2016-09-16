@@ -38,7 +38,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null or empty.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();

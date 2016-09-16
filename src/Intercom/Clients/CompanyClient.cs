@@ -42,7 +42,7 @@ namespace Intercom.Clients
         {
             if (company == null)
             {
-                throw new ArgumentNullException("'company' argument is null.");
+                throw new ArgumentNullException(nameof(company));
             }
 
             if (company.custom_attributes != null && company.custom_attributes.Any())
@@ -72,7 +72,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Company> result = null;
@@ -84,7 +84,7 @@ namespace Intercom.Clients
         {
             if (company == null)
             {
-                throw new ArgumentNullException("'company' argument is null.");
+                throw new ArgumentNullException(nameof(company));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -106,7 +106,7 @@ namespace Intercom.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide either 'company.id', 'company.company_id' to view a company.");
+                throw new ArgumentException("you need to provide either 'company.id', 'company.company_id' to view a company.");
             }
 
             return result.Result;
@@ -123,7 +123,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -140,7 +140,7 @@ namespace Intercom.Clients
         {
             if (company == null)
             {
-                throw new ArgumentNullException("'company' argument is null.");
+                throw new ArgumentNullException(nameof(company));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -159,7 +159,7 @@ namespace Intercom.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide either 'company.id', 'company.company_id' to list users of a company.");
+                throw new ArgumentException("you need to provide either 'company.id', 'company.company_id' to list users of a company.");
             }
 
             return result.Result;
@@ -169,7 +169,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(companyId))
             {
-                throw new ArgumentNullException("'company.id' is null or empty.");
+                throw new ArgumentNullException(nameof(companyId));
             }
 
             String resource = companyId + Path.DirectorySeparatorChar + "users";

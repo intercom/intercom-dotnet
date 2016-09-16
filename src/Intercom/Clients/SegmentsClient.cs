@@ -46,7 +46,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -63,7 +63,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null or empty.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Segment> result = null;
@@ -75,12 +75,12 @@ namespace Intercom.Clients
         {
             if (segment == null)
             {
-                throw new ArgumentNullException("'segment' argument is null.");
+                throw new ArgumentNullException(nameof(segment));
             }
 
             if (String.IsNullOrEmpty(segment.id))
             {
-                throw new ArgumentNullException("you must provide value for 'segment.id'.");
+                throw new ArgumentException("you must provide value for 'segment.id'.");
             }
 
             ClientResponse<Segment> result = null;

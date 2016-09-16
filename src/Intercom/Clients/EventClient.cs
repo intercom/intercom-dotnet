@@ -29,17 +29,17 @@ namespace Intercom.Clients
 		{
             if (@event == null)
             {
-                throw new ArgumentNullException ("'event' argument is null.");
+                throw new ArgumentNullException (nameof(@event));
             }
 
             if (String.IsNullOrEmpty(@event.event_name))
             {
-                throw new ArgumentNullException ("'event_name' argument is null or empty.");
+                throw new ArgumentException ("'event_name' argument is null or empty.");
             }
 
             if (!@event.created_at.HasValue)
             {
-                throw new ArgumentNullException ("'created_at' argument must have value.");
+                throw new ArgumentException ("'created_at' argument must have value.");
             }
 
 			ClientResponse<Event> result = null;
@@ -71,7 +71,7 @@ namespace Intercom.Clients
 		public Events List (Dictionary<String, String> parameters)
 		{
 			if (parameters == null) {
-				throw new ArgumentNullException ("'parameters' argument is null.");
+				throw new ArgumentNullException (nameof(parameters));
 			}
 
 			if (!parameters.Any ()) {

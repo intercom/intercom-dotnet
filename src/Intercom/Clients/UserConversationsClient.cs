@@ -32,7 +32,7 @@ namespace Intercom.Clients
         {
             if (reply == null)
             {
-                throw new ArgumentNullException("'reply' argument is null.");
+                throw new ArgumentNullException(nameof(reply));
             }
 
             ClientResponse<ConversationPart> result = null;

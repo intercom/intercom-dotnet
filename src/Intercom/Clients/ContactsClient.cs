@@ -36,7 +36,7 @@ namespace Intercom.Clients
         public Contact Create (Contact contact)
         {
             if (contact == null) {
-                throw new ArgumentNullException ("'contact' argument is null.");
+                throw new ArgumentNullException (nameof(contact));
             }
 
             ClientResponse<Contact> result = null;
@@ -52,7 +52,7 @@ namespace Intercom.Clients
         public Contact Update (Contact contact)
         {
             if (contact == null) {
-                throw new ArgumentNullException ("'contact' argument is null.");
+                throw new ArgumentNullException (nameof(contact));
             }
 
             if (String.IsNullOrEmpty(contact.id) && String.IsNullOrEmpty(contact.user_id))
@@ -68,7 +68,7 @@ namespace Intercom.Clients
         public Contact View (String id)
         {
             if (String.IsNullOrEmpty (id)) {
-                throw new ArgumentNullException ("'parameters' argument is null.");
+                throw new ArgumentNullException (nameof(id));
             }
 
             ClientResponse<Contact> result = null;
@@ -79,7 +79,7 @@ namespace Intercom.Clients
         public Contact View (Contact contact)
         {
             if (contact == null) {
-                throw new ArgumentNullException ("'contact' argument is null.");
+                throw new ArgumentNullException (nameof(contact));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string> ();
@@ -107,7 +107,7 @@ namespace Intercom.Clients
         public Contacts List(String email)
         {
             if (String.IsNullOrEmpty(email)) {
-                throw new ArgumentNullException ("'email' argument is null or empty.");
+                throw new ArgumentNullException (nameof(email));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -122,7 +122,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -138,7 +138,7 @@ namespace Intercom.Clients
         public Contact Delete (Contact contact)
         {
             if (contact == null) {
-                throw new ArgumentNullException ("'contact' argument is null.");
+                throw new ArgumentNullException (nameof(contact));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string> ();
@@ -159,7 +159,7 @@ namespace Intercom.Clients
         public Contact Delete (String id)
         {
             if (String.IsNullOrEmpty (id)) {
-                throw new ArgumentNullException ("'id' argument is null.");
+                throw new ArgumentNullException (nameof(id));
             }
 
             ClientResponse<Contact> result = null;

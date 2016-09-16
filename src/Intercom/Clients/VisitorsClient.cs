@@ -32,7 +32,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -50,7 +50,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Visitor> result = null;
@@ -62,7 +62,7 @@ namespace Intercom.Clients
         {
             if (visitor == null)
             {
-                throw new ArgumentNullException("'visitor' argument is null.");
+                throw new ArgumentNullException(nameof(visitor));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -79,7 +79,7 @@ namespace Intercom.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide either 'visitor.id', 'visitor.user_id' to view a visitor.");
+                throw new ArgumentException("you need to provide either 'visitor.id', 'visitor.user_id' to view a visitor.");
             }
 
             return result.Result;   
@@ -89,7 +89,7 @@ namespace Intercom.Clients
         {
             if (visitor == null)
             {
-                throw new ArgumentNullException("'visitor' argument is null.");
+                throw new ArgumentNullException(nameof(visitor));
             }
 
             if (String.IsNullOrEmpty(visitor.id) && String.IsNullOrEmpty(visitor.user_id))
@@ -107,12 +107,12 @@ namespace Intercom.Clients
         {
             if (visitor == null)
             {
-                throw new ArgumentNullException("'visitor' argument is null.");
+                throw new ArgumentNullException(nameof(visitor));
             }
 
             if (String.IsNullOrEmpty(visitor.id))
             {
-                throw new ArgumentNullException("'visitor.id' argument is null.");
+                throw new ArgumentException("'visitor.id' argument is null.");
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -125,7 +125,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Visitor> result = null;
@@ -137,12 +137,12 @@ namespace Intercom.Clients
         {
             if (visitor == null)
             {
-                throw new ArgumentNullException("'visitor' argument is null.");
+                throw new ArgumentNullException(nameof(visitor));
             }
 
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             object userBody = null;
@@ -187,7 +187,7 @@ namespace Intercom.Clients
         public Contact ConvertToContact(Visitor visitor)
         {
             if (visitor == null) {
-                throw new ArgumentNullException ("'visitor' argument is null.");
+                throw new ArgumentNullException (nameof(visitor));
             }
 
             object visitorBody = null;

@@ -37,12 +37,12 @@ namespace Intercom.Clients
         {
             if (tag == null)
             {
-                throw new ArgumentNullException("'tag' argument is null.");
+                throw new ArgumentNullException(nameof(tag));
             }
 
             if (string.IsNullOrEmpty(tag.name))
             {
-                throw new ArgumentNullException("you need to provide 'tag.name' to create a tag.");
+                throw new ArgumentException("you need to provide 'tag.name' to create a tag.");
             }
 
             ClientResponse<Tag> result = null;
@@ -54,7 +54,7 @@ namespace Intercom.Clients
         {
             if (tag == null)
             {
-                throw new ArgumentNullException("'contact' argument is null.");
+                throw new ArgumentNullException(nameof(tag));
             }
 
             if (String.IsNullOrEmpty(tag.name) || String.IsNullOrEmpty(tag.id))
@@ -71,7 +71,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Tag> result = null;
@@ -83,7 +83,7 @@ namespace Intercom.Clients
         {
             if (tag == null)
             {
-				throw new ArgumentNullException("'tag' argument is null.");
+				throw new ArgumentNullException(nameof(tag));
             }
 
             ClientResponse<Tag> result = null;
@@ -94,7 +94,7 @@ namespace Intercom.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide 'tag.id' to view a tag.");
+                throw new ArgumentException("you need to provide 'tag.id' to view a tag.");
             }
 
             return result.Result;   
@@ -111,7 +111,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -128,12 +128,12 @@ namespace Intercom.Clients
         {
             if (tag == null)
             {
-                throw new ArgumentNullException("'tag' argument is null.");
+                throw new ArgumentNullException(nameof(tag));
             }
 
             if (String.IsNullOrEmpty(tag.id))
             {
-                throw new ArgumentNullException("you need to provide 'tag.id' to delete a tag.");
+                throw new ArgumentException("you need to provide 'tag.id' to delete a tag.");
             }
 
             Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + tag.id);
@@ -143,7 +143,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null or empty.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
@@ -153,12 +153,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (companies == null)
             {
-                throw new ArgumentNullException("'companies' argument is null.");
+                throw new ArgumentNullException(nameof(companies));
             }
 
             if (!companies.Any())
@@ -183,12 +183,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (users == null)
             {
-                throw new ArgumentNullException("'users' argument is null.");
+                throw new ArgumentNullException(nameof(users));
             }
 
             if (!users.Any())
@@ -207,12 +207,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (contacts == null)
             {
-                throw new ArgumentNullException("'users' argument is null.");
+                throw new ArgumentNullException(nameof(contacts));
             }
 
             if (!contacts.Any())
@@ -246,12 +246,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (users == null)
             {
-                throw new ArgumentNullException("'users' argument is null.");
+                throw new ArgumentNullException(nameof(users));
             }
 
             if (!users.Any())
@@ -270,12 +270,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (companies == null)
             {
-                throw new ArgumentNullException("'companies' argument is null.");
+                throw new ArgumentNullException(nameof(companies));
             }
 
             if (!companies.Any())
@@ -301,12 +301,12 @@ namespace Intercom.Clients
 
             if (String.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("'name' argument shouldnt be null or empty.");
+                throw new ArgumentNullException(nameof(name));
             }
 
             if (contacts == null)
             {
-                throw new ArgumentNullException("'users' argument is null.");
+                throw new ArgumentNullException(nameof(contacts));
             }
 
             if (!contacts.Any())
