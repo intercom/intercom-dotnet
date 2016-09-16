@@ -298,7 +298,12 @@ namespace Intercom.Core
         protected virtual IRestClient BuildClient()
         {
             RestClient client = new RestClient(URL);
-            client.Authenticator = new HttpBasicAuthenticator(AUTH.AppId, AUTH.AppKey);
+
+            if (!String.IsNullOrEmpty (AUTH.AppId) && !String.IsNullOrEmpty (AUTH.AppKey))
+                client.Authenticator = new HttpBasicAuthenticator (AUTH.AppId, AUTH.AppKey);
+            else
+                client.Authenticator = new HttpBasicAuthenticator (AUTH.PersonalAccessToken, String.Empty);
+
             return client;
         }
 

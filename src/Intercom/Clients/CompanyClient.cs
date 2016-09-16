@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -29,16 +30,12 @@ namespace Intercom.Clients
 
         public Company Create(Company company)
         {
-            ClientResponse<Company> result = null;
-            CreateOrUpdate(company);
-            return result.Result;
+            return CreateOrUpdate(company);
         }
 
         public Company Update(Company company)
         {
-            ClientResponse<Company> result = null;
-            CreateOrUpdate(company);
-            return result.Result;
+			return CreateOrUpdate(company);
         }
 
         private Company CreateOrUpdate(Company company)
@@ -67,7 +64,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Company> result = null;
-            result = Post<Company>(company);
+            result = Post<Company>(Transform(company));
             return result.Result;
         }
 
@@ -95,17 +92,17 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(company.id))
             {
-                result = Delete<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
+                result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
             }
             else if (!String.IsNullOrEmpty(company.name))
             {
                 parameters.Add(Constants.NAME, company.name);
-                result = Delete<Company>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(company.company_id))
             {
                 parameters.Add(Constants.COMPANY_ID, company.company_id);
-                result = Delete<Company>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else
             {
@@ -179,6 +176,29 @@ namespace Intercom.Clients
             ClientResponse<Users> result = null;
             result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
             return result.Result;		
+        }
+
+        private String Transform (Company company)
+        {
+            String plan = String.Empty;
+
+            if (company.plan != null)
+                plan = company.plan.name;
+
+            var body = new {
+                remote_created_at = company.remote_created_at,
+                company_id = company.company_id,
+                name = company.name,
+                monthly_spend = company.monthly_spend,
+                custom_attributes = company.custom_attributes,
+                plan = plan
+            };
+
+            return JsonConvert.SerializeObject (body,
+                           Formatting.None,
+                           new JsonSerializerSettings {
+                               NullValueHandling = NullValueHandling.Ignore
+                           });
         }
     }
 }
