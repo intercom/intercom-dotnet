@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Intercom.Test
 {
-    [TestFixture()]
+    [TestFixture ()]
     public class ClientTest
     {
         [Test]

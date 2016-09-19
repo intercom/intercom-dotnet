@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
+using Newtonsoft.Json;
 
 namespace Intercom.Clients
 {
@@ -167,10 +163,50 @@ namespace Intercom.Clients
             return result.Result;           
         }
 
-        // TODO: Implement converting a lead into a user
-        private User ConvertToUser(Contact contact)
+        public User Convert (Contact contact, User user)
         {
-            throw new NotImplementedException();
+            if (contact == null)
+                throw new ArgumentNullException ("'contact' argument is null.");
+
+            if (user == null)
+                throw new ArgumentNullException ("'user' argument is null.");
+
+            if (String.IsNullOrEmpty (contact.id) && String.IsNullOrEmpty (contact.user_id))
+                throw new ArgumentException ("you need to provide either 'contact.id', 'contact.user_id' to convert a lead.");
+
+            if (String.IsNullOrEmpty (user.id) && String.IsNullOrEmpty (user.user_id) && String.IsNullOrEmpty (user.email))
+                throw new ArgumentException ("you need to provide either 'user.id', 'user.user_id', or 'user.email' to convert a lead.");
+
+            Dictionary<String, String> contactBody = new Dictionary<String, String> ();
+            Dictionary<String, String> userBody = new Dictionary<String, String> ();
+
+            if (!String.IsNullOrEmpty (user.id)) {
+                userBody.Add ("id", user.id);
+            }
+            else if (!String.IsNullOrEmpty (user.user_id)) {
+                userBody.Add ("user_id", user.user_id);
+            }
+            else {
+                userBody.Add ("email", user.email);
+            }
+
+            if (!String.IsNullOrEmpty (contact.id)) {
+                contactBody.Add ("id", contact.id);
+            } else {
+                contactBody.Add ("user_id", contact.user_id);
+            }
+
+            var body = new { contact = contactBody, user = userBody };
+
+            var jsonBody = JsonConvert.SerializeObject (body,
+                           Formatting.None,
+                           new JsonSerializerSettings {
+                               NullValueHandling = NullValueHandling.Ignore
+                           });
+
+            var result = Post<User> (jsonBody, resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + "convert" );
+
+            return result.Result;
         }
     }
 }
