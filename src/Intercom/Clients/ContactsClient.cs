@@ -160,7 +160,36 @@ namespace Intercom.Clients
 
             ClientResponse<Contact> result = null;
             result = Delete<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + id);
-            return result.Result;           
+            return result.Result;
+        }
+
+        public User Convert (Contact contact)
+        {
+            if (contact == null)
+                throw new ArgumentNullException ("'contact' argument is null.");
+
+            if (String.IsNullOrEmpty (contact.id) && String.IsNullOrEmpty (contact.user_id))
+                throw new ArgumentException ("you need to provide either 'contact.id', 'contact.user_id' to convert a lead.");
+
+            Dictionary<String, String> contactBody = new Dictionary<String, String> ();
+
+            if (!String.IsNullOrEmpty (contact.id)) {
+                contactBody.Add ("id", contact.id);
+            } else {
+                contactBody.Add ("user_id", contact.user_id);
+            }
+
+            var body = new { contact = contactBody };
+
+            var jsonBody = JsonConvert.SerializeObject (body,
+                           Formatting.None,
+                           new JsonSerializerSettings {
+                               NullValueHandling = NullValueHandling.Ignore
+                           });
+
+            var result = Post<User> (jsonBody, resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + "convert");
+
+            return result.Result;
         }
 
         public User Convert (Contact contact, User user)
