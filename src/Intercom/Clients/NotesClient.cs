@@ -135,7 +135,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Note> result = null;
-            result = Get<Note>(resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Note>(resource: Path.Combine (NOTES_RESOURCE, id));
             return result.Result;       
         }
 

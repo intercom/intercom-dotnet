@@ -57,7 +57,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Admin> result = null;
-            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Admin> (resource: Path.Combine (ADMINS_RESOURCE, id));
             return result.Result;
         }
 
@@ -73,7 +73,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Admin> result = null;
-            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + admin.id);
+            result = Get<Admin> (resource: Path.Combine (ADMINS_RESOURCE, admin.id));
             return result.Result;  
         }
     }
