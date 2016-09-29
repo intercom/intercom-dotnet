@@ -3,7 +3,6 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Clients;
 using Intercom.Exceptions;
-using RestSharp;
 
 namespace Intercom.Exceptions
 {

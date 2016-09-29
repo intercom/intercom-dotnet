@@ -6,8 +6,6 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
