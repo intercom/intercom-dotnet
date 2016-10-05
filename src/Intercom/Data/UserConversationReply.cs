@@ -42,7 +42,7 @@ namespace Intercom.Data
         {
 
             if (String.IsNullOrEmpty(conversationId))
-                throw new ArgumentNullException("conversation_id is null or empty.");
+                throw new ArgumentNullException(nameof(conversationId));
             
             if (String.IsNullOrEmpty(intercomUserId) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(userId))
                 throw new ArgumentException("you need to provide either 'intercomUserId', 'userId', 'email' to view a user.");

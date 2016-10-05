@@ -31,7 +31,7 @@ namespace Intercom.Clients
         {
             if (reply == null)
             {
-                throw new ArgumentNullException("'reply' argument is null.");
+                throw new ArgumentNullException(nameof(reply));
             }
 
             ClientResponse<ConversationPart> result = null;
@@ -44,7 +44,7 @@ namespace Intercom.Clients
         {
             if (adminMessage == null)
             {
-                throw new ArgumentNullException("'adminMessage' argument is null.");
+                throw new ArgumentNullException(nameof(adminMessage));
             }
 
             ClientResponse<AdminConversationMessage> result = null;
@@ -56,12 +56,12 @@ namespace Intercom.Clients
         {
             if (admin == null)
             {
-                throw new ArgumentNullException("'admin' argument is null.");
+                throw new ArgumentNullException(nameof(admin));
             }
 
             if (String.IsNullOrEmpty(admin.id))
             {
-                throw new ArgumentNullException("'admin.id' argument is null or empty.");
+                throw new ArgumentException("'admin.id' argument is null or empty.");
             }
 
             ClientResponse<Conversations> result = null;

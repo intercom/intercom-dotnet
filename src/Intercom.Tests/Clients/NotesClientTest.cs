@@ -37,7 +37,7 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void CreateWithNote_NoBody_ThrowException()
         {
             notesClient.Create(new Note() { user = new User() { email = "email@example.com" } });

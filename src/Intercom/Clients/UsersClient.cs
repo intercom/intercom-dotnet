@@ -39,7 +39,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             if (String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
@@ -56,7 +56,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
@@ -98,7 +98,7 @@ namespace Intercom.Clients
         {
             if (parameters == null)
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(parameters));
             }
 
             if (!parameters.Any())
@@ -116,7 +116,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'parameters' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<User> result = null;
@@ -128,7 +128,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -150,7 +150,7 @@ namespace Intercom.Clients
             }
             else
             {
-                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
             }
 
             return result.Result;	
@@ -186,7 +186,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
@@ -218,7 +218,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<User> result = null;
@@ -230,7 +230,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             if (timestamp <= 0)
@@ -248,7 +248,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
             
             if (timestamp <= 0)
@@ -265,7 +265,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, last_request_at = timestamp });
             else
-                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -276,7 +276,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'userId' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<User> result = null;
@@ -289,7 +289,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             String body = String.Empty;
@@ -301,7 +301,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, update_last_request_at = true });
             else
-                throw new ArgumentNullException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -312,7 +312,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<User> result = null;
@@ -325,12 +325,12 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             if (String.IsNullOrEmpty(user.id))
             {
-                throw new ArgumentNullException("'id' argument is null.");
+                throw new ArgumentException("'user.id' argument is null.");
             }
 
             ClientResponse<User> result = null;
@@ -343,12 +343,12 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'userId' argument is null.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             if (companyIds == null)
             {
-                throw new ArgumentNullException("'companyIds' argument is null.");
+                throw new ArgumentNullException(nameof(companyIds));
             }
 
             if (!companyIds.Any())
@@ -366,17 +366,17 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             if (String.IsNullOrEmpty(user.id))
             {
-                throw new ArgumentNullException("'user.id' is null.");
+                throw new ArgumentException("'user.id' is null.");
             }
 
             if (companyIds == null)
             {
-                throw new ArgumentNullException("'companyIds' argument is null.");
+                throw new ArgumentNullException(nameof(companyIds));
             }
 
             if (!companyIds.Any())

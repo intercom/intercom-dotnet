@@ -34,7 +34,7 @@ namespace Intercom.Data
         {
 
             if (String.IsNullOrEmpty(conversationId))
-                throw new ArgumentNullException("conversation_id is null or empty.");
+                throw new ArgumentNullException(nameof(conversationId));
 
             if ((messageType == Reply.ReplyMessageType.COMMENT ||
                 messageType == Reply.ReplyMessageType.NOTE) &&

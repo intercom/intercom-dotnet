@@ -31,7 +31,7 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void View_NoId_ThrowException()
         {
             adminsClient.View(new Admin());

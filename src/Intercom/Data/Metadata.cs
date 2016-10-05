@@ -24,12 +24,12 @@ namespace Intercom.Data
             {
                 if (String.IsNullOrEmpty(url))
                 {
-                    throw new ArgumentNullException("'url' argument is null or empty.");
+                    throw new ArgumentNullException(nameof(url));
                 }
 
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("'value' argument is null or empty.");
+                    throw new ArgumentNullException(nameof(value));
                 }
 
                 this.url = url;
@@ -52,7 +52,7 @@ namespace Intercom.Data
             {
                 if (String.IsNullOrEmpty(currency))
                 {
-                    throw new ArgumentNullException("'currency' argument is null or empty.");
+                    throw new ArgumentNullException(nameof(currency));
                 }
 
                 this.amount = amount;
@@ -86,12 +86,12 @@ namespace Intercom.Data
 			
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             if (value == null)
             {
-                throw new ArgumentNullException("'value' argument is null.");
+                throw new ArgumentNullException(nameof(value));
             }
 
             data.Add(key, value);
@@ -101,7 +101,7 @@ namespace Intercom.Data
         {
             if (metadata == null)
             {
-                throw new ArgumentNullException("'metadata' argument is null.");
+                throw new ArgumentNullException(nameof(metadata));
             }
 
             if (!metadata.Any())
@@ -119,7 +119,7 @@ namespace Intercom.Data
         {
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             if (richLink == null)
@@ -134,7 +134,7 @@ namespace Intercom.Data
         {
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             if (monetaryAmount == null)
@@ -159,7 +159,7 @@ namespace Intercom.Data
         {
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             object result = null;
@@ -176,7 +176,7 @@ namespace Intercom.Data
         {
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             MonetaryAmount result = null;
@@ -206,7 +206,7 @@ namespace Intercom.Data
         {
             if (String.IsNullOrEmpty(key))
             {
-                throw new ArgumentNullException("'key' argument is null or empty.");
+                throw new ArgumentNullException(nameof(key));
             }
 
             RichLink result = null;

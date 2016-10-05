@@ -31,12 +31,12 @@ namespace Intercom.Clients
         {
             if (note == null)
             {
-                throw new ArgumentNullException("'note' argument is null.");
+                throw new ArgumentNullException(nameof(note));
             }
 
             if (note.user == null)
             {
-                throw new ArgumentNullException("'note.user' argument is null.");
+                throw new ArgumentException("'note.user' argument is null.");
             }
 
             object u = null;
@@ -52,7 +52,7 @@ namespace Intercom.Clients
 
             if (String.IsNullOrEmpty(note.body))
             {
-                throw new ArgumentNullException("'note.body' argument is null or empty.");
+                throw new ArgumentException("'note.body' argument is null or empty.");
             }
 
             if (note.author == null)
@@ -88,7 +88,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException("user");
             }
 
             object u = null;
@@ -104,7 +104,7 @@ namespace Intercom.Clients
 
             if (String.IsNullOrEmpty(body))
             {
-                throw new ArgumentNullException("'body' argument is null or empty.");
+                throw new ArgumentNullException(nameof(body));
             }
 
             ClientResponse<Note> result = null;
@@ -131,7 +131,7 @@ namespace Intercom.Clients
         {
             if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException("'id' argument is null or empty.");
+                throw new ArgumentNullException(nameof(id));
             }
 
             ClientResponse<Note> result = null;
@@ -143,7 +143,7 @@ namespace Intercom.Clients
         {
             if (user == null)
             {
-                throw new ArgumentNullException("'user' argument is null.");
+                throw new ArgumentNullException(nameof(user));
             }
 
             Dictionary<String, String> parameters = new Dictionary<String, String>();
