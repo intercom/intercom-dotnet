@@ -30,7 +30,7 @@ namespace Intercom.Data
                                       String messageType = Reply.ReplyMessageType.COMMENT,
                                       String body = "",
                                       List<String> attachementUrls = null)
-            : base(conversationId, Reply.ReplyMessageType.COMMENT, body, attachementUrls)
+            : base(conversationId, messageType, body, attachementUrls)
         {
 
             if (String.IsNullOrEmpty(conversationId))
