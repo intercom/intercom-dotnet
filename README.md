@@ -45,6 +45,8 @@ You can set the app's id and api key via creating an `Authentication` object and
 ```cs
 UsersClient countsClient = new UsersClient(new Authentication("MyAppId", "MyAppKey"));
 ```
+> Warning: API Keys are being deprecated - you should use a [personal access token](https://app.intercom.io/a/apps/_/settings/personal-access-token) instead. [Learn more](https://developers.intercom.io/docs/personal-access-tokens) about API Keys deprecation
+
 
 You can also set the `Personal Access Token` via creating an `Authentication` object by invoking the single paramter constructor:
 
