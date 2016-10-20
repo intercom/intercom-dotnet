@@ -401,12 +401,13 @@ namespace Intercom.Clients
                 id = user.id,
                 user_id = user.user_id,
                 email = user.email,
-                signed_up_at = user.signed_up_at,
                 name = user.name,
+                companies = companies,
+                avatar = user.avatar,
+                signed_up_at = user.signed_up_at,
                 last_seen_ip = user.last_seen_ip,
                 custom_attributes = user.custom_attributes,
                 last_seen_user_agent = user.user_agent_data,
-                companies = companies,
                 last_request_at = user.last_request_at,
                 unsubscribed_from_emails = user.unsubscribed_from_emails
             };
