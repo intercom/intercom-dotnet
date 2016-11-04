@@ -4,7 +4,7 @@
 
 .NET bindings for the [Intercom API](https://developers.intercom.io/reference)
 
- - [Installation](#installation)
+ - [Installation](#add-a-dependency)
  - [Resources](#resources)
  - [Authorization](#authorization)
  - [Usage](#usage)
