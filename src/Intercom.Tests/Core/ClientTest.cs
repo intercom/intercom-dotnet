@@ -1,9 +1,4 @@
-﻿using Intercom;
-using Intercom.Clients;
-using Intercom.Core;
-using System;
-using NUnit.Framework;
-using Intercom.Data;
+﻿using NUnit.Framework;
 
 namespace Intercom.Test
 {

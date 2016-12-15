@@ -21,6 +21,6 @@ namespace Intercom.Data
         [JsonConverter(typeof(ListJsonConverter))]
         public List<ConversationPart> conversation_parts { get; set; }
         [JsonConverter(typeof(ListJsonConverter))]
-        public List<Tags> tags { get; set; }
+        public List<Tag> tags { get; set; }
     }
 }
