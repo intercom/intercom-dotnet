@@ -1,12 +1,8 @@
 ﻿using System;
 using Intercom.Core;
 using Intercom.Data;
-
-
 using Intercom.Clients;
-
 using Intercom.Exceptions;
-
 using System.Collections.Generic;
 
 namespace Intercom.Data
@@ -17,4 +13,3 @@ namespace Intercom.Data
 		public List<Tag> tags { get; set; }
 	}
 }
-
