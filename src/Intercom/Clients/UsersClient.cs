@@ -401,6 +401,7 @@ namespace Intercom.Clients
                 id = user.id,
                 user_id = user.user_id,
                 email = user.email,
+                phone = user.phone,
                 name = user.name,
                 companies = companies,
                 avatar = user.avatar,

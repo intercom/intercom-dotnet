@@ -20,6 +20,7 @@ namespace Intercom.Core
 		public const String TYPE = "type";
 		public const String NAME = "name";
 		public const String EMAIL = "email";
+		public const String PHONE = "phone";
         public const String REPLY = "reply";
         public const String USER = "user";
         public const String ADMIN = "admin";

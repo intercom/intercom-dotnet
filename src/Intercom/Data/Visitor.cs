@@ -17,7 +17,8 @@ namespace Intercom.Data
     {
         public string user_id { get; set; }
         public string name { get; set; }
-        public string email {set;get; } 
+        public string email { set; get; }
+        public string phone { set; get; }
         public int? created_at { get; set; }
         public int? updated_at { get; set; }
         public string last_seen_ip { get; set; }
