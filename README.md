@@ -40,19 +40,14 @@ Each of these resources is represented through the dotnet client by a Class as `
 
 ## Authorization
 
-You can set the app's id and api key via creating an `Authentication` object and passing it to the suitable `Client` class:
-
-```cs
-UsersClient countsClient = new UsersClient(new Authentication("MyAppId", "MyAppKey"));
-```
-> Warning: API Keys are being deprecated - you should use a [personal access token](https://app.intercom.io/a/apps/_/settings/personal-access-token) instead. [Learn more](https://developers.intercom.io/docs/personal-access-tokens) about API Keys deprecation
-
-
-You can also set the `Personal Access Token` via creating an `Authentication` object by invoking the single paramter constructor:
+You can set the `Personal Access Token` via creating an `Authentication` object by invoking the single paramter constructor:
 
 ```cs
 UsersClient countsClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
 ```
+If you already have an access token you can find it [here](https://app.intercom.com/developers/_). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.io/docs/personal-access-tokens).
+
+If you are building a third party application you will need to implement OAuth by following the steps for [setting-up-oauth](https://developers.intercom.io/page/setting-up-oauth) for Intercom.
 
 ## Usage
 
