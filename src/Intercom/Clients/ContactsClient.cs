@@ -131,6 +131,18 @@ namespace Intercom.Clients
             return result.Result;
         }
 
+        public Contacts Scroll(String scrollParam = null)
+        {
+            ClientResponse<Contacts> result = null;
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            if (!string.IsNullOrWhiteSpace(scrollParam))
+            {
+                parameters.Add("scroll_param", scrollParam);
+            }
+            result = Get<Contacts>(parameters: parameters, resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + "scroll");
+            return result.Result;
+        }
+
         public Contact Delete (Contact contact)
         {
             if (contact == null) {
