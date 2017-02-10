@@ -67,11 +67,16 @@ User user = usersClient.View(new User() { email = "example@example.com" });
 User user = usersClient.View(new User() { id = "100300231" });
 User user = usersClient.View(new User() { user_id = "my_id" });
 
-// List users and iterating through users
+// List users and iterating through users, up to 10k records (for all records use the Scroll API)
 Users users = usersClient.List();
 
 foreach(User u in users.users)
     Console.WriteLine(u.email);
+
+// List users via Scroll API
+Users users = usersClient.Scroll();
+String scroll_param_value = users.scroll_param;
+Users users = usersClient.Scroll(scroll_param_value);
 
 // Update a user with a new company (with user assigned company_id)
 User user = usersClient.Update(new User() { 
@@ -121,11 +126,16 @@ Contact contact = contactsClient.Update(
                         companies = new List<Company>() { new Company() { company_id = "new_company" } }
                     });
 
-// List contacts and iterating through contacts
+// List contacts and iterating through contacts up to 10k records (for all records use the Scroll API)
 Contacts contacts = contactsClient.List();
 
 foreach (Contact c in contacts.contacts)
     Console.WriteLine(c.email);
+
+// List contacts via Scroll API
+Contacts contacts = contactsClient.Scroll();
+String scroll_param_value = contacts.scroll_param;
+Contacts contacts = contactsClient.Scroll(scroll_param_value);
 
 // Delete a contact
 contactsClient.Delete("100300231");

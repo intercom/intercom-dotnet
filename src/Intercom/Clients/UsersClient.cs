@@ -182,6 +182,20 @@ namespace Intercom.Clients
             return null;
         }
 
+        public Users Scroll(String scrollParam = null)
+        {
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
+            ClientResponse<Users> result = null;
+            
+            if (!String.IsNullOrWhiteSpace(scrollParam))
+            {
+                parameters.Add("scroll_param", scrollParam);
+            }
+
+            result = Get<Users>(parameters: parameters, resource: USERS_RESOURCE + Path.DirectorySeparatorChar + "scroll");
+            return result.Result;
+        }
+
         public User Delete(User user)
         {
             if (user == null)
