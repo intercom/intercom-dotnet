@@ -1,20 +1,12 @@
-﻿using System;
-using Intercom.Core;
-using Intercom.Data;
-
-
-using Intercom.Clients;
-
-using Intercom.Exceptions;
-
+﻿using Intercom.Core;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace Intercom.Data
 {
     public class Users : Models
 	{
 		public List<User> users { set; get; }
+        public string scroll_param { get; set; }
 
 		public Users ()
 		{

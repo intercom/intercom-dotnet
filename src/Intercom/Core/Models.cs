@@ -12,7 +12,6 @@ namespace Intercom.Core
 		public virtual string type { get; set; }
 		public virtual Pages pages { get; set; }
 		public virtual int total_count { get; set; }
-		public virtual string scroll_param { get; set; }
 
 		public Models ()
 		{
