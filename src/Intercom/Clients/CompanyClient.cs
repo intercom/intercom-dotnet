@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
-using Intercom.Exceptions;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -133,6 +128,19 @@ namespace Intercom.Clients
 
             ClientResponse<Companies> result = null;
             result = Get<Companies>(parameters: parameters);
+            return result.Result;
+        }
+
+        public Companies Scroll (String scrollParam = null)
+        {
+            Dictionary<String, String> parameters = new Dictionary<String, String> ();
+            ClientResponse<Companies> result = null;
+
+            if (!String.IsNullOrWhiteSpace (scrollParam)) {
+                parameters.Add ("scroll_param", scrollParam);
+            }
+
+            result = Get<Companies> (parameters: parameters, resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + "scroll");
             return result.Result;
         }
 
