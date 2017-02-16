@@ -10,6 +10,7 @@ namespace Intercom.Data
 	public class Companies : Models
 	{
 		public List<Company> companies { set; get; }
+        public string scroll_param { get; set; }
 
 		public Companies ()
 		{

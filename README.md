@@ -170,6 +170,11 @@ Company company = companyClient.Update(
 // List companies and iterating through
 Companies companies = companyClient.List();
 
+// List companies via Scroll API
+Companies companies = companyClient.Scroll();
+String scrollParam = companies.scroll_param;
+Companies companies = companyClient.Scroll(scrollParam);
+
 foreach (Company c in companies.companies)
     Console.WriteLine(c.name);
 
