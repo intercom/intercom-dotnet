@@ -79,9 +79,9 @@ String scroll_param_value = users.scroll_param;
 Users users = usersClient.Scroll(scroll_param_value);
 
 // Update a user with a new company (with user assigned company_id)
-User user = usersClient.Update(new User() { 
-                                email = "example@example.com", 
-                                companies = new List<Company>() { 
+User user = usersClient.Update(new User() {
+                                email = "example@example.com",
+                                companies = new List<Company>() {
                                         new Company() { company_id = "new_company" } } });
 
 // Delete a user
@@ -94,6 +94,16 @@ User user = usersClient.UpdateLastSeenAt("100300231");
 User user = usersClient.UpdateLastSeenAt(new User() { id = "100300231" });
 User user = usersClient.UpdateLastSeenAt("100300231", 1462110718);
 User user = usersClient.UpdateLastSeenAt(new User() { id = "100300231" }, 1462110718);
+
+// Update user's custom attributes
+Dictionary<string, object> customAttributes = new Dictionary<string, object>();
+customAttributes.Add("total", "100.00");
+customAttributes.Add("account_level", "1");
+
+User user = usersClient.View("100300231");
+user.custom_attributes = customAttributes;
+
+user = usersClient.Update(user);
 
 // Increment User's Session
 usersClient.IncrementUserSession(new User() { id = "100300231" });
@@ -122,7 +132,7 @@ Contact contact = contactsClient.View(new Contact() { user_id = "my_lead_id" });
 Contact contact = contactsClient.Update(
                     new Contact()
                     {   
-                        email = "example@example", 
+                        email = "example@example",
                         companies = new List<Company>() { new Company() { company_id = "new_company" } }
                     });
 
@@ -163,7 +173,7 @@ Company company = companyClient.View(new Company() { name = "my_company_name" })
 Company company = companyClient.Update(
                     new Company()
                     {   
-                        company_id = "example@example", 
+                        company_id = "example@example",
                         monthly_spend = 100
                     });
 
@@ -225,7 +235,7 @@ NotesClient notesClient = new NotesClient(new Authentication("AppId", "AppKey"))
 
 // Create a note (by User, body and admin_id)
 Note note = notesClient.Create(
-    new Note() { 
+    new Note() {
     author = new Author() { id = "100300231_admin_id" },
     user =  new User() { email = "example@example.com" },
     body = "this is a new note"
@@ -347,7 +357,7 @@ conversationsClient.View("100300231", displayAsPlainText: true);
 AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("AppId", "AppKey"));
 
 // Create Admin initiated Conversation
-AdminConversationMessage admin_message = 
+AdminConversationMessage admin_message =
     adminConversationsClient.Create(new AdminConversationMessage(
             from: new AdminConversationMessage.From("1000_admin_id"),
             to: new AdminConversationMessage.To(id: "1000_user_id"),
@@ -358,10 +368,10 @@ AdminConversationMessage admin_message =
 
 
 // Create Admin initiated Conversation's reply
-AdminConversationReply admin_reply = 
+AdminConversationReply admin_reply =
     adminConversationsClient.Reply(
         new AdminConversationReply(
-            conversationId: "1000_conversation_id", 
+            conversationId: "1000_conversation_id",
             adminId: "1000_admin_id",
             messageType: AdminConversationReply.ReplyMessageType.COMMENT,
             body: "this is a reply body"));
@@ -371,14 +381,14 @@ AdminConversationReply admin_reply =
 UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("AppId", "AppKey"));
 
 // Create User initiated Conversation
-UserConversationMessage user_message = 
+UserConversationMessage user_message =
     userConversationsClient.Create(
         new UserConversationMessage(
             from: new UserConversationMessage.From(id: "1000_user_id"),
             body: "this is a user's message body"));
 
 // Create User initiated Conversation's reply
-UserConversationReply user_reply = 
+UserConversationReply user_reply =
     userConversationsClient.Reply(
         new UserConversationReply(
             conversationId: "1000_conversation_id",
