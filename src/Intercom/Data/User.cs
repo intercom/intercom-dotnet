@@ -37,7 +37,7 @@ namespace Intercom.Data
 		[JsonConverter(typeof(ListJsonConverter))]
 		public List<Company> companies { get; set; }
 		[JsonConverter(typeof(ListJsonConverter))]
-		public List<Segments> segments { get; set; }
+		public List<Segment> segments { get; set; }
 		[JsonConverter(typeof(ListJsonConverter))]
 		public List<Tag> tags { get; set; }
 
