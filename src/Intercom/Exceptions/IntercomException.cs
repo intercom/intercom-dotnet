@@ -1,27 +1,22 @@
 ﻿using System;
-using Intercom.Core;
-using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-using RestSharp;
 
 namespace Intercom.Exceptions
 {
 	public class IntercomException : Exception
 	{
-        public IntercomException ()
-            :base()
-        {
-        }
+		public IntercomException()
+			: base()
+		{
+		}
 
-        public IntercomException (String message) 
-            :base(message)
-        {
-        }
+		public IntercomException(String message)
+			: base(message)
+		{
+		}
 
-        public IntercomException (String message, Exception innerException) 
-            :base(message, innerException)
-        {
-        }
+		public IntercomException(String message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
 	}
 }

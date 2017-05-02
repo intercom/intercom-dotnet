@@ -1,12 +1,5 @@
 ﻿using System;
 using Intercom.Core;
-using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
-using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Intercom.Converters.AttributeConverters;
@@ -29,7 +22,7 @@ namespace Intercom.Data
 		public string user_agent_data { get; set; }
 		public object pseudonym { get; set; }
 		public bool? anonymous { get; set; }
-        public Dictionary<String, Object> custom_attributes { get; set; }
+		public Dictionary<String, Object> custom_attributes { get; set; }
 		public Avatar avatar { get; set; }
 		public LocationData location_data { get; set; }
 		[JsonConverter(typeof(ListJsonConverter))]

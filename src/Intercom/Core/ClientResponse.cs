@@ -3,7 +3,7 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Clients;
 using Intercom.Exceptions;
-using RestSharp;
+using System.Net.Http;
 
 namespace Intercom.Core
 {
@@ -11,9 +11,9 @@ namespace Intercom.Core
 	{
 		public T Result { private set; get; }
 		public Errors Errors { private set; get; }
-		public IRestResponse Response { private set; get; }
+		public HttpResponseMessage Response { private set; get; }
 
-		public ClientResponse(IRestResponse response, T result = null, Errors errors = null)
+		public ClientResponse(HttpResponseMessage response, T result = null, Errors errors = null)
 		{
 			this.Response = response;
 			this.Result = result;

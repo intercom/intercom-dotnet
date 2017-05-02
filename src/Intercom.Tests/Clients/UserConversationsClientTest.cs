@@ -9,38 +9,39 @@ using RestSharp.Authenticators;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Moq;
+using System.Threading.Tasks;
 
 namespace Intercom.Test
 {
-    [TestFixture()]
-    public class UserConversationsClientTest  : TestBase
-    {
-        private UserConversationsClient userConversationsClient;
+	[TestFixture()]
+	public class UserConversationsClientTest : TestBase
+	{
+		private UserConversationsClient userConversationsClient;
 
-        public UserConversationsClientTest()
-        {
-            this.userConversationsClient = new UserConversationsClient(new Authentication(AppId, AppKey));
-        }
+		public UserConversationsClientTest()
+		{
+			this.userConversationsClient = new UserConversationsClient(new Authentication(AppId, AppKey));
+		}
 
-        [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Reply_WithNull_ThrowException()
-        {
-            userConversationsClient.Reply(null);
-        }
+		[Test()]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public async Task Reply_WithNull_ThrowException()
+		{
+			await userConversationsClient.Reply(null);
+		}
 
-        [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Create_WithNull_ThrowException()
-        {
-            userConversationsClient.Create(null);
-        }
+		[Test()]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public async Task Create_WithNull_ThrowException()
+		{
+			await userConversationsClient.Create(null);
+		}
 
-        [Test()]
-        [ExpectedException(typeof(ArgumentException))]
-        public void List_NoIdOrUserIdOrEmail_ThrowException()
-        {
-            userConversationsClient.List(new User());
-        }
-    }
+		[Test()]
+		[ExpectedException(typeof(ArgumentException))]
+		public async Task List_NoIdOrUserIdOrEmail_ThrowException()
+		{
+			await userConversationsClient.List(new User());
+		}
+	}
 }

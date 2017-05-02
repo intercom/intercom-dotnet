@@ -9,24 +9,25 @@ using RestSharp.Authenticators;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Moq;
+using System.Threading.Tasks;
 
 namespace Intercom.Test
 {
-    [TestFixture()]
-    public class ConversationsClientTest  : TestBase
-    {
-        private ConversationsClient conversationsClient;
+	[TestFixture()]
+	public class ConversationsClientTest : TestBase
+	{
+		private ConversationsClient conversationsClient;
 
-        public ConversationsClientTest()
-        {
-            this.conversationsClient = new ConversationsClient(new Authentication(AppId, AppKey));
-        }
+		public ConversationsClientTest()
+		{
+			this.conversationsClient = new ConversationsClient(new Authentication(AppId, AppKey));
+		}
 
-        [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void View_WithNull_ThrowException()
-        {
-            conversationsClient.View(null);
-        }
-    }
+		[Test()]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public async Task View_WithNull_ThrowException()
+		{
+			await conversationsClient.View(null);
+		}
+	}
 }
