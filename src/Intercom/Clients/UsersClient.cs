@@ -409,7 +409,7 @@ namespace Intercom.Clients
             List<Company> companies = null;
 
             if (user.companies != null && user.companies.Any ())
-                companies = user.companies.Select (c => new Company () { id = c.id, company_id = c.company_id }).ToList ();
+                companies = user.companies;
 
             var body = new {
                 id = user.id,
