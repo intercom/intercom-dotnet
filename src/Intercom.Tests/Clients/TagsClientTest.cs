@@ -7,8 +7,6 @@ using Intercom.Exceptions;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Test
 {

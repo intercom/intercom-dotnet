@@ -6,8 +6,6 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -36,7 +34,7 @@ namespace Intercom.Clients
 
             ClientResponse<ConversationPart> result = null;
             String body = Serialize<AdminConversationReply>(reply);
-            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
+            result = Post<ConversationPart>(body, resource: Path.Combine (CONVERSATIONS_RESOURCE, reply.conversation_id, REPLY_RESOURCE));
             return result.Result;
         }
 

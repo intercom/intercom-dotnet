@@ -8,8 +8,6 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -135,7 +133,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Note> result = null;
-            result = Get<Note>(resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Note>(resource: Path.Combine (NOTES_RESOURCE, id));
             return result.Result;       
         }
 

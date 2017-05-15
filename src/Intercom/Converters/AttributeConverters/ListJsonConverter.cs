@@ -8,7 +8,6 @@ using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace Intercom.Converters.AttributeConverters
 {

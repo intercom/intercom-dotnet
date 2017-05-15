@@ -6,8 +6,6 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -49,7 +47,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Conversation> result = null;
-            result = Get<Conversation>(resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Conversation>(resource: Path.Combine (CONVERSATIONS_RESOURCE, id));
             return result.Result;
         }
     }

@@ -7,8 +7,6 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
@@ -75,7 +73,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Tag> result = null;
-            result = Get<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Tag>(resource: Path.Combine (TAGS_RESOURCE, id));
             return result.Result;       
         }
 
@@ -90,7 +88,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(tag.id))
             {
-                result = Get<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + tag.id);
+                result = Get<Tag>(resource: Path.Combine (TAGS_RESOURCE, tag.id));
             }
             else
             {
@@ -136,7 +134,7 @@ namespace Intercom.Clients
                 throw new ArgumentException("you need to provide 'tag.id' to delete a tag.");
             }
 
-            Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + tag.id);
+            Delete<Tag>(resource: Path.Combine (TAGS_RESOURCE, tag.id));
         }
 
         public void Delete(String id)
@@ -146,7 +144,7 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(id));
             }
 
-            Delete<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
+            Delete<Tag>(resource: Path.Combine (TAGS_RESOURCE, id));
         }
 
         public Tag Tag(String name, List<Company> companies)

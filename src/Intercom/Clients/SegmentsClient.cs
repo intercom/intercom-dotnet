@@ -6,7 +6,6 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
-using RestSharp;
 
 namespace Intercom.Clients
 {
@@ -67,7 +66,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Segment> result = null;
-            result = Get<Segment>(resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Segment>(resource: Path.Combine (SEGMENTS_RESOURCE, id));
             return result.Result;
         }
 
@@ -84,7 +83,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Segment> result = null;
-            result = Get<Segment>(resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + segment.id);
+            result = Get<Segment>(resource: Path.Combine (SEGMENTS_RESOURCE, segment.id));
             return result.Result;  
         }
     }

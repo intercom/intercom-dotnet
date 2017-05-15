@@ -7,8 +7,6 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
 using Newtonsoft.Json;
 
 namespace Intercom.Clients
@@ -54,7 +52,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Visitor> result = null;
-            result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Visitor>(resource: Path.Combine (VISITORS_RESOURCE, id));
             return result.Result;       
         }
 
@@ -70,7 +68,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(visitor.id))
             {
-                result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
+                result = Get<Visitor>(resource: Path.Combine (VISITORS_RESOURCE, visitor.id));
             }
             else if (!String.IsNullOrEmpty(visitor.user_id))
             {
@@ -117,7 +115,7 @@ namespace Intercom.Clients
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             ClientResponse<Visitor> result = null;
-            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
+            result = Delete<Visitor>(resource: Path.Combine (VISITORS_RESOURCE, visitor.id));
             return result.Result;       
         }
 
@@ -129,7 +127,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Visitor> result = null;
-            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Delete<Visitor>(resource: Path.Combine (VISITORS_RESOURCE, id));
             return result.Result;           
         }
 
@@ -180,7 +178,7 @@ namespace Intercom.Clients
                 });
 
             ClientResponse<User> result = null;
-            result = Post<User>(b, resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + VISITORS_CONVERT);
+            result = Post<User>(b, resource: Path.Combine (VISITORS_RESOURCE, VISITORS_CONVERT));
             return result.Result;
         }
 
@@ -213,7 +211,7 @@ namespace Intercom.Clients
                 });
 
             ClientResponse<Contact> result = null;
-            result = Post<Contact> (b, resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + VISITORS_CONVERT);
+            result = Post<Contact> (b, resource: Path.Combine (VISITORS_RESOURCE, VISITORS_CONVERT));
             return result.Result;
         }
     }

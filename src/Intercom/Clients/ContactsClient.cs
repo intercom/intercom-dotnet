@@ -68,7 +68,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Contact> result = null;
-            result = Get<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Contact> (resource: Path.Combine (CONTACTS_RESOURCE, id));
             return result.Result;       
         }
 
@@ -82,7 +82,7 @@ namespace Intercom.Clients
             ClientResponse<Contact> result = null;
 
             if (!String.IsNullOrEmpty (contact.id)) {
-                result = Get<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + contact.id);
+                result = Get<Contact> (resource: Path.Combine (CONTACTS_RESOURCE, contact.id));
             } else if (!String.IsNullOrEmpty (contact.user_id)) {
                 parameters.Add (Constants.USER_ID, contact.user_id);
                 result = Get<Contact> (parameters: parameters);
@@ -154,7 +154,7 @@ namespace Intercom.Clients
             ClientResponse<Contact> result = null;
 
             if (!String.IsNullOrEmpty (contact.id)) {
-                result = Delete<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + contact.id);
+                result = Delete<Contact> (resource: Path.Combine (CONTACTS_RESOURCE, contact.id));
             } else if (!String.IsNullOrEmpty (contact.user_id)) {
                 parameters.Add (Constants.USER_ID, contact.user_id);
                 result = Delete<Contact> (parameters: parameters);
@@ -172,7 +172,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Contact> result = null;
-            result = Delete<Contact> (resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Delete<Contact> (resource: Path.Combine (CONTACTS_RESOURCE, id));
             return result.Result;
         }
 
@@ -200,7 +200,7 @@ namespace Intercom.Clients
                                NullValueHandling = NullValueHandling.Ignore
                            });
 
-            var result = Post<User> (jsonBody, resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + "convert");
+            var result = Post<User> (jsonBody, resource: Path.Combine (CONTACTS_RESOURCE, "convert"));
 
             return result.Result;
         }
@@ -246,7 +246,7 @@ namespace Intercom.Clients
                                NullValueHandling = NullValueHandling.Ignore
                            });
 
-            var result = Post<User> (jsonBody, resource: CONTACTS_RESOURCE + Path.DirectorySeparatorChar + "convert" );
+            var result = Post<User> (jsonBody, resource: Path.Combine (CONTACTS_RESOURCE, "convert" ));
 
             return result.Result;
         }

@@ -71,7 +71,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Company> result = null;
-            result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Company>(resource: Path.Combine (COMPANIES_RESOURCE, id));
             return result.Result;		
         }
 
@@ -87,7 +87,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(company.id))
             {
-                result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
+                result = Get<Company>(resource: Path.Combine (COMPANIES_RESOURCE, company.id));
             }
             else if (!String.IsNullOrEmpty(company.name))
             {
@@ -156,8 +156,8 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(company.id))
             {
-                String resource = company.id + Path.DirectorySeparatorChar + "users";
-                result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
+                String resource = Path.Combine (company.id, "users");
+                result = Get<Users>(resource: Path.Combine (COMPANIES_RESOURCE, resource));
             }
             else if (!String.IsNullOrEmpty(company.company_id))
             {
@@ -180,9 +180,9 @@ namespace Intercom.Clients
                 throw new ArgumentNullException(nameof(companyId));
             }
 
-            String resource = companyId + Path.DirectorySeparatorChar + "users";
+            String resource = Path.Combine (companyId, "users");
             ClientResponse<Users> result = null;
-            result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
+            result = Get<Users>(resource: Path.Combine (COMPANIES_RESOURCE, resource));
             return result.Result;		
         }
 
