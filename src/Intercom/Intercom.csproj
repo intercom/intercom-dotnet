@@ -56,6 +56,7 @@
     <Compile Include="Data\Tags.cs" />
     <Compile Include="Data\Users.cs" />
     <Compile Include="Data\Plan.cs" />
+    <Compile Include="Data\PlanJsonConverter.cs" />
     <Compile Include="Exceptions\IntercomException.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Data\Error.cs" />

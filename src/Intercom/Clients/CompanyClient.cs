@@ -188,18 +188,13 @@ namespace Intercom.Clients
 
         private String Transform (Company company)
         {
-            String plan = String.Empty;
-
-            if (company.plan != null)
-                plan = company.plan.name;
-
             var body = new {
                 remote_created_at = company.remote_created_at,
                 company_id = company.company_id,
                 name = company.name,
                 monthly_spend = company.monthly_spend,
                 custom_attributes = company.custom_attributes,
-                plan = plan
+                plan = company.plan
             };
 
             return JsonConvert.SerializeObject (body,
