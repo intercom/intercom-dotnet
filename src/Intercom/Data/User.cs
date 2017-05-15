@@ -19,12 +19,12 @@ namespace Intercom.Data
 		public string email { get; set; }
 		public string phone { get; set; }
 		public string name { get; set; }
-		public int? updated_at { get; set; }
+		public long? updated_at { get; set; }
 		public string last_seen_ip { get; set; }
 		public bool? unsubscribed_from_emails { get; set; }
-		public int? last_request_at { get; set; }
-		public int? signed_up_at { get; set; }
-		public int? created_at { get; set; }
+		public long? last_request_at { get; set; }
+		public long? signed_up_at { get; set; }
+		public long? created_at { get; set; }
 		public int? session_count { get; set; }
 		public string user_agent_data { get; set; }
 		public object pseudonym { get; set; }

@@ -15,9 +15,9 @@ namespace Intercom.Data
     {
         public string part_type { get; set; }
         public string body { get; set; }
-        public int created_at { get; set; }
-        public int updated_at { get; set; }
-        public int notified_at { get; set; }
+        public long created_at { get; set; }
+        public long updated_at { get; set; }
+        public long notified_at { get; set; }
         public object assigned_to { get; set; }
         public Author author { get; set; }
         public List<Attachment> attachments { get; set; }
