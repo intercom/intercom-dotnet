@@ -15,4 +15,3 @@ namespace Intercom.Data
 		public string name { get; set; }
 	}
 }
-

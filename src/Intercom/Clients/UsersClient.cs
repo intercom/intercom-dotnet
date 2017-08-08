@@ -65,7 +65,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            result = Post<User>(Transform (user));
+            result = Post<User>(Transform(user));
             return result.Result;
         }
 
@@ -84,13 +84,13 @@ namespace Intercom.Clients
                     if (attr.Key.Length > 190)
                         throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
 
-                    if(attr.Value == null)
+                    if (attr.Value == null)
                         throw new ArgumentException(String.Format("'value' is null. key: {0}", attr.Key));
                 }
             }
 
             ClientResponse<User> result = null;
-            result = Post<User>(Transform (user));
+            result = Post<User>(Transform(user));
             return result.Result;
         }
 
@@ -121,7 +121,7 @@ namespace Intercom.Clients
 
             ClientResponse<User> result = null;
             result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
-            return result.Result;		
+            return result.Result;
         }
 
         public User View(User user)
@@ -146,14 +146,14 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
             {
                 parameters.Add(Constants.EMAIL, user.email);
-                result = Get<User>(parameters: parameters);			
+                result = Get<User>(parameters: parameters);
             }
             else
             {
                 throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
             }
 
-            return result.Result;	
+            return result.Result;
         }
 
         public Users List()
@@ -186,7 +186,7 @@ namespace Intercom.Clients
         {
             Dictionary<String, String> parameters = new Dictionary<String, String>();
             ClientResponse<Users> result = null;
-            
+
             if (!String.IsNullOrWhiteSpace(scrollParam))
             {
                 parameters.Add("scroll_param", scrollParam);
@@ -218,14 +218,14 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
             {
                 parameters.Add(Constants.EMAIL, user.email);
-                result = Delete<User>(parameters: parameters);			
+                result = Delete<User>(parameters: parameters);
             }
             else
             {
                 throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
             }
 
-            return result.Result;		
+            return result.Result;
         }
 
         public User Delete(String id)
@@ -237,7 +237,7 @@ namespace Intercom.Clients
 
             ClientResponse<User> result = null;
             result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
-            return result.Result;			
+            return result.Result;
         }
 
         public User UpdateLastSeenAt(String id, long timestamp)
@@ -255,7 +255,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, last_request_at = timestamp });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User UpdateLastSeenAt(User user, long timestamp)
@@ -264,7 +264,7 @@ namespace Intercom.Clients
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            
+
             if (timestamp <= 0)
             {
                 throw new ArgumentException("'timestamp' argument should be bigger than zero.");
@@ -283,7 +283,7 @@ namespace Intercom.Clients
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User UpdateLastSeenAt(String id)
@@ -296,7 +296,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, update_last_request_at = true });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User UpdateLastSeenAt(User user)
@@ -332,7 +332,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, new_session = true });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User IncrementUserSession(User user)
@@ -350,7 +350,7 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = user.id, new_session = true });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
         public User RemoveCompanyFromUser(String id, List<String> companyIds)
@@ -371,7 +371,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { id = id, companies = companyIds.Select(c => new { id = c, remove = true })});
+            String body = JsonConvert.SerializeObject(new { id = id, companies = companyIds.Select(c => new { id = c, remove = true }) });
             result = Post<User>(body);
             return result.Result;
         }
@@ -399,19 +399,30 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true })});
+            String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true }) });
             result = Post<User>(body);
-            return result.Result;   
+            return result.Result;
         }
 
-        private String Transform (User user)
+        private String Transform(User user)
         {
             List<Company> companies = null;
 
-            if (user.companies != null && user.companies.Any ())
-                companies = user.companies.Select (c => new Company () { id = c.id, company_id = c.company_id }).ToList ();
+            if (user.companies != null && user.companies.Any())
+            {
+                companies = user.companies.Select(c => new Company()
+                {
+                    remote_created_at = c.remote_created_at,
+                    company_id = c.company_id,
+                    name = c.name,
+                    monthly_spend = c.monthly_spend,
+                    custom_attributes = c.custom_attributes,
+                    plan = c.plan
+                }).ToList();
+            }
 
-            var body = new {
+            var body = new
+            {
                 id = user.id,
                 user_id = user.user_id,
                 email = user.email,
@@ -427,9 +438,10 @@ namespace Intercom.Clients
                 unsubscribed_from_emails = user.unsubscribed_from_emails
             };
 
-            return JsonConvert.SerializeObject (body,
+            return JsonConvert.SerializeObject(body,
                            Formatting.None,
-                           new JsonSerializerSettings {
+                           new JsonSerializerSettings
+                           {
                                NullValueHandling = NullValueHandling.Ignore
                            });
         }
