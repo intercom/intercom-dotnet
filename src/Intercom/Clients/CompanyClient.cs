@@ -191,7 +191,7 @@ namespace Intercom.Clients
             String plan = String.Empty;
 
             if (company.plan != null)
-                plan = company.plan.name;
+                plan = company.name;
 
             var body = new {
                 remote_created_at = company.remote_created_at,
