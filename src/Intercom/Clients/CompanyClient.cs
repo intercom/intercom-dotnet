@@ -30,7 +30,7 @@ namespace Intercom.Clients
 
         public Company Update(Company company)
         {
-			return CreateOrUpdate(company);
+            return CreateOrUpdate(company);
         }
 
         private Company CreateOrUpdate(Company company)
@@ -53,7 +53,7 @@ namespace Intercom.Clients
                     if (attr.Key.Length > 190)
                         throw new ArgumentException(String.Format("Field names must be no longer than 190 characters. key: {0}", attr.Key));
 
-                    if(attr.Value == null)
+                    if (attr.Value == null)
                         throw new ArgumentException(String.Format("'value' is null. key: {0}", attr.Key));
                 }
             }
@@ -63,18 +63,18 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public CompanyView View(String id)
+        public Company View(String id)
         {
             if (String.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
-            ClientResponse<CompanyView> result = null;
-            result = Get<CompanyView>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + id);
-            return result.Result;		
+            ClientResponse<Company> result = null;
+            result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + id);
+            return result.Result;
         }
 
-        public CompanyView View(CompanyView company)
+        public Company View(Company company)
         {
             if (company == null)
             {
@@ -82,27 +82,27 @@ namespace Intercom.Clients
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
-            ClientResponse<CompanyView> result = null;
+            ClientResponse<Company> result = null;
 
             if (!String.IsNullOrEmpty(company.id))
             {
-                result = Get<CompanyView>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
+                result = Get<Company>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + company.id);
             }
             else if (!String.IsNullOrEmpty(company.name))
             {
                 parameters.Add(Constants.NAME, company.name);
-                result = Get<CompanyView>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(company.company_id))
             {
                 parameters.Add(Constants.COMPANY_ID, company.company_id);
-                result = Get<CompanyView>(parameters: parameters);
+                result = Get<Company>(parameters: parameters);
             }
             else
             {
                 throw new ArgumentException("you need to provide either 'company.id', 'company.company_id' to view a company.");
             }
-			return result.Result;
+            return result.Result;
         }
 
         public Companies List()
@@ -121,7 +121,7 @@ namespace Intercom.Clients
 
             if (!parameters.Any())
             {
-                throw new ArgumentException ("'parameters' argument is empty.");
+                throw new ArgumentException("'parameters' argument is empty.");
             }
 
             ClientResponse<Companies> result = null;
@@ -129,20 +129,21 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Companies Scroll (String scrollParam = null)
+        public Companies Scroll(String scrollParam = null)
         {
-            Dictionary<String, String> parameters = new Dictionary<String, String> ();
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
             ClientResponse<Companies> result = null;
 
-            if (!String.IsNullOrWhiteSpace (scrollParam)) {
-                parameters.Add ("scroll_param", scrollParam);
+            if (!String.IsNullOrWhiteSpace(scrollParam))
+            {
+                parameters.Add("scroll_param", scrollParam);
             }
 
-            result = Get<Companies> (parameters: parameters, resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + "scroll");
+            result = Get<Companies>(parameters: parameters, resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + "scroll");
             return result.Result;
         }
 
-        public Users ListUsers(CompanyView company)
+        public Users ListUsers(Company company)
         {
             if (company == null)
             {
@@ -181,29 +182,25 @@ namespace Intercom.Clients
             String resource = companyId + Path.DirectorySeparatorChar + "users";
             ClientResponse<Users> result = null;
             result = Get<Users>(resource: COMPANIES_RESOURCE + Path.DirectorySeparatorChar + resource);
-            return result.Result;		
+            return result.Result;
         }
 
-        private String Transform (Company company)
+        private String Transform(Company company)
         {
-            Plan companyPlan = new Plan();
-
-            if (company.plan != null)
-                companyPlan.name = company.plan;
-
-
-            var body = new {
+            var body = new
+            {
                 remote_created_at = company.remote_created_at,
                 company_id = company.company_id,
                 name = company.name,
                 monthly_spend = company.monthly_spend,
                 custom_attributes = company.custom_attributes,
-                plan = companyPlan
+                plan = company.plan != null ? company.plan.name : String.Empty
             };
 
-            return JsonConvert.SerializeObject (body,
+            return JsonConvert.SerializeObject(body,
                            Formatting.None,
-                           new JsonSerializerSettings {
+                           new JsonSerializerSettings
+                           {
                                NullValueHandling = NullValueHandling.Ignore
                            });
         }

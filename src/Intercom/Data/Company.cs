@@ -8,22 +8,7 @@ namespace Intercom.Data
 	{
 		public bool? remove { set; get; }
 		public string name { get; set; }
-        public string plan { get; set; }
-		public string company_id { get; set; }
-		public long? remote_created_at { get; set; }
-		public long? created_at { get; set; }
-		public long? updated_at { get; set; }
-		public long? last_request_at { get; set; }
-		public int? monthly_spend { get; set; }
-		public int? session_count { get; set; }
-		public int? user_count { get; set; }
-		public Dictionary<String, Object> custom_attributes { get; set; }
-	}
-	public class CompanyView : Model
-	{
-		public bool? remove { set; get; }
-		public string name { get; set; }
-		public Plan plan { get; set; }
+        public Plan plan { get; set; }
 		public string company_id { get; set; }
 		public long? remote_created_at { get; set; }
 		public long? created_at { get; set; }
