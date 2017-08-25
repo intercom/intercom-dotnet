@@ -84,6 +84,16 @@ User user = usersClient.Update(new User() {
                                 companies = new List<Company>() {
                                         new Company() { company_id = "new_company" } } });
 
+// Note that when adding a company plan you need to create it as an object
+// (But its only the name of the plan that can be set)
+Plan companyPlan = new Plan{
+                name = "Stop_Avengers"};
+
+User user_test = usersClient.Update(new User() {
+                                email = "abrown@hydra.io",
+                                companies = new List<Company>() {
+                    			new Company() { company_id = "11", name = "Hydra", plan = companyPlan } }});
+
 // Delete a user
 usersClient.Delete("100300231"); // with intercom generated user's id
 usersClient.Delete(new User() { email = "example@example.com" });
