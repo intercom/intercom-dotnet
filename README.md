@@ -90,7 +90,7 @@ Plan companyPlan = new Plan{
                 name = "Stop_Avengers"};
 
 User user_test = usersClient.Update(new User() {
-                                email = "plato@phil.com",
+                                email = "abrown@hydra.io",
                                 companies = new List<Company>() {
                     			new Company() { company_id = "11", name = "Hydra", plan = companyPlan } }});
 
