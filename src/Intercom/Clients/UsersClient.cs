@@ -406,18 +406,19 @@ namespace Intercom.Clients
 
         private String Transform(User user)
         {
-            List<Company> companies = null;
+            var companies = new object();
 
             if (user.companies != null && user.companies.Any())
             {
-                companies = user.companies.Select(c => new Company()
+                companies = user.companies.Select(c => new
                 {
                     remote_created_at = c.remote_created_at,
                     company_id = c.company_id,
                     name = c.name,
                     monthly_spend = c.monthly_spend,
                     custom_attributes = c.custom_attributes,
-                    plan = c.plan
+                    plan = c.plan != null ? c.plan.name : String.Empty
+
                 }).ToList();
             }
 
