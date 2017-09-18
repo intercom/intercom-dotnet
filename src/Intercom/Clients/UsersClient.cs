@@ -421,6 +421,8 @@ namespace Intercom.Clients
 
                 }).ToList();
             }
+            else
+                companies = null;
 
             var body = new
             {
