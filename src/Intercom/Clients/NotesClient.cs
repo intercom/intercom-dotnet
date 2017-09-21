@@ -156,7 +156,7 @@ namespace Intercom.Clients
             }
             else if (!String.IsNullOrEmpty(user.user_id))
             {
-                parameters.Add(Constants.USER_ID, user.id);
+                parameters.Add(Constants.USER_ID, user.user_id);
                 result = Get<Notes>(parameters: parameters);
             }
             else if (!String.IsNullOrEmpty(user.email))
