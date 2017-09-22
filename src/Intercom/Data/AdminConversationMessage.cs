@@ -38,7 +38,7 @@ namespace Intercom.Data
 				if(String.IsNullOrEmpty(id) && String.IsNullOrEmpty(email) && String.IsNullOrEmpty(user_id))
 					throw new ArgumentException ("you need to provide either 'id', 'user_id', 'email' to view a user.");
 
-                if(type != Message.MessageFromOrToType.USER && type != Message.MessageFromOrToType.ADMIN)
+                if(type != Message.MessageFromOrToType.USER && type != Message.MessageFromOrToType.CONTACT)
 					throw new ArgumentException ("'type' vale must be either 'contact' or 'user'.");
 
 				this.id = id;
