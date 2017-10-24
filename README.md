@@ -157,6 +157,9 @@ Contacts contacts = contactsClient.Scroll();
 String scroll_param_value = contacts.scroll_param;
 Contacts contacts = contactsClient.Scroll(scroll_param_value);
 
+// Convert a contact
+contactsClient.Convert(contact, user);
+
 // Delete a contact
 contactsClient.Delete("100300231");
 contactsClient.Delete(new Contact() { id = "100300231" });
