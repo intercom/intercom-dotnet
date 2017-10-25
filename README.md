@@ -157,6 +157,10 @@ Contacts contacts = contactsClient.Scroll();
 String scroll_param_value = contacts.scroll_param;
 Contacts contacts = contactsClient.Scroll(scroll_param_value);
 
+// Convert a contact to a User
+// Note that if the user does not exist they will be created, otherwise they will be merged.
+User user = contactsClient.Convert(contact, new User() { user_id = "120" });
+
 // Delete a contact
 contactsClient.Delete("100300231");
 contactsClient.Delete(new Contact() { id = "100300231" });
