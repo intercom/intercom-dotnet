@@ -319,8 +319,8 @@ tagsClient.Delete(new Tag() { id = "100300231" });
 
 // Tag User, Company or Contact (Lead)
 tagsClient.Tag("new_tag", new List<Company>() { new Company(){ id = "1000_company_id" } });
-tagsClient.Tag("new_tag", new List<Contact>() { new Company(){ id = "1000_contact_id" } });
-tagsClient.Tag("new_tag", new List<User>() { new Company(){ id = "1000_user_id" } });
+tagsClient.Tag("new_tag", new List<Contact>() { new Contact(){ id = "1000_contact_id" } });
+tagsClient.Tag("new_tag", new List<User>() { new User(){ id = "1000_user_id" } });
 tagsClient.Tag("new_tag", new List<String>() {"1000_company_id" ,"1001_company_id" }, TagsClient.EntityType.Company);
 
 
