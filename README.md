@@ -56,7 +56,7 @@ If you are building a third party application you will need to implement OAuth b
 
 ```cs
 // Create UsersClient instance
-UsersClient usersClient = new UsersClient(new Authentication("AppId", "AppKey"));
+UsersClient usersClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
 
 // Create a user
 User user = usersClient.Create(new User() { user_id = "my_id", name = "first last" });
@@ -127,7 +127,7 @@ User user = usersClient.RemoveCompanyFromUser("100300231", new List<String>() { 
 
 ```cs
 // Create ContactsClient instance
-ContactsClient contactsClient = new ContactsClient(new Authentication("AppId", "AppKey"));
+ContactsClient contactsClient = new ContactsClient(new Authentication("MyPersonalAccessToken"));
 
 // Create a contact
 Contact contact = contactsClient.Create(new Contact() { });
@@ -171,7 +171,7 @@ contactsClient.Delete(new Contact() { user_id = "my_id" });
 
 ```cs
 // Create CompanyClient instance
-CompanyClient companyClient = new CompanyClient(new Authentication("AppId", "AppKey"));
+CompanyClient companyClient = new CompanyClient(new Authentication("MyPersonalAccessToken"));
 
 // Create a company
 Company company = companyClient.Create(new Company());
@@ -211,7 +211,7 @@ Users users = companyClient.ListUsers(new Company() { company_id = "my_company_i
 
 ```cs
 // Create AdminsClient instance
-AdminsClient adminsClient = new AdminsClient(new Authentication("AppId", "AppKey"));
+AdminsClient adminsClient = new AdminsClient(new Authentication("MyPersonalAccessToken"));
 
 // View an admin (by id)
 Admin admin = adminsClient.View("100300231");
@@ -228,7 +228,7 @@ foreach (Admin admin in admins.admins)
 
 ```cs
 // Create SegmentsClient instance
-SegmentsClient segmentsClient = new SegmentsClient(new Authentication("AppId", "AppKey"));
+SegmentsClient segmentsClient = new SegmentsClient(new Authentication("MyPersonalAccessToken"));
 
 // View a segment (by id)
 Segment segment = segmentsClient.View("100300231");
@@ -245,7 +245,7 @@ foreach (Segment segment in segments.segments)
 
 ```cs
 // Create NotesClient instance
-NotesClient notesClient = new NotesClient(new Authentication("AppId", "AppKey"));
+NotesClient notesClient = new NotesClient(new Authentication("MyPersonalAccessToken"));
 
 // Create a note (by User, body and admin_id)
 Note note = notesClient.Create(
@@ -271,7 +271,7 @@ foreach (Note n in notes.notes)
 
 ```cs
 // Create CountsClient instance
-CountsClient countsClient = new CountsClient(new Authentication("AppId", "AppKey"));
+CountsClient countsClient = new CountsClient(new Authentication("MyPersonalAccessToken"));
 
 // Get AppCount
 AppCount appCount = countsClient.GetAppCount();
@@ -302,7 +302,7 @@ UserTagCount userTagCount = countsClient.GetUserTagCount();
 
 ```cs
 // Create TagsClient instance
-TagsClient tagsClient = new TagsClient(new Authentication("AppId", "AppKey"));
+TagsClient tagsClient = new TagsClient(new Authentication("MyPersonalAccessToken"));
 
 // Create a tag
 Tag tag = tagsClient.Create(new Tag() { name = "new_tag" });
@@ -336,7 +336,7 @@ tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company
 
 ```cs
 // Create EventsClient instance
-EventsClient eventsClient = new EventsClient(new Authentication("AppId", "AppKey"));
+EventsClient eventsClient = new EventsClient(new Authentication("MyPersonalAccessToken"));
 
 // Create an event
 Event ev = eventsClient.Create(new Event() { user_id = "1000_user_id", email = "user_email@example.com", event_name = "new_event", created_at = 1462110718  });
@@ -361,14 +361,14 @@ foreach(Event ev in events.event)
 
 ```cs
 // Create ConversationsClient instance
-ConversationsClient conversationsClient = new ConversationsClient(new Authentication("AppId", "AppKey"));
+ConversationsClient conversationsClient = new ConversationsClient(new Authentication("MyPersonalAccessToken"));
 
 // View any type of conversation
 conversationsClient.View("100300231");
 conversationsClient.View("100300231", displayAsPlainText: true);
 
 // Create AdminConversationsClient instance
-AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("AppId", "AppKey"));
+AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("MyPersonalAccessToken"));
 
 // Create Admin initiated Conversation
 AdminConversationMessage admin_message =
@@ -392,7 +392,7 @@ AdminConversationReply admin_reply =
 
 
 // Create UserConversationsClient instance
-UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("AppId", "AppKey"));
+UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("MyPersonalAccessToken"));
 
 // Create User initiated Conversation
 UserConversationMessage user_message =
