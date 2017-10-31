@@ -43,7 +43,7 @@ Each of these resources is represented through the dotnet client by a Class as `
 You can set the `Personal Access Token` via creating an `Authentication` object by invoking the single paramter constructor:
 
 ```cs
-UsersClient countsClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
+UsersClient usersClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
 ```
 If you already have an access token you can find it [here](https://app.intercom.com/developers/_). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.io/docs/personal-access-tokens).
 
