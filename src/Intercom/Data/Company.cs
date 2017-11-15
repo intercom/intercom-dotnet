@@ -17,6 +17,9 @@ namespace Intercom.Data
         public int? monthly_spend { get; set; }
         public int? session_count { get; set; }
         public int? user_count { get; set; }
+        public int? size { get; set; }
+        public string website { get; set; }
+        public string industry { get; set; }
         public Dictionary<String, Object> custom_attributes { get; set; }
     }
 }
