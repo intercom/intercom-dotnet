@@ -412,11 +412,11 @@ UserConversationReply user_reply =
 
 ### Webhooks
 
-Not supported.
+Not yet supported by these bindings.
 
 ### Bulk APIs
 
-Not supported.
+Not yet supported by these bindings.
 
 ## Idioms
 
@@ -430,10 +430,9 @@ To be written.
 
 ## Roadmap
 
-- Functions Comments (for IntelliSense support)
+- Upgrade the bindings to be compatible with .NET Standard 2.0
 - Support Pagination
 - Support Bulk Apis
 - Support Webhooks
 - Support Async
-- More Integration tests
-- Remove RestSharp dependency
+- Increase test coverage
