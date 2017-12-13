@@ -12,7 +12,7 @@ using RestSharp.Authenticators;
 
 namespace Intercom.Clients
 {
-    public class TagsClient: Client
+    public class TagsClient : Client
     {
         public enum EntityType
         {
@@ -32,7 +32,7 @@ namespace Intercom.Clients
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
         {
         }
-			
+
         public Tag Create(Tag tag)
         {
             if (tag == null)
@@ -76,14 +76,14 @@ namespace Intercom.Clients
 
             ClientResponse<Tag> result = null;
             result = Get<Tag>(resource: TAGS_RESOURCE + Path.DirectorySeparatorChar + id);
-            return result.Result;       
+            return result.Result;
         }
 
         public Tag View(Tag tag)
         {
             if (tag == null)
             {
-				throw new ArgumentNullException(nameof(tag));
+                throw new ArgumentNullException(nameof(tag));
             }
 
             ClientResponse<Tag> result = null;
@@ -97,7 +97,7 @@ namespace Intercom.Clients
                 throw new ArgumentException("you need to provide 'tag.id' to view a tag.");
             }
 
-            return result.Result;   
+            return result.Result;
         }
 
         public Tags List()
@@ -116,7 +116,7 @@ namespace Intercom.Clients
 
             if (!parameters.Any())
             {
-                throw new ArgumentException ("'parameters' argument is empty.");
+                throw new ArgumentException("'parameters' argument is empty.");
             }
 
             ClientResponse<Tags> result = null;
@@ -166,14 +166,8 @@ namespace Intercom.Clients
                 throw new ArgumentException("'companies' argument should include more than one company.");
             }
 
-            foreach (var c in companies)
-                if (String.IsNullOrEmpty(c.id) && String.IsNullOrEmpty(c.company_id))
-                    throw new ArgumentException("you need to provide either 'company.id', 'company.company_id' to tag a company.");
-
             ClientResponse<Tag> result = null;
-
-            var tags = new { name = name, companies = companies.Select(c => new { id = c.id}) };
-            String body = SerializeTag(tags);
+            String body = CreateBody(name, false, companies: companies);
             result = Post<Tag>(body);
 
             return result.Result;
@@ -283,14 +277,8 @@ namespace Intercom.Clients
                 throw new ArgumentException("'companies' argument should include more than one company.");
             }
 
-            foreach (var c in companies)
-                if (String.IsNullOrEmpty(c.id) && String.IsNullOrEmpty(c.company_id))
-                    throw new ArgumentException("you need to provide either 'company.id', 'company.company_id' to tag a company.");
-
             ClientResponse<Tag> result = null;
-
-            var tags = new { name = name, companies = companies.Select(c => new { id = c.id, untag = true}) };
-            String body = SerializeTag(tags);
+            String body = CreateBody(name, true, companies: companies);
             result = Post<Tag>(body);
 
             return result.Result;
@@ -347,17 +335,32 @@ namespace Intercom.Clients
             return SerializeTag(tags);
         }
 
+        private String CreateBody(String name, bool untag, List<Company> companies)
+        {
+            foreach (var c in companies)
+                if (String.IsNullOrEmpty(c.id) && String.IsNullOrEmpty(c.company_id))
+                    throw new ArgumentException("you need to provide either 'company.id' or 'company.company_id' to tag a company.");
+
+            object tags = BuildTag(name, untag, companies);
+            return SerializeTag(tags);
+        }
+
         private object BuildTag(String name, bool untag, List<User> users)
         {
-            return new { name = name, users = users.Select(u => new { id = u.id, user_id = u.user_id, email = u.email, untag = untag })};
+            return new { name = name, users = users.Select(u => new { id = u.id, user_id = u.user_id, email = u.email, untag = untag }) };
+        }
+
+        private object BuildTag(String name, bool untag, List<Company> companies)
+        {
+            return new { name = name, companies = companies.Select(c => new { id = c.id, company_id = c.company_id, untag = untag }) };
         }
 
         private String SerializeTag(object tag)
         {
             return JsonConvert.SerializeObject(tag,
-                Formatting.None, 
+                Formatting.None,
                 new JsonSerializerSettings
-                { 
+                {
                     NullValueHandling = NullValueHandling.Ignore
                 });
         }
