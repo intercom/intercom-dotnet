@@ -417,8 +417,8 @@ namespace Intercom.Clients
                     name = c.name,
                     monthly_spend = c.monthly_spend,
                     custom_attributes = c.custom_attributes,
-                    plan = c.plan != null ? c.plan.name : String.Empty
-
+                    plan = c.plan != null ? c.plan.name : String.Empty,
+                    remove = c.remove
                 }).ToList();
             }
             else
