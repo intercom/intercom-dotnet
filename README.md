@@ -318,18 +318,15 @@ tagsClient.Delete(new Tag() { id = "100300231" });
 
 
 // Tag User, Company or Contact (Lead)
-tagsClient.Tag("new_tag", new List<Company>() { new Company(){ id = "1000_company_id" } });
-tagsClient.Tag("new_tag", new List<Contact>() { new Contact(){ id = "1000_contact_id" } });
-tagsClient.Tag("new_tag", new List<User>() { new User(){ id = "1000_user_id" } });
-tagsClient.Tag("new_tag", new List<String>() {"1000_company_id" ,"1001_company_id" }, TagsClient.EntityType.Company);
-
+tagsClient.Tag("new_tag", new List<Company>() { new Company(){ company_id = "blue" } });
+tagsClient.Tag("new_tag", new List<Company>() { new Company(){ id = "5911bd8bf0c7223d2d1d045d" } });
+tagsClient.Tag("new_tag", new List<Contact>() { new Contact(){ id = "5911bd8bf0c7446d2d1d045d" } });
+tagsClient.Tag("new_tag", new List<User>() { new User(){ id = "5911bd8bf0c7446d2d1d045d", email = "example@example.com", user_id = "25" } });
 
 // Untag User, Company or Contact (Lead)
-tagsClient.Untag("new_tag", new List<Company>() { new Company(){ id = "1000_company_id" } });
-tagsClient.Untag("new_tag", new List<Contact>() { new Company(){ id = "1000_contact_id" } });
-tagsClient.Untag("new_tag", new List<User>() { new Company(){ id = "1000_user_id" } });
-tagsClient.Untag("new_tag", new List<String>() {"1000_company_id" ,"1001_company_id" }, TagsClient.EntityType.Company);
-
+tagsClient.Untag("new_tag", new List<Company>() { new Company(){ company_id = "1000_company_id" } });
+tagsClient.Untag("new_tag", new List<Contact>() { new Contact(){ id = "5911bd8bf0c7223d2d1d045d" } });
+tagsClient.Untag("new_tag", new List<User>() { new User(){ user_id = "1000_user_id" } });
 ```
 
 ### Events
