@@ -45,19 +45,17 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void GetMonetaryAmount_WithNullKey_ThrowException()
         {
             Metadata metadata = new Metadata();
-            metadata.GetMonetaryAmount(null);
+            Assert.Throws<ArgumentNullException>(() => metadata.GetMonetaryAmount(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void GetRichLink_WithNullKey_ThrowException()
         {
             Metadata metadata = new Metadata();
-            metadata.GetRichLink(null);
+            Assert.Throws<ArgumentNullException>(() => metadata.GetRichLink(null));
         }
 
         [Test()]

@@ -69,14 +69,16 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidJson_ThrowsException()
         {
             String input = "{\"type\":\"count\",\"company\"tag\":[{\"auto\"cool-users-only\":6},{\"CSV Import - 2016-04-26 12:22:47 UTC\":0}]}}\n";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
-            companyCountJsonConverter.ReadJson(reader, typeof(CompanyTagCount), null, null);
+            Assert.Throws<JsonConverterException>(() =>
+            {
+                companyCountJsonConverter.ReadJson(reader, typeof(CompanyTagCount), null, null);
+            });
         }
     }
 }

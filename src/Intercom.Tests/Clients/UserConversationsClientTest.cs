@@ -23,24 +23,21 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Reply_WithNull_ThrowException()
         {
-            userConversationsClient.Reply(null);
+            Assert.Throws<ArgumentNullException>(() => userConversationsClient.Reply(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            userConversationsClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => userConversationsClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void List_NoIdOrUserIdOrEmail_ThrowException()
         {
-            userConversationsClient.List(new User());
+            Assert.Throws<ArgumentException>(() => userConversationsClient.List(new User()));
         }
     }
 }
