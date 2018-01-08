@@ -13,7 +13,7 @@ namespace Intercom.Data
 {
     public class AdminConversationReply : Reply
     {
-        public string type
+        public override string type
         {
             get
             {

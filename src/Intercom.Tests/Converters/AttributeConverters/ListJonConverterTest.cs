@@ -39,24 +39,22 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidSerializationType_ThrowsException()
         {
             String input = "{\"companies\":[{\"type\":\"company\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
-            listJsonConverter.ReadJson(reader, typeof(List<Segment>), null, null);
+            Assert.Throws<JsonConverterException>(() => listJsonConverter.ReadJson(reader, typeof(List<Segment>), null, null));
         }
 
         [Test()]
-        [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidJson_ThrowsException()
         {
             String input = "{\"compani\",\"company_id\":\"first_company\",\"id\":\"57100\"},{\"type\":\"company\",\"company_id\":\"second_company\",\"id\":\"5800\"},{\"type\":\"company\",\"company_id\":\"third_company\",\"id\":\"5900\"}]}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
-            listJsonConverter.ReadJson(reader, typeof(List<Company>), null, null);
+            Assert.Throws<JsonConverterException>(() => listJsonConverter.ReadJson(reader, typeof(List<Company>), null, null));
         }
     }
 }
