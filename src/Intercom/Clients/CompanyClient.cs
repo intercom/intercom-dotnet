@@ -194,7 +194,10 @@ namespace Intercom.Clients
                 name = company.name,
                 monthly_spend = company.monthly_spend,
                 custom_attributes = company.custom_attributes,
-                plan = company.plan != null ? company.plan.name : String.Empty
+                plan = company.plan != null ? company.plan.name : null,
+                website = company.website,
+                size = company.size,
+                industry = company.industry
             };
 
             return JsonConvert.SerializeObject(body,
