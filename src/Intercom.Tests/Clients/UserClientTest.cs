@@ -23,31 +23,27 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            usersClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => usersClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Create_NoUserIdOrEmail_ThrowException()
         {
-            usersClient.Create(new User());
+            Assert.Throws<ArgumentException>(() => usersClient.Create(new User()));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Delete_NoIdOrUserIdOrEmail_ThrowException()
         {
-            usersClient.Delete(new User());
+            Assert.Throws<ArgumentNullException>(() => usersClient.Delete(new User()));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Update_NoIdOrUserIdOrEmail_ThrowException()
         {
-            usersClient.Update(new User());
+            Assert.Throws<ArgumentNullException>(() => usersClient.Update(new User()));
         }
     }
 }

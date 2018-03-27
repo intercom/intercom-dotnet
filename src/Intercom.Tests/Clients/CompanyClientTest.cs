@@ -23,14 +23,12 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            companyClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => companyClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Delete_MoreThan100CustomAtt_ThrowException()
         {
             Dictionary<string, object> custom_attributes = new Dictionary<string, object>();
@@ -38,23 +36,27 @@ namespace Intercom.Test
             for (int i = 0; i < 105; i++)
                 custom_attributes.Add("field", "value");
 
-            companyClient.Create(new Company() { custom_attributes = custom_attributes } );
+            Assert.Throws<ArgumentException>(() => 
+            {
+                companyClient.Create(new Company() { custom_attributes = custom_attributes });
+            });
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Create_CustomAttInvalidChars_ThrowException()
         {
             Dictionary<string, object> custom_attributes = new Dictionary<string, object>();
             custom_attributes.Add("invalid.ch$ar", "invalid");
-            companyClient.Create(new Company() { custom_attributes = custom_attributes } );
+            Assert.Throws<ArgumentException>(() =>
+            {
+                companyClient.Create(new Company() { custom_attributes = custom_attributes });
+            });
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Update_WithNull_ThrowException()
         {
-            companyClient.Update(null);
+            Assert.Throws<ArgumentNullException>(() => companyClient.Update(null));
         }
     }
 }

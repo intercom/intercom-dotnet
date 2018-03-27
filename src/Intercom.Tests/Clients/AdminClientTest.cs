@@ -24,17 +24,15 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void View_WithEmptyString_ThrowException()
         {
-            adminsClient.View(String.Empty);
+            Assert.Throws<ArgumentNullException>(() => adminsClient.View(String.Empty));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void View_NoId_ThrowException()
         {
-            adminsClient.View(new Admin());
+            Assert.Throws<ArgumentNullException>(() => adminsClient.View(new Admin()));
         }
     }
 }
