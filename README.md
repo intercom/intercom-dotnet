@@ -133,6 +133,9 @@ User user = usersClient.UpdateLastSeenAt(new User() { id = "100300231" }, 146211
 **Increment User's Session**
 ```cs
 usersClient.IncrementUserSession(new User() { id = "100300231" });
+usersClient.IncrementUserSession("100300231", new List<String>() { "company_is_blue" }});
+
+// You can also update a User's session by updating a User record with a "new_session = true" attribute
 ```
 
 **Removing User's companies**
