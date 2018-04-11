@@ -23,45 +23,45 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            notesClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => notesClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void CreateWithNote_NoUserIdOrEmail_ThrowException()
         {
-            notesClient.Create(new Note() { user = new User() });
+            Assert.Throws<ArgumentException>(() => notesClient.Create(new Note() { user = new User() }));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void CreateWithNote_NoBody_ThrowException()
         {
-            notesClient.Create(new Note() { user = new User() { email = "email@example.com" } });
+            Assert.Throws<ArgumentException>(() =>
+            {
+                notesClient.Create(new Note() { user = new User() { email = "email@example.com" } });
+            });
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Create_NoUserIdOrEmail_ThrowException()
         {
-            notesClient.Create(new User(), String.Empty);
+            Assert.Throws<ArgumentException>(() => notesClient.Create(new User(), String.Empty));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_NoBody_ThrowException()
         {
-            notesClient.Create(new User() { email = "email@example.com" }, String.Empty);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                notesClient.Create(new User() { email = "email@example.com" }, String.Empty);
+            });
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void List_NoIdOrUserIdOrEmail_ThrowException()
         {
-            notesClient.List(new User());
+            Assert.Throws<ArgumentException>(() => notesClient.List(new User()));
         }
     }
 }

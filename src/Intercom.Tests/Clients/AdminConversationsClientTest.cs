@@ -24,24 +24,21 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Reply_WithNull_ThrowException()
         {
-            adminConversationsClient.Reply(null);
+            Assert.Throws<ArgumentNullException>(() => adminConversationsClient.Reply(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            adminConversationsClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => adminConversationsClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void List_NoId_ThrowException()
         {
-            adminConversationsClient.List(new Admin());
+            Assert.Throws<ArgumentException>(() => adminConversationsClient.List(new Admin()));
         }
     }
 }

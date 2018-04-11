@@ -42,14 +42,16 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidJson_ThrowsException()
         {
             String input = "{\"type\":\"count\\pen\":24,\"closed\":35,\"unassigned\":11,\"assigned\":13}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
-            conversationAppCountJsonConverter.ReadJson(reader, typeof(ConversationAppCount), null, null);
+            Assert.Throws<JsonConverterException>(() =>
+            {
+                conversationAppCountJsonConverter.ReadJson(reader, typeof(ConversationAppCount), null, null);
+            });
         }
     }
 }

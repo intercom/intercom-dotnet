@@ -23,32 +23,28 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Create_WithNull_ThrowException()
         {
-            tagsClient.Create(null);
+            Assert.Throws<ArgumentNullException>(() => tagsClient.Create(null));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Create_NoIdOrName_ThrowException()
         {
-            tagsClient.Create(new Tag());
+            Assert.Throws<ArgumentException>(() => tagsClient.Create(new Tag()));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Delete_WithNull_ThrowException()
         {
             Tag tag = null;
-            tagsClient.Delete(tag);
+            Assert.Throws<ArgumentNullException>(() => tagsClient.Delete(tag));
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Delete_NoId_ThrowException()
         {
-            tagsClient.Delete(new Tag());
+            Assert.Throws<ArgumentException>(() => tagsClient.Delete(new Tag()));
         }
 
 

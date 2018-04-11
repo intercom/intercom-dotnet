@@ -99,7 +99,6 @@ namespace Intercom.Clients
 
             ClientResponse<Visitor> result = null;
             result = Put<Visitor>(visitor);
-
             return result.Result;
         }
 
