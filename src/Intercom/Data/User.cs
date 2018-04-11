@@ -1,12 +1,5 @@
 ﻿using System;
 using Intercom.Core;
-using Intercom.Data;
-using Intercom.Clients;
-using Intercom.Exceptions;
-using RestSharp;
-using RestSharp.Authenticators;
-using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Intercom.Converters.AttributeConverters;
@@ -26,6 +19,7 @@ namespace Intercom.Data
 		public long? signed_up_at { get; set; }
 		public long? created_at { get; set; }
 		public int? session_count { get; set; }
+        public bool? new_session { get; set; }
 		public string user_agent_data { get; set; }
 		public object pseudonym { get; set; }
 		public bool? anonymous { get; set; }

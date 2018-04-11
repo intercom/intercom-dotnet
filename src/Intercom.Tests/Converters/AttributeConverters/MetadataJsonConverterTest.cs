@@ -54,14 +54,13 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(JsonConverterException))]
         public void ReadJson_InvalidJson_ThrowsException()
         {
             String input = "{\"complex\"\":\"aed\"},\"article_1\":{\"url\tps://example.org/orders/3434-3434\",\"value\":\"click here!\"}}";
             StringReader stringReader = new StringReader(input);
             JsonReader reader = new JsonTextReader(stringReader);
 
-            metadataJsonConverter.ReadJson(reader, typeof(Metadata), null, null);
+            Assert.Throws<JsonConverterException>(() => metadataJsonConverter.ReadJson(reader, typeof(Metadata), null, null));
         }
     }
 }

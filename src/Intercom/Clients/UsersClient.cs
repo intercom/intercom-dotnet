@@ -335,20 +335,25 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User IncrementUserSession(User user)
+        public User IncrementUserSession(String id, List<String> companyIds)
         {
-            if (user == null)
+            if (String.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(id));
             }
 
-            if (String.IsNullOrEmpty(user.id))
+            if (companyIds == null)
             {
-                throw new ArgumentException("'user.id' argument is null.");
+                throw new ArgumentNullException(nameof(companyIds));
+            }
+
+            if (!companyIds.Any())
+            {
+                throw new ArgumentException("'companyIds' shouldnt be empty.");
             }
 
             ClientResponse<User> result = null;
-            String body = JsonConvert.SerializeObject(new { id = user.id, new_session = true });
+            String body = JsonConvert.SerializeObject(new { id = id, new_session = true, companies = companyIds.Select(c => new { id = c }) });
             result = Post<User>(body);
             return result.Result;
         }
@@ -417,7 +422,7 @@ namespace Intercom.Clients
                     name = c.name,
                     monthly_spend = c.monthly_spend,
                     custom_attributes = c.custom_attributes,
-                    plan = c.plan != null ? c.plan.name : String.Empty,
+                    plan = c.plan != null ? c.plan.name : null,
                     remove = c.remove
                 }).ToList();
             }
@@ -436,7 +441,8 @@ namespace Intercom.Clients
                 signed_up_at = user.signed_up_at,
                 last_seen_ip = user.last_seen_ip,
                 custom_attributes = user.custom_attributes,
-                last_seen_user_agent = user.user_agent_data,
+                new_session = user.new_session,
+                user_agent_data = user.user_agent_data,
                 last_request_at = user.last_request_at,
                 unsubscribed_from_emails = user.unsubscribed_from_emails
             };

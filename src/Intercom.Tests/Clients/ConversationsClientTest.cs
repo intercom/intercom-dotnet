@@ -23,10 +23,9 @@ namespace Intercom.Test
         }
 
         [Test()]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void View_WithNull_ThrowException()
         {
-            conversationsClient.View(null);
+            Assert.Throws<ArgumentNullException>(() => conversationsClient.View(null));
         }
     }
 }

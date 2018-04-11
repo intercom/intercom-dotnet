@@ -9,7 +9,7 @@ namespace Intercom.Data
 {
     public class UserConversationReply : Reply
     {
-        public string type
+        public override string type
         {
             get
             {
@@ -17,7 +17,7 @@ namespace Intercom.Data
             }
         }
 
-        public String message_type
+        public override String message_type
         { 
             get
             { 

@@ -13,14 +13,19 @@ namespace Intercom.Data
     {
         public long created_at { get; set; }
         public long updated_at { get; set; }
+        public long? waiting_since { get; set; }
+        public long? snoozed_until { get; set; }
         public Assignee assignee { get; set; }
         public User user { get; set; }
         public bool open { get; set; }
         public bool read { get; set; }
+        public string state { get; set; }
+        public int total_count { get; set; }
         public ConversationMessage conversation_message { get; set; }
         [JsonConverter(typeof(ListJsonConverter))]
         public List<ConversationPart> conversation_parts { get; set; }
         [JsonConverter(typeof(ListJsonConverter))]
         public List<Tag> tags { get; set; }
+        public List<Customer> customers { get; set; }
     }
 }
