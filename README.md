@@ -1,4 +1,7 @@
-![Build Status](https://www.myget.org/BuildSource/Badge/intercom-dotnet?identifier=9009384b-3f0e-4d23-aa53-3bac173f29bb)
+| | |
+| --- | --- |
+| **Build status** | ![Build Status](https://www.myget.org/BuildSource/Badge/intercom-dotnet?identifier=9009384b-3f0e-4d23-aa53-3bac173f29bb) |
+| **NuGet** | [![NuGet](https://img.shields.io/nuget/v/Intercom.Dotnet.Client.svg)](https://www.nuget.org/packages/Intercom.Dotnet.Client/) |
 
 # intercom-dotnet
 
