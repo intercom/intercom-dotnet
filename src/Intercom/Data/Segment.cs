@@ -14,10 +14,10 @@ namespace Intercom.Data
 	public class Segment : Model
 	{
         public string name { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime created_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset updated_at { get; set; }
 
 		public Segment ()
 		{

@@ -13,8 +13,8 @@ namespace Intercom.Data
 	public class Event : Model
 	{
 		public string event_name { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? created_at { get; set; }
 		public string user_id { get; set; }
 		public string email { get; set; }
 

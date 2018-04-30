@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 
 namespace Intercom.Converters.ClassConverters
 {
-    public class DateTimeJsonConverter : JsonConverter
+    public class DateTimeOffsetJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType.Equals(typeof(DateTime)) || objectType.Equals(typeof(DateTime?)));
+            return (objectType.Equals(typeof(DateTimeOffset)) || objectType.Equals(typeof(DateTimeOffset?)));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -34,8 +34,8 @@ namespace Intercom.Converters.ClassConverters
                 throw new FormatException("Dates must be represented as UNIX timestamps in JSON.", ex);
             }
 
-            DateTime unixEpoch = new DateTime(1970, 1, 1);
-            DateTime result = unixEpoch.AddSeconds(unixTimestamp);
+            DateTimeOffset unixEpoch = _GetUnixEpoch();
+            DateTimeOffset result = unixEpoch.AddSeconds(unixTimestamp);
 
             return result;
         }
@@ -49,12 +49,19 @@ namespace Intercom.Converters.ClassConverters
                 return;
             }
 
-            DateTime unixEpoch = new DateTime(1970, 1, 1);
-            DateTime dateTime = (DateTime)value;
+            DateTimeOffset unixEpoch = _GetUnixEpoch();
+            DateTimeOffset dateTimeOffset = (DateTimeOffset)value;
 
-            long unixTimestamp = Convert.ToInt64((dateTime - unixEpoch).TotalSeconds);
+            dateTimeOffset = dateTimeOffset.ToOffset(TimeSpan.Zero);
+
+            long unixTimestamp = Convert.ToInt64((dateTimeOffset - unixEpoch).TotalSeconds);
 
             writer.WriteRawValue(unixTimestamp.ToString());
+        }
+
+        private DateTimeOffset _GetUnixEpoch()
+        {
+            return new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
         }
     }
 }

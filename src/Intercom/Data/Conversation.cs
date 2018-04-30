@@ -12,14 +12,14 @@ namespace Intercom.Data
 {
     public class Conversation : Model
     {
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime created_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime updated_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? waiting_since { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? snoozed_until { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? waiting_since { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? snoozed_until { get; set; }
         public Assignee assignee { get; set; }
         public User user { get; set; }
         public bool open { get; set; }

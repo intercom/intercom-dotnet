@@ -10,8 +10,8 @@ namespace Intercom.Data
 {
     public class Note : Model
     {
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? created_at { get; set; }
         public string body { get; set; }
         public Admin author { get; set; }
         public User user { get; set; }

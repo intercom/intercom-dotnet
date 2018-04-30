@@ -240,7 +240,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User UpdateLastSeenAt(String id, DateTime timestamp)
+        public User UpdateLastSeenAt(String id, DateTimeOffset timestamp)
         {
             if (String.IsNullOrEmpty(id))
             {
@@ -253,7 +253,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User UpdateLastSeenAt(User user, DateTime timestamp)
+        public User UpdateLastSeenAt(User user, DateTimeOffset timestamp)
         {
             if (user == null)
             {

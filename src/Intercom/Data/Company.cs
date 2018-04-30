@@ -13,14 +13,14 @@ namespace Intercom.Data
         public string name { get; set; }
         public Plan plan { get; set; }
         public string company_id { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? remote_created_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? created_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? updated_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime? last_request_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? remote_created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? last_request_at { get; set; }
         public int? monthly_spend { get; set; }
         public int? session_count { get; set; }
         public int? user_count { get; set; }

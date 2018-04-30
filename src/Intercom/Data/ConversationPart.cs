@@ -13,12 +13,12 @@ namespace Intercom.Data
     {
         public string part_type { get; set; }
         public string body { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime created_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime updated_at { get; set; }
-        [JsonConverter(typeof(DateTimeJsonConverter))]
-        public DateTime notified_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset notified_at { get; set; }
         public Assignee assigned_to { get; set; }
         public Author author { get; set; }
         public List<Attachment> attachments { get; set; }
