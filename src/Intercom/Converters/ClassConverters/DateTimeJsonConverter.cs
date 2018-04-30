@@ -8,16 +8,25 @@ namespace Intercom.Converters.ClassConverters
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType.Equals(typeof(DateTime));
+            return (objectType.Equals(typeof(DateTime)) || objectType.Equals(typeof(DateTime?)));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            reader.Read();
+
+            object value = reader.Value;
+
+            if (value == null)
+            {
+                return null;
+            }
+
             long unixTimestamp;
 
             try
             {
-                unixTimestamp = Convert.ToInt64(reader.ReadAsDouble());
+                unixTimestamp = Convert.ToInt64(value);
             }
 
             catch (InvalidCastException ex)
@@ -33,6 +42,13 @@ namespace Intercom.Converters.ClassConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (value == null)
+            {
+                writer.WriteRawValue("null");
+
+                return;
+            }
+
             DateTime unixEpoch = new DateTime(1970, 1, 1);
             DateTime dateTime = (DateTime)value;
 

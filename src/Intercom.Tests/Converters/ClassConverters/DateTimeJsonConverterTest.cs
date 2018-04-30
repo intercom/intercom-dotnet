@@ -14,6 +14,7 @@ namespace Intercom.Tests.Converters.ClassConverters
     {
         private const string _DateCreatedISO = "1989-04-16T00:15:00Z";
         private const string _DateCreatedUnix = "608688900";
+        private const string _Null = "null";
 
         private readonly DateTimeJsonConverter _converter;
 
@@ -31,6 +32,30 @@ namespace Intercom.Tests.Converters.ClassConverters
                 DateTime dateCreated = (DateTime)_converter.ReadJson(jsonReader, typeof(DateTime), null, null);
 
                 Assert.AreEqual(_ParseUtcDateString(_DateCreatedISO), dateCreated);
+            }
+        }
+
+        [TestCase(_Null)]
+        public void ReadJson_ForNullableDateTime_ReturnsNull(string json)
+        {
+            using (StringReader stringReader = new StringReader(json))
+            using (JsonReader jsonReader = new JsonTextReader(stringReader))
+            {
+                DateTime? dateCreated = (DateTime?)_converter.ReadJson(jsonReader, typeof(DateTime?), null, null);
+
+                Assert.AreEqual(null, dateCreated);
+            }
+        }
+
+        [TestCase(null)]
+        public void WriteJsonForNullableDateTime_ReturnsNull(DateTime? input)
+        {
+            using (StringWriter stringWriter = new StringWriter())
+            using (JsonWriter jsonWriter = new JsonTextWriter(stringWriter))
+            {
+                _converter.WriteJson(jsonWriter, input, null);
+
+                Assert.AreEqual(_Null, stringWriter.GetStringBuilder().ToString());
             }
         }
 
