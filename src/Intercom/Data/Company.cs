@@ -3,6 +3,7 @@ using Intercom.Core;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Intercom.Converters.AttributeConverters;
+using Intercom.Converters.ClassConverters;
 
 namespace Intercom.Data
 {
@@ -12,10 +13,14 @@ namespace Intercom.Data
         public string name { get; set; }
         public Plan plan { get; set; }
         public string company_id { get; set; }
-        public long? remote_created_at { get; set; }
-        public long? created_at { get; set; }
-        public long? updated_at { get; set; }
-        public long? last_request_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? remote_created_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? created_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? last_request_at { get; set; }
         public int? monthly_spend { get; set; }
         public int? session_count { get; set; }
         public int? user_count { get; set; }

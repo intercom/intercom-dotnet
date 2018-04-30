@@ -240,16 +240,11 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User UpdateLastSeenAt(String id, long timestamp)
+        public User UpdateLastSeenAt(String id, DateTime timestamp)
         {
             if (String.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
-            }
-
-            if (timestamp <= 0)
-            {
-                throw new ArgumentException("'timestamp' argument should be bigger than zero.");
             }
 
             ClientResponse<User> result = null;
@@ -258,16 +253,11 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User UpdateLastSeenAt(User user, long timestamp)
+        public User UpdateLastSeenAt(User user, DateTime timestamp)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
-            }
-
-            if (timestamp <= 0)
-            {
-                throw new ArgumentException("'timestamp' argument should be bigger than zero.");
             }
 
             String body = String.Empty;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Intercom.Clients;
 using Intercom.Converters.AttributeConverters;
+using Intercom.Converters.ClassConverters;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
@@ -11,10 +12,14 @@ namespace Intercom.Data
 {
     public class Conversation : Model
     {
-        public long created_at { get; set; }
-        public long updated_at { get; set; }
-        public long? waiting_since { get; set; }
-        public long? snoozed_until { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime created_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? waiting_since { get; set; }
+        [JsonConverter(typeof(DateTimeJsonConverter))]
+        public DateTime? snoozed_until { get; set; }
         public Assignee assignee { get; set; }
         public User user { get; set; }
         public bool open { get; set; }
