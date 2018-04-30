@@ -33,7 +33,12 @@ namespace Intercom.Converters.ClassConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            DateTime unixEpoch = new DateTime(1970, 1, 1);
+            DateTime dateTime = (DateTime)value;
+
+            long unixTimestamp = Convert.ToInt64((dateTime - unixEpoch).TotalSeconds);
+
+            writer.WriteRawValue(unixTimestamp.ToString());
         }
     }
 }

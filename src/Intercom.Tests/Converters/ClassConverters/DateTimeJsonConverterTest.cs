@@ -12,6 +12,9 @@ namespace Intercom.Tests.Converters.ClassConverters
     [TestFixture]
     public class DateTimeJsonConverterTest : TestBase
     {
+        private const string _DateCreatedISO = "1989-04-16T00:15:00Z";
+        private const string _DateCreatedUnix = "608688900";
+
         private readonly DateTimeJsonConverter _converter;
 
         public DateTimeJsonConverterTest()
@@ -19,7 +22,7 @@ namespace Intercom.Tests.Converters.ClassConverters
             _converter = new DateTimeJsonConverter();
         }
 
-        [TestCase("608688900")]
+        [TestCase(_DateCreatedUnix)]
         public void ReadJson_ForDateTime_ReturnsValidDateTime(string json)
         {
             using (StringReader stringReader = new StringReader(json))
@@ -27,14 +30,37 @@ namespace Intercom.Tests.Converters.ClassConverters
             {
                 DateTime dateCreated = (DateTime)_converter.ReadJson(jsonReader, typeof(DateTime), null, null);
 
-                Assert.AreEqual(new DateTime(1989, 4, 16, 0, 15, 0), dateCreated);
+                Assert.AreEqual(_ParseUtcDateString(_DateCreatedISO), dateCreated);
             }
         }
 
-        [Test]
-        public void WriteJson_ForDateTime_ReturnsValidUnixTimestamp()
+        [TestCase(_DateCreatedISO)]
+        public void WriteJson_ForDateTime_ReturnsValidUnixTimestamp(string input)
         {
-            throw new NotImplementedException();
+            DateTime inputDate;
+
+            try
+            {
+                inputDate = _ParseUtcDateString(input);
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to properly parse the test input.", ex);
+            }
+
+            using (StringWriter stringWriter = new StringWriter())
+            using (JsonWriter jsonWriter = new JsonTextWriter(stringWriter))
+            {
+                _converter.WriteJson(jsonWriter, inputDate, null);
+
+                Assert.AreEqual(_DateCreatedUnix, stringWriter.GetStringBuilder().ToString());
+            }
+        }
+
+        private DateTime _ParseUtcDateString(string input)
+        {
+            return DateTimeOffset.Parse(input).UtcDateTime;
         }
     }
 }
