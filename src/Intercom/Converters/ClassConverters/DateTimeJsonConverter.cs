@@ -13,8 +13,6 @@ namespace Intercom.Converters.ClassConverters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            reader.Read();
-
             object value = reader.Value;
 
             if (value == null)
