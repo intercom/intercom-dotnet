@@ -59,19 +59,24 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public Segment View(String id)
+        public Segment View(String id, bool includeCount = false)
         {
             if (String.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
+            Dictionary<String, String> parameters = new Dictionary<String, String>
+            {
+                { "include_count", includeCount.ToString() }
+            };
+
             ClientResponse<Segment> result = null;
-            result = Get<Segment>(resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Segment>(parameters: parameters, resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
         }
 
-        public Segment View(Segment segment)
+        public Segment View(Segment segment, bool includeCount = false)
         {
             if (segment == null)
             {
@@ -82,6 +87,11 @@ namespace Intercom.Clients
             {
                 throw new ArgumentException("you must provide value for 'segment.id'.");
             }
+
+            Dictionary<String, String> parameters = new Dictionary<String, String>
+            {
+                { "include_count", includeCount.ToString() }
+            };
 
             ClientResponse<Segment> result = null;
             result = Get<Segment>(resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + segment.id);
