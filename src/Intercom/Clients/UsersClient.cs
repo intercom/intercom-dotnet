@@ -423,6 +423,9 @@ namespace Intercom.Clients
                     monthly_spend = c.monthly_spend,
                     custom_attributes = c.custom_attributes,
                     plan = c.plan != null ? c.plan.name : null,
+                    website = c.website,
+                    size = c.size,
+                    industry = c.industry,
                     remove = c.remove
                 }).ToList();
             }
