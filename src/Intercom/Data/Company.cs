@@ -16,7 +16,7 @@ namespace Intercom.Data
         public long? created_at { get; set; }
         public long? updated_at { get; set; }
         public long? last_request_at { get; set; }
-        public int? monthly_spend { get; set; }
+        public decimal? monthly_spend { get; set; }
         public int? session_count { get; set; }
         public int? user_count { get; set; }
         public int? size { get; set; }
