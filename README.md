@@ -117,9 +117,14 @@ Users users = usersClient.Scroll(scroll_param_value);
 
 **Delete a user**
 ```cs
-usersClient.Delete("100300231"); // with intercom generated user's id
-usersClient.Delete(new User() { email = "example@example.com" });
-usersClient.Delete(new User() { user_id = "my_id" });
+usersClient.Archive("100300231"); // with intercom generated user's id
+usersClient.Archive(new User() { email = "example@example.com" });
+usersClient.Archive(new User() { user_id = "my_id" });
+```
+
+**Permanently delete a user**
+```cs
+usersClient.PermanentlyDeleteUser("100300231"); // with intercom generated user's id
 ```
 
 **Update User's LastSeenAt (multiple ways)**
