@@ -44,6 +44,7 @@ namespace Intercom.Data
         public string utm_term { get; set; }
         public bool marked_email_as_spam { get; set; }
         public bool has_hard_bounced { get; set; }
+        public string last_seen_user_agent { get; set; }
 
 		public User()
 		{
