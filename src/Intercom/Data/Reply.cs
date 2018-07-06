@@ -37,9 +37,9 @@ namespace Intercom.Data
             String conversation_id,
             String messageType = Reply.ReplyMessageType.COMMENT,
             String body = "",
-            List<String> attachementUrls = null)
+            List<String> attachmentUrls = null)
         {
-            if (attachementUrls != null && attachementUrls.Count > 5)
+            if (attachmentUrls != null && attachmentUrls.Count > 5)
             {
                 throw new ArgumentException("'attachment_urls' need to be equal or less than 5 urls.");
             }
@@ -47,7 +47,7 @@ namespace Intercom.Data
             this.body = body;
             this.conversation_id = conversation_id;
             this.message_type = messageType;
-            this.attachment_urls = attachementUrls;
+            this.attachment_urls = attachmentUrls;
         }
     }
 }

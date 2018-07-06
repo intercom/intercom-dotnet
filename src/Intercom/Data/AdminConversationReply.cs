@@ -22,18 +22,19 @@ namespace Intercom.Data
         }
 
         public String admin_id { set; get; }
-
         public String assignee_id { set; get; }
+        public String intercom_user_id { get; set;  }
 
-        public AdminConversationReply(String conversationId,
-                                      String adminId, 
+        public AdminConversationReply(String adminId,
                                       String messageType = Reply.ReplyMessageType.COMMENT,
                                       String body = "",
+                                      String intercom_user_id = null,
+                                      String conversationId = null,
                                       List<String> attachementUrls = null)
             : base(conversationId, messageType, body, attachementUrls)
         {
 
-            if (String.IsNullOrEmpty(conversationId))
+            if (String.IsNullOrEmpty(conversationId) && !String.IsNullOrEmpty(intercom_user_id))
                 throw new ArgumentNullException(nameof(conversationId));
 
             if ((messageType == Reply.ReplyMessageType.COMMENT ||

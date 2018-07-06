@@ -52,6 +52,19 @@ namespace Intercom.Clients
             return result.Result;
         }
 
+        public ConversationPart ReplyToUserLastConversation(AdminConversationReply reply)
+        {
+            if (reply == null)
+            {
+                throw new ArgumentNullException(nameof(reply));
+            }
+
+            ClientResponse<ConversationPart> result = null;
+            String body = Serialize<AdminConversationReply>(reply);
+            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + "last" + Path.DirectorySeparatorChar + REPLY_RESOURCE);
+            return result.Result;
+        }
+
         public Conversations List(Admin admin, bool? open = null, bool? displayAsPlainText = null)
         {
             if (admin == null)
