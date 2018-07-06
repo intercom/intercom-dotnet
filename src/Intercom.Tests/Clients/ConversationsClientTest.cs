@@ -27,5 +27,12 @@ namespace Intercom.Test
         {
             Assert.Throws<ArgumentNullException>(() => conversationsClient.View(null));
         }
+
+        [Test()]
+        public void ListAll_WithNullParameters_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() => conversationsClient.ListAll(null));
+        }
+
     }
 }

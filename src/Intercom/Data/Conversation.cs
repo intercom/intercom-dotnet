@@ -16,7 +16,7 @@ namespace Intercom.Data
         public long? waiting_since { get; set; }
         public long? snoozed_until { get; set; }
         public Assignee assignee { get; set; }
-        public User user { get; set; }
+        public ConversationUser user { get; set; }
         public bool open { get; set; }
         public bool read { get; set; }
         public string state { get; set; }
@@ -26,6 +26,7 @@ namespace Intercom.Data
         public List<ConversationPart> conversation_parts { get; set; }
         [JsonConverter(typeof(ListJsonConverter))]
         public List<Tag> tags { get; set; }
+        public ConversationRating conversation_rating { get; set; }
         public List<Customer> customers { get; set; }
     }
 }
