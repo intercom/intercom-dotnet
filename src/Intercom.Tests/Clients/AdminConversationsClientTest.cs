@@ -40,5 +40,11 @@ namespace Intercom.Test
         {
             Assert.Throws<ArgumentException>(() => adminConversationsClient.List(new Admin()));
         }
+
+        [Test()]
+        public void ReplyLastConversation_NoReply_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() => adminConversationsClient.ReplyLastConversation(new AdminLastConversationReply()));
+        }
     }
 }

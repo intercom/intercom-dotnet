@@ -84,5 +84,18 @@ namespace Intercom.Clients
             result = Get<Conversations>(parameters: parameters);
             return result.Result;
         }
+
+        public Conversation ReplyLastConversation(AdminLastConversationReply lastConversationReply)
+        {
+            if (lastConversationReply.intercom_user_id == null)
+            {
+                throw new ArgumentNullException(nameof(lastConversationReply.intercom_user_id));
+            }
+
+            ClientResponse<Conversation> result = null;
+            String body = Serialize<AdminLastConversationReply>(lastConversationReply);
+            result = Post<Conversation>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + "last" + Path.DirectorySeparatorChar + REPLY_RESOURCE);
+            return result.Result;
+        }
     }
 }
