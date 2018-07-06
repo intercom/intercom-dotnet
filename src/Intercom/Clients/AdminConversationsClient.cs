@@ -15,6 +15,7 @@ namespace Intercom.Clients
     {
         private const String CONVERSATIONS_RESOURCE = "conversations";
         private const String MESSAGES_RESOURCE = "messages";
+        private const String LAST_REPLY_RESOURCE = "last/reply";
         private const String REPLY_RESOURCE = "reply";
 
         public AdminConversationsClient(Authentication authentication)
@@ -49,19 +50,6 @@ namespace Intercom.Clients
 
             ClientResponse<AdminConversationMessage> result = null;
             result = Post<AdminConversationMessage>(adminMessage, resource: MESSAGES_RESOURCE);
-            return result.Result;
-        }
-
-        public ConversationPart ReplyToUserLastConversation(AdminConversationReply reply)
-        {
-            if (reply == null)
-            {
-                throw new ArgumentNullException(nameof(reply));
-            }
-
-            ClientResponse<ConversationPart> result = null;
-            String body = Serialize<AdminConversationReply>(reply);
-            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + "last" + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
 

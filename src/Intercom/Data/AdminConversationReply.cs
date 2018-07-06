@@ -1,12 +1,4 @@
 ﻿using System;
-using Intercom.Core;
-using Intercom.Data;
-
-
-using Intercom.Clients;
-
-using Intercom.Exceptions;
-
 using System.Collections.Generic;
 
 namespace Intercom.Data
@@ -22,19 +14,18 @@ namespace Intercom.Data
         }
 
         public String admin_id { set; get; }
-        public String assignee_id { set; get; }
-        public String intercom_user_id { get; set;  }
 
-        public AdminConversationReply(String adminId,
+        public String assignee_id { set; get; }
+
+        public AdminConversationReply(String conversationId,
+                                      String adminId,
                                       String messageType = Reply.ReplyMessageType.COMMENT,
                                       String body = "",
-                                      String intercom_user_id = null,
-                                      String conversationId = null,
                                       List<String> attachementUrls = null)
             : base(conversationId, messageType, body, attachementUrls)
         {
 
-            if (String.IsNullOrEmpty(conversationId) && !String.IsNullOrEmpty(intercom_user_id))
+            if (String.IsNullOrEmpty(conversationId))
                 throw new ArgumentNullException(nameof(conversationId));
 
             if ((messageType == Reply.ReplyMessageType.COMMENT ||
