@@ -535,6 +535,20 @@ AdminConversationReply admin_reply =
             body: "this is a reply body"));
 ```
 
+**Reply to user's last conversation**
+```cs
+Conversation reply =
+    adminConversationsClient.ReplyLastConversation(
+        new AdminLastConversationReply()
+        {
+            admin_id = "12434",
+            message_type = "comment",
+            body = "replying to last conversation",
+            intercom_user_id = "5911bd8bf0c7446d2d1d045d"
+        });
+```
+
+
 **Create UserConversationsClient instance**
 ```cs
 UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("MyPersonalAccessToken"));
