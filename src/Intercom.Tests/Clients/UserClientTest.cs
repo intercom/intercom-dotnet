@@ -35,9 +35,15 @@ namespace Intercom.Test
         }
 
         [Test()]
-        public void Delete_NoIdOrUserIdOrEmail_ThrowException()
+        public void Archive_NoIdOrUserIdOrEmail_ThrowException()
         {
-            Assert.Throws<ArgumentException>(() => usersClient.Delete(new User()));
+            Assert.Throws<ArgumentException>(() => usersClient.Archive(new User()));
+        }
+
+        [Test()]
+        public void PermanentlyDeleteUser_NoId_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() => usersClient.PermanentlyDeleteUser(null));
         }
 
         [Test()]

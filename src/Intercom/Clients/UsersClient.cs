@@ -24,6 +24,7 @@ namespace Intercom.Clients
         }
 
         private const String USERS_RESOURCE = "users";
+        private const String PERMANENT_DELETE_RESOURCE = "user_delete_requests";
 
         public UsersClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, USERS_RESOURCE, authentication)
@@ -196,7 +197,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User Delete(User user)
+        public User Archive(User user)
         {
             if (user == null)
             {
@@ -228,7 +229,13 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User Delete(String id)
+        [Obsolete("Replaced by Archive(User user). Renamed for consistency with API language.")]
+        public User Delete(User user)
+        {
+            return Archive(user);
+        }
+
+        public User Archive(String id)
         {
             if (String.IsNullOrEmpty(id))
             {
@@ -238,6 +245,12 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
+        }
+
+        [Obsolete("Replaced by Archive(String id). Renamed for consistency with API language.")]
+        public User Delete(String id)
+        {
+            return Archive(id);
         }
 
         public User UpdateLastSeenAt(String id, long timestamp)
@@ -406,6 +419,19 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true }) });
             result = Post<User>(body);
+            return result.Result;
+        }
+
+        public User PermanentlyDeleteUser(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { intercom_user_id = id });
+            result = Post<User>(resource: PERMANENT_DELETE_RESOURCE, body: body);
             return result.Result;
         }
 
