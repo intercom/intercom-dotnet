@@ -52,5 +52,24 @@ namespace Intercom.Clients
             result = Get<Conversation>(resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
         }
+
+        public Conversations ListAll ()
+        {
+            ClientResponse<Conversations> result = null;
+            result = Get<Conversations>(resource: CONVERSATIONS_RESOURCE, parameters: null);
+            return result.Result;
+        }
+
+        public Conversations ListAll(Dictionary<String, String> parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
+            ClientResponse<Conversations> result = null;
+            result = Get<Conversations>(resource: CONVERSATIONS_RESOURCE, parameters: parameters);
+            return result.Result;
+        }
     }
 }

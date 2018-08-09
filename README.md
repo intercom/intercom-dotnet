@@ -498,6 +498,15 @@ conversationsClient.View("100300231");
 conversationsClient.View("100300231", displayAsPlainText: true);
 ```
 
+**List all conversations**
+```cs
+conversationsClient.ListAll();
+
+Dictionary<String, String> parameters = new Dictionary<string, string>();
+parameters.Add("order", "asc");
+conversationsClient.ListAll(parameters);
+```
+
 **Create AdminConversationsClient instance**
 ```cs
 AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("MyPersonalAccessToken"));
