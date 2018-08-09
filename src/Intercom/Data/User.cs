@@ -34,6 +34,17 @@ namespace Intercom.Data
 		public List<Segment> segments { get; set; }
 		[JsonConverter(typeof(ListJsonConverter))]
 		public List<Tag> tags { get; set; }
+        public string app_id { get; set; }
+        public long? remote_created_at { get; set; }
+        public string referrer { get; set; }
+        public string utm_campaign { get; set; }
+        public string utm_content { get; set; }
+        public string utm_medium { get; set; }
+        public string utm_source { get; set; }
+        public string utm_term { get; set; }
+        public bool marked_email_as_spam { get; set; }
+        public bool has_hard_bounced { get; set; }
+        public string last_seen_user_agent { get; set; }
 
 		public User()
 		{
