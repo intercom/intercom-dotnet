@@ -526,7 +526,7 @@ AdminConversationMessage admin_message =
 
 **Create Admin initiated Conversation's reply**
 ```cs
-AdminConversationReply admin_reply =
+Conversation conversation =
     adminConversationsClient.Reply(
         new AdminConversationReply(
             conversationId: "1000_conversation_id",
@@ -565,7 +565,7 @@ UserConversationMessage user_message =
 
 **Create User initiated Conversation's reply**
 ```cs
-UserConversationReply user_reply =
+Conversation conversation =
     userConversationsClient.Reply(
         new UserConversationReply(
             conversationId: "1000_conversation_id",
