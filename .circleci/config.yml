@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2-sdk
+      
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: NUnit Tests
+          command: dotnet test src/Intercom.Test
