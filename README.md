@@ -115,6 +115,23 @@ String scroll_param_value = users.scroll_param;
 Users users = usersClient.Scroll(scroll_param_value);
 ```
 
+**List users with Pagination using Pages**
+```cs
+Pages page = new Pages()
+{
+    page = 1,
+    per_page = 10,
+}
+Users users = usersClient.Next(page);
+```
+
+**List users with Pagination**
+```cs
+Users users = usersClient.Next();
+
+Users users = usersClient.Next(1, 50, OrderBy.Desc, UserSortBy.created_at);
+```
+
 **Delete a user**
 ```cs
 usersClient.Archive("100300231"); // with intercom generated user's id

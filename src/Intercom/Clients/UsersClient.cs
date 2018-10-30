@@ -15,7 +15,6 @@ namespace Intercom.Clients
 {
     public class UsersClient : Client
     {
-        // TODO: Implement paging
         private static class UserSortBy
         {
             public const String created_at = "created_at";
@@ -166,21 +165,38 @@ namespace Intercom.Clients
 
         public Users List(Dictionary<String, String> parameters)
         {
+            return ListUsersFromParams(parameters);
+        }
+
+        public Users Next(Pages pages)
+        {
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
+
+            parameters.Add("page", pages.page.ToString());
+            parameters.Add("per_page", pages.per_page.ToString());
+            parameters.Add("order", OrderBy.Desc.ToString());
+            parameters.Add("sort", UserSortBy.created_at.ToString());
+
+            return ListUsersFromParams(parameters);
+        }
+
+        public Users Next(int page = 1, int perPage = 50, OrderBy orderBy = OrderBy.Desc, String sortBy = UserSortBy.created_at)
+        {
+            Dictionary<String, String> parameters = new Dictionary<String, String>();
+
+            parameters.Add("page", page.ToString());
+            parameters.Add("per_page", perPage.ToString());
+            parameters.Add("order", orderBy.ToString().ToLower());
+            parameters.Add("sort", sortBy.ToString());            
+
+            return ListUsersFromParams(parameters);
+        }
+
+        private Users ListUsersFromParams(Dictionary<String, String> parameters)
+        {
             ClientResponse<Users> result = null;
             result = Get<Users>(parameters: parameters);
             return result.Result;
-        }
-
-        // TODO: Implement paging (by Pages argument)
-        private Users Next(Pages pages)
-        {
-            return null;
-        }
-
-        // TODO: Implement paging
-        private Users Next(int page = 1, int perPage = 50, OrderBy orderBy = OrderBy.Dsc, String sortBy = UserSortBy.created_at)
-        {
-            return null;
         }
 
         public Users Scroll(String scrollParam = null)

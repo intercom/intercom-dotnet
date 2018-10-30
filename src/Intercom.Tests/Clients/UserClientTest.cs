@@ -19,7 +19,7 @@ namespace Intercom.Test
 
         public UserClientTest()
         {
-            this.usersClient = new UsersClient(new Authentication(AppId, AppKey));
+            usersClient = new UsersClient(new Authentication(AppId, AppKey));
         }
 
         [Test()]
