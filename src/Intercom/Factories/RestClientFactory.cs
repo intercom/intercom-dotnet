@@ -14,13 +14,19 @@ namespace Intercom.Factories
         private readonly string _url;
         private IRestClient _restClient;
 
-        public RestClientFactory(Authentication authentication, string url = INTERCOM_API_BASE_URL)
+        public RestClientFactory(Authentication authentication)
+        {
+            _authentication = authentication;
+            _url = INTERCOM_API_BASE_URL;
+        }
+
+        public RestClientFactory(Authentication authentication, string url)
         {
             _authentication = authentication;
             _url = url;
         }
 
-        public IRestClient RestClient
+        public virtual IRestClient RestClient
         {
             get
             {

@@ -288,7 +288,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, last_request_at = timestamp });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -324,7 +324,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, update_last_request_at = true });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
