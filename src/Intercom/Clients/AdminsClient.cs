@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -15,13 +16,8 @@ namespace Intercom.Clients
     {
         private const String ADMINS_RESOURCE = "admins";
 
-        public AdminsClient (Authentication authentication)
-            : base (INTERCOM_API_BASE_URL, ADMINS_RESOURCE, authentication)
-        {
-        }
-
-        public AdminsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, ADMINS_RESOURCE, authentication)
+        public AdminsClient (RestClientFactory restClientFactory)
+            : base (ADMINS_RESOURCE, restClientFactory)
         {
         }
 

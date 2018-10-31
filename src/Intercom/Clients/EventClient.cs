@@ -6,6 +6,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -15,15 +16,10 @@ namespace Intercom.Clients
 	{
 		private const String COMPANIES_RESOURCE = "events";
 
-		public EventsClient (Authentication authentication)
-			: base (INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
+		public EventsClient (RestClientFactory restClientFactory)
+			: base (COMPANIES_RESOURCE, restClientFactory)
 		{
 		}
-
-        public EventsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
-        {
-        }
 
 		public Event Create (Event @event)
 		{

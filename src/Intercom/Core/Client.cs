@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,7 +18,6 @@ namespace Intercom.Core
 {
     public class Client
     {
-        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
         protected const String CONTENT_TYPE_HEADER = "Content-Type";
         protected const String CONTENT_TYPE_VALUE = "application/json";
         protected const String ACCEPT_HEADER = "Accept";
@@ -27,24 +27,19 @@ namespace Intercom.Core
         protected const String USER_AGENT_HEADER = "User-Agent";
         protected const String USER_AGENT_VALUE = "intercom-dotnet/2.0.0";
 
-        protected readonly String URL;
         protected readonly String RESRC;
-        protected readonly Authentication AUTH;
+        protected readonly RestClientFactory _restClientFactory;
 
-        public Client(String url, String resource, Authentication authentication)
+        public Client(String resource, RestClientFactory restClientFactory)
         {
-            if (authentication == null)
-                throw new ArgumentNullException(nameof(authentication));
-                
-            if (String.IsNullOrEmpty(url))
-                throw new ArgumentNullException(nameof(url));
+            if (restClientFactory == null)
+                throw new ArgumentNullException(nameof(restClientFactory));
 
             if (String.IsNullOrEmpty(resource))
                 throw new ArgumentNullException(nameof(resource));
 
-            this.URL = url;
-            this.RESRC = resource;
-            this.AUTH = authentication;
+            RESRC = resource;
+            _restClientFactory = restClientFactory;
         }
 
         protected virtual ClientResponse<T> Get<T>(
@@ -55,9 +50,10 @@ namespace Intercom.Core
         {
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.GET, headers: headers, parameters: parameters, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse<T>(response);
@@ -74,7 +70,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "GET", URL, RESRC, resource), ex); 
+                        "GET", client.BaseUrl, RESRC, resource), ex); 
             }
 
             return clientResponse;
@@ -93,9 +89,10 @@ namespace Intercom.Core
 
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: body, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
@@ -112,7 +109,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", URL, RESRC, resource, body), ex); 
+                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
             }
 
             return clientResponse;
@@ -131,10 +128,11 @@ namespace Intercom.Core
 
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
                 String requestBody = Serialize<T>(body);
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.POST, headers: headers, parameters: parameters, body: requestBody, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
@@ -151,7 +149,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body-Type: {4}",
-                        "POST", URL, RESRC, resource, typeof(T)), ex); 
+                        "POST", client.BaseUrl, RESRC, resource, typeof(T)), ex); 
             }
 
             return clientResponse;
@@ -170,9 +168,10 @@ namespace Intercom.Core
 
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: body, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
@@ -189,7 +188,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", URL, RESRC, resource, body), ex); 
+                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
             }
 
             return clientResponse;
@@ -208,10 +207,11 @@ namespace Intercom.Core
 
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
                 String requestBody = Serialize<T>(body);
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.PUT, headers: headers, parameters: parameters, body: requestBody, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
@@ -228,7 +228,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", URL, RESRC, resource), ex); 
+                        "POST", client.BaseUrl, RESRC, resource), ex); 
             }
 
             return clientResponse;
@@ -242,9 +242,10 @@ namespace Intercom.Core
         {
             ClientResponse<T> clientResponse = null;
 
+            IRestClient client = null;
             try
             {
-                IRestClient client = BuildClient();
+                client = BuildClient();
                 IRestRequest request = BuildRequest(httpMethod: Method.DELETE, headers: headers, parameters: parameters, resource: resource);
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse<T>(response);
@@ -261,7 +262,7 @@ namespace Intercom.Core
             {
                 throw new IntercomException(String.Format("An exception occurred " +
                         "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", URL, RESRC, resource), ex); 
+                        "POST", client.BaseUrl, RESRC, resource), ex); 
             }
         
             return clientResponse;
@@ -295,14 +296,7 @@ namespace Intercom.Core
 
         protected virtual IRestClient BuildClient()
         {
-            RestClient client = new RestClient(URL);
-
-            if (!String.IsNullOrEmpty (AUTH.AppId) && !String.IsNullOrEmpty (AUTH.AppKey))
-                client.Authenticator = new HttpBasicAuthenticator (AUTH.AppId, AUTH.AppKey);
-            else
-                client.Authenticator = new HttpBasicAuthenticator (AUTH.PersonalAccessToken, String.Empty);
-
-            return client;
+            return _restClientFactory.RestClient;
         }
 
         protected virtual void AddHeaders(IRestRequest request, 

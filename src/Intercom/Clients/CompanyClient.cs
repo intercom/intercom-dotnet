@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
+using Intercom.Factories;
 using Newtonsoft.Json;
 
 namespace Intercom.Clients
@@ -13,13 +14,8 @@ namespace Intercom.Clients
     {
         private const String COMPANIES_RESOURCE = "companies";
 
-        public CompanyClient(Authentication authentication)
-            : base(INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
-        {
-        }
-
-        public CompanyClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
+        public CompanyClient(RestClientFactory restClientFactory)
+            : base(COMPANIES_RESOURCE, restClientFactory)
         {
         }
 

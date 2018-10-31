@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
@@ -18,13 +19,8 @@ namespace Intercom.Clients
         private const String VISITORS_RESOURCE = "visitors";
         private const String VISITORS_CONVERT = "convert";
 
-        public VisitorsClient(Authentication authentication)
-            : base(INTERCOM_API_BASE_URL, VISITORS_RESOURCE, authentication)
-        {
-        }
-
-        public VisitorsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, VISITORS_RESOURCE, authentication)
+        public VisitorsClient(RestClientFactory restClientFactory)
+            : base(VISITORS_RESOURCE, restClientFactory)
         {
         }
 

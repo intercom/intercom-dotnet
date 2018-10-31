@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
+using Intercom.Factories;
 using Newtonsoft.Json;
 
 namespace Intercom.Clients
@@ -19,13 +20,8 @@ namespace Intercom.Clients
 
         private const String CONTACTS_RESOURCE = "contacts";
 
-        public ContactsClient (Authentication authentication)
-            : base (INTERCOM_API_BASE_URL, CONTACTS_RESOURCE, authentication)
-        {
-        }
-
-        public ContactsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONTACTS_RESOURCE, authentication)
+        public ContactsClient (RestClientFactory restClientFactory)
+            : base (CONTACTS_RESOURCE, restClientFactory)
         {
         }
 

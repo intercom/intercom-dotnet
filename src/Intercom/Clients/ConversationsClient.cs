@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -24,13 +25,8 @@ namespace Intercom.Clients
 
         private const String CONVERSATIONS_RESOURCE = "conversations";
 
-        public ConversationsClient( Authentication authentication)
-            : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
-        {
-        }
-
-        public ConversationsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        public ConversationsClient( RestClientFactory restClientFactory)
+            : base(CONVERSATIONS_RESOURCE, restClientFactory)
         {
         }
 

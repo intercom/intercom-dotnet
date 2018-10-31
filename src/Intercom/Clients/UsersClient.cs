@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
@@ -26,13 +27,8 @@ namespace Intercom.Clients
         private const String USERS_RESOURCE = "users";
         private const String PERMANENT_DELETE_RESOURCE = "user_delete_requests";
 
-        public UsersClient(Authentication authentication)
-            : base(INTERCOM_API_BASE_URL, USERS_RESOURCE, authentication)
-        {
-        }
-
-        public UsersClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, USERS_RESOURCE, authentication)
+        public UsersClient(RestClientFactory restClientFactory)
+            : base(USERS_RESOURCE, restClientFactory)
         {
         }
 

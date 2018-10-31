@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -15,13 +16,8 @@ namespace Intercom.Clients
     {
         private const String COUNTS_RESOURCE = "counts";
 
-        public CountsClient (Authentication authentication)
-            : base (INTERCOM_API_BASE_URL, COUNTS_RESOURCE, authentication)
-        {
-        }
-
-        public CountsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COUNTS_RESOURCE, authentication)
+        public CountsClient (RestClientFactory restClientFactory)
+            : base (COUNTS_RESOURCE, restClientFactory)
         {
         }
 

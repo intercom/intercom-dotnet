@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -17,13 +18,8 @@ namespace Intercom.Clients
     {
         private const String NOTES_RESOURCE = "notes";
 
-        public NotesClient(Authentication authentication)
-            : base(INTERCOM_API_BASE_URL, NOTES_RESOURCE, authentication)
-        {
-        }
-
-        public NotesClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, NOTES_RESOURCE, authentication)
+        public NotesClient(RestClientFactory restClientFactory)
+            : base(NOTES_RESOURCE, restClientFactory)
         {
         }
 
