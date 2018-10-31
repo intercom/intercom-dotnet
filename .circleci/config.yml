@@ -10,5 +10,9 @@ jobs:
       - checkout
 
       - run:
-          name: NUnit Tests
-          command: dotnet test src/Intercom.Test
+          name: Unit Tests
+          command: dotnet test src/Intercom.Tests/Intercom.Tests.csproj
+
+      - run:
+          name: Integ Tests
+          command: dotnet test src/Intercom.Tests.Integration/Intercom.Tests.Integration.csproj
