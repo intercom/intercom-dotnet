@@ -23,6 +23,18 @@ namespace Intercom.Clients
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use NotesClient(RestClientFactory restClientFactory)")]
+        public NotesClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, NOTES_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use NotesClient(RestClientFactory restClientFactory)")]
+        public NotesClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, NOTES_RESOURCE, authentication)
+        {
+        }
+
         public Note Create(Note note)
         {
             if (note == null)

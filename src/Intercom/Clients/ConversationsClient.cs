@@ -30,6 +30,18 @@ namespace Intercom.Clients
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use ConversationsClient(RestClientFactory restClientFactory)")]
+        public ConversationsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use ConversationsClient(RestClientFactory restClientFactory)")]
+        public ConversationsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
         public Conversation View(String id, bool? displayAsPlainText = null)
         {
             if (String.IsNullOrEmpty(id))

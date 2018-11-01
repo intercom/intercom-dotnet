@@ -18,6 +18,7 @@ namespace Intercom.Core
 {
     public class Client
     {
+        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
         protected const String CONTENT_TYPE_HEADER = "Content-Type";
         protected const String CONTENT_TYPE_VALUE = "application/json";
         protected const String ACCEPT_HEADER = "Accept";
@@ -40,6 +41,21 @@ namespace Intercom.Core
 
             RESRC = resource;
             _restClientFactory = restClientFactory;
+        }
+
+        public Client(String intercomApiUrl, String resource, Authentication authentication)
+        {
+            if (authentication == null)
+                throw new ArgumentNullException(nameof(authentication));
+
+            if (String.IsNullOrEmpty(resource))
+                throw new ArgumentNullException(nameof(resource));
+
+            if (String.IsNullOrEmpty(intercomApiUrl))
+                throw new ArgumentNullException(nameof(intercomApiUrl));
+
+            RESRC = resource;
+            _restClientFactory = new RestClientFactory(authentication, intercomApiUrl);
         }
 
         protected virtual ClientResponse<T> Get<T>(

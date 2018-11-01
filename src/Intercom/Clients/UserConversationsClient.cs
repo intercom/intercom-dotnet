@@ -23,6 +23,19 @@ namespace Intercom.Clients
             : base(CONVERSATIONS_RESOURCE, restClientFactory)
         {
         }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use UserConversationsClient(RestClientFactory restClientFactory)")]
+        public UserConversationsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use UserConversationsClient(RestClientFactory restClientFactory)")]
+        public UserConversationsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
+        {
+        }
+
         public ConversationPart Reply(UserConversationReply reply)
         {
             if (reply == null)

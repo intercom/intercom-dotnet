@@ -20,6 +20,18 @@ namespace Intercom.Clients
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use SegmentsClient(RestClientFactory restClientFactory)")]
+        public SegmentsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, SEGMENTS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use SegmentsClient(RestClientFactory restClientFactory)")]
+        public SegmentsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, SEGMENTS_RESOURCE, authentication)
+        {
+        }
+
         public Segments List(bool company = false)
         {
             ClientResponse<Segments> result = null;

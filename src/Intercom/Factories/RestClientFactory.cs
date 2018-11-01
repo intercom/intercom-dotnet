@@ -8,8 +8,7 @@ namespace Intercom.Factories
     public class RestClientFactory
     {
 
-        protected const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
-
+        private const String INTERCOM_API_BASE_URL = "https://api.intercom.io/";
         private readonly Authentication _authentication;
         private readonly string _url;
         private IRestClient _restClient;

@@ -14,12 +14,24 @@ namespace Intercom.Clients
 {
 	public class EventsClient : Client
 	{
-		private const String COMPANIES_RESOURCE = "events";
+		private const String EVENTS_RESOURCE = "events";
 
 		public EventsClient (RestClientFactory restClientFactory)
-			: base (COMPANIES_RESOURCE, restClientFactory)
+			: base (EVENTS_RESOURCE, restClientFactory)
 		{
 		}
+
+		[Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use EventsClient(RestClientFactory restClientFactory)")]
+        public EventsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, EVENTS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use EventsClient(RestClientFactory restClientFactory)")]
+        public EventsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, EVENTS_RESOURCE, authentication)
+        {
+        }
 
 		public Event Create (Event @event)
 		{

@@ -24,6 +24,18 @@ namespace Intercom.Clients
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use VisitorsClient(RestClientFactory restClientFactory)")]
+        public VisitorsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, VISITORS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 2.1.0 and will soon be removed, please use VisitorsClient(RestClientFactory restClientFactory)")]
+        public VisitorsClient(String intercomApiUrl, Authentication authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, VISITORS_RESOURCE, authentication)
+        {
+        }
+
         public Visitor View(Dictionary<String, String> parameters)
         {
             if (parameters == null)
