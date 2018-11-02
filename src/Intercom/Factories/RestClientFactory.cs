@@ -13,6 +13,8 @@ namespace Intercom.Factories
         private readonly string _url;
         private IRestClient _restClient;
 
+        private readonly object padlock = new object();
+
         public RestClientFactory(Authentication authentication)
         {
             _authentication = authentication;
@@ -29,12 +31,15 @@ namespace Intercom.Factories
         {
             get
             {
-                if (_restClient != null)
+                lock(padlock)
                 {
-                    return _restClient;
+                    if (_restClient != null)
+                    {
+                        return _restClient;
+                    }
+                    ConstructClient();
+                    return _restClient; 
                 }
-                ConstructClient();
-                return _restClient; 
             }
         }
 
