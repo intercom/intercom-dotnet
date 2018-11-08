@@ -51,6 +51,16 @@ If you are building a third party application you will need to implement OAuth b
 
 ## Usage
 
+### For all client types
+
+It is now possible to create all types of client by either supplying the authentication object instance or by providing an instance of the new RestClientFactory. The latter is the new preferred method to construct instances of the various clients. The older constructor methods have been marked as obsolete and will be removed in later versions.
+
+```cs
+Authentication auth = new Authentication("MyPersonalAccessToken");
+RestClientFactory factory = new RestClientFactory(auth);
+UsersClient usersClient = new UsersClient(factory);
+```
+
 ### Users
 
 **Create UsersClient instance**

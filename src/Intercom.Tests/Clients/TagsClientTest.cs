@@ -4,6 +4,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -19,7 +20,9 @@ namespace Intercom.Test
 
         public TagsClientTest()
         {
-            this.tagsClient = new TagsClient(new Authentication(AppId, AppKey));
+            var auth = new Authentication(AppId, AppKey);
+            var restClientFactory = new RestClientFactory(auth);
+            tagsClient = new TagsClient(restClientFactory);
         }
 
         [Test()]

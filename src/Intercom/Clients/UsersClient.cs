@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
@@ -26,11 +27,18 @@ namespace Intercom.Clients
         private const String USERS_RESOURCE = "users";
         private const String PERMANENT_DELETE_RESOURCE = "user_delete_requests";
 
+        public UsersClient(RestClientFactory restClientFactory)
+            : base(USERS_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UsersClient(RestClientFactory restClientFactory)")]
         public UsersClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, USERS_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UsersClient(RestClientFactory restClientFactory)")]
         public UsersClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, USERS_RESOURCE, authentication)
         {
@@ -292,7 +300,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, last_request_at = timestamp });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -328,7 +336,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, update_last_request_at = true });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);

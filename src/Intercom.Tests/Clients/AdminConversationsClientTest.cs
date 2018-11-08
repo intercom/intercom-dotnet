@@ -4,6 +4,7 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Clients;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Collections.Generic;
@@ -20,7 +21,9 @@ namespace Intercom.Test
 
         public AdminConversationsClientTest()
         {
-            this.adminConversationsClient = new AdminConversationsClient(new Authentication(AppId, AppKey));
+            var auth = new Authentication(AppId, AppKey);
+            var restClientFactory = new RestClientFactory(auth);
+            adminConversationsClient = new AdminConversationsClient(restClientFactory);
         }
 
         [Test()]

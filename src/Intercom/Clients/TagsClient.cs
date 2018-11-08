@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -23,11 +24,18 @@ namespace Intercom.Clients
 
         private const String TAGS_RESOURCE = "tags";
 
+        public TagsClient(RestClientFactory restClientFactory)
+            : base(TAGS_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use TagsClient(RestClientFactory restClientFactory)")]
         public TagsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, TAGS_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use TagsClient(RestClientFactory restClientFactory)")]
         public TagsClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, TAGS_RESOURCE, authentication)
         {

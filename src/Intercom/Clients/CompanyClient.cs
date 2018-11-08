@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
+using Intercom.Factories;
 using Newtonsoft.Json;
 
 namespace Intercom.Clients
@@ -13,11 +14,18 @@ namespace Intercom.Clients
     {
         private const String COMPANIES_RESOURCE = "companies";
 
+        public CompanyClient(RestClientFactory restClientFactory)
+            : base(COMPANIES_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CompanyClient(RestClientFactory restClientFactory)")]
         public CompanyClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CompanyClient(RestClientFactory restClientFactory)")]
         public CompanyClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
         {

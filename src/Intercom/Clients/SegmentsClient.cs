@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 
 namespace Intercom.Clients
@@ -14,11 +15,18 @@ namespace Intercom.Clients
     {
         private const String SEGMENTS_RESOURCE = "segments";
 
+        public SegmentsClient(RestClientFactory restClientFactory)
+            : base(SEGMENTS_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use SegmentsClient(RestClientFactory restClientFactory)")]
         public SegmentsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, SEGMENTS_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use SegmentsClient(RestClientFactory restClientFactory)")]
         public SegmentsClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, SEGMENTS_RESOURCE, authentication)
         {
