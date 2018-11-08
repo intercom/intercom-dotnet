@@ -35,16 +35,16 @@ namespace Intercom.Clients
         {
         }
 
-        public ConversationPart Reply(AdminConversationReply reply)
+        public Conversation Reply(AdminConversationReply reply)
         {
             if (reply == null)
             {
                 throw new ArgumentNullException(nameof(reply));
             }
 
-            ClientResponse<ConversationPart> result = null;
+            ClientResponse<Conversation> result = null;
             String body = Serialize<AdminConversationReply>(reply);
-            result = Post<ConversationPart>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
+            result = Post<Conversation>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
 

@@ -16,4 +16,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Intercom\Intercom.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\Responses\Conversation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Responses\ConversationsList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
