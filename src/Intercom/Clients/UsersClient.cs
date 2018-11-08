@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
@@ -24,12 +25,20 @@ namespace Intercom.Clients
         }
 
         private const String USERS_RESOURCE = "users";
+        private const String PERMANENT_DELETE_RESOURCE = "user_delete_requests";
 
+        public UsersClient(RestClientFactory restClientFactory)
+            : base(USERS_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UsersClient(RestClientFactory restClientFactory)")]
         public UsersClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, USERS_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UsersClient(RestClientFactory restClientFactory)")]
         public UsersClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, USERS_RESOURCE, authentication)
         {
@@ -196,7 +205,7 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User Delete(User user)
+        public User Archive(User user)
         {
             if (user == null)
             {
@@ -228,7 +237,13 @@ namespace Intercom.Clients
             return result.Result;
         }
 
-        public User Delete(String id)
+        [Obsolete("Replaced by Archive(User user). Renamed for consistency with API language.")]
+        public User Delete(User user)
+        {
+            return Archive(user);
+        }
+
+        public User Archive(String id)
         {
             if (String.IsNullOrEmpty(id))
             {
@@ -238,6 +253,12 @@ namespace Intercom.Clients
             ClientResponse<User> result = null;
             result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
+        }
+
+        [Obsolete("Replaced by Archive(String id). Renamed for consistency with API language.")]
+        public User Delete(String id)
+        {
+            return Archive(id);
         }
 
         public User UpdateLastSeenAt(String id, long timestamp)
@@ -279,7 +300,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, last_request_at = timestamp });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -315,7 +336,7 @@ namespace Intercom.Clients
             else if (!String.IsNullOrEmpty(user.email))
                 body = JsonConvert.SerializeObject(new { email = user.email, update_last_request_at = true });
             else
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seet at.");
+                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user's last seen at.");
 
             ClientResponse<User> result = null;
             result = Post<User>(body);
@@ -409,6 +430,19 @@ namespace Intercom.Clients
             return result.Result;
         }
 
+        public User PermanentlyDeleteUser(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            ClientResponse<User> result = null;
+            String body = JsonConvert.SerializeObject(new { intercom_user_id = id });
+            result = Post<User>(resource: PERMANENT_DELETE_RESOURCE, body: body);
+            return result.Result;
+        }
+
         private String Transform(User user)
         {
             var companies = new object();
@@ -445,9 +479,15 @@ namespace Intercom.Clients
                 last_seen_ip = user.last_seen_ip,
                 custom_attributes = user.custom_attributes,
                 new_session = user.new_session,
-                user_agent_data = user.user_agent_data,
+                last_seen_user_agent = user.user_agent_data,
                 last_request_at = user.last_request_at,
-                unsubscribed_from_emails = user.unsubscribed_from_emails
+                unsubscribed_from_emails = user.unsubscribed_from_emails,
+                referrer = user.referrer,
+                utm_campaign = user.utm_campaign,
+                utm_content = user.utm_content,
+                utm_medium = user.utm_medium,
+                utm_source = user.utm_source,
+                utm_term = user.utm_term
             };
 
             return JsonConvert.SerializeObject(body,

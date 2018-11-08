@@ -7,6 +7,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -18,11 +19,18 @@ namespace Intercom.Clients
         private const String MESSAGES_RESOURCE = "messages";
         private const String REPLY_RESOURCE = "reply";
 
+        public UserConversationsClient(RestClientFactory restClientFactory)
+            : base(CONVERSATIONS_RESOURCE, restClientFactory)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UserConversationsClient(RestClientFactory restClientFactory)")]
         public UserConversationsClient(Authentication authentication)
             : base(INTERCOM_API_BASE_URL, CONVERSATIONS_RESOURCE, authentication)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use UserConversationsClient(RestClientFactory restClientFactory)")]
         public UserConversationsClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, CONVERSATIONS_RESOURCE, authentication)
         {

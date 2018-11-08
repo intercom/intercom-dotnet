@@ -4,10 +4,9 @@ using Intercom.Data;
 using Intercom.Clients;
 using Intercom.Exceptions;
 
-
 namespace Intercom.Data
 {
-    public class Count
+    public class ConversationUser : Model
     {
     }
 }

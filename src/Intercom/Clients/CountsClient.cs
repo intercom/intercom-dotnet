@@ -6,6 +6,7 @@ using System.Linq;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -15,11 +16,18 @@ namespace Intercom.Clients
     {
         private const String COUNTS_RESOURCE = "counts";
 
-        public CountsClient (Authentication authentication)
-            : base (INTERCOM_API_BASE_URL, COUNTS_RESOURCE, authentication)
+        public CountsClient (RestClientFactory restClientFactory)
+            : base (COUNTS_RESOURCE, restClientFactory)
         {
         }
 
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CountsClient(RestClientFactory restClientFactory)")]
+        public CountsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, COUNTS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use CountsClient(RestClientFactory restClientFactory)")]
         public CountsClient(String intercomApiUrl, Authentication authentication)
             : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COUNTS_RESOURCE, authentication)
         {

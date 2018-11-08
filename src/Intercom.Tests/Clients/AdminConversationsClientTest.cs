@@ -4,6 +4,7 @@ using Intercom.Core;
 using Intercom.Data;
 using Intercom.Clients;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Collections.Generic;
@@ -20,7 +21,9 @@ namespace Intercom.Test
 
         public AdminConversationsClientTest()
         {
-            this.adminConversationsClient = new AdminConversationsClient(new Authentication(AppId, AppKey));
+            var auth = new Authentication(AppId, AppKey);
+            var restClientFactory = new RestClientFactory(auth);
+            adminConversationsClient = new AdminConversationsClient(restClientFactory);
         }
 
         [Test()]
@@ -39,6 +42,12 @@ namespace Intercom.Test
         public void List_NoId_ThrowException()
         {
             Assert.Throws<ArgumentException>(() => adminConversationsClient.List(new Admin()));
+        }
+
+        [Test()]
+        public void ReplyLastConversation_NoReply_ThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() => adminConversationsClient.ReplyLastConversation(new AdminLastConversationReply()));
         }
     }
 }

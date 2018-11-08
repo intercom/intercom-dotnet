@@ -51,6 +51,16 @@ If you are building a third party application you will need to implement OAuth b
 
 ## Usage
 
+### For all client types
+
+It is now possible to create all types of client by either supplying the authentication object instance or by providing an instance of the new RestClientFactory. The latter is the new preferred method to construct instances of the various clients. The older constructor methods have been marked as obsolete and will be removed in later versions.
+
+```cs
+Authentication auth = new Authentication("MyPersonalAccessToken");
+RestClientFactory factory = new RestClientFactory(auth);
+UsersClient usersClient = new UsersClient(factory);
+```
+
 ### Users
 
 **Create UsersClient instance**
@@ -117,9 +127,14 @@ Users users = usersClient.Scroll(scroll_param_value);
 
 **Delete a user**
 ```cs
-usersClient.Delete("100300231"); // with intercom generated user's id
-usersClient.Delete(new User() { email = "example@example.com" });
-usersClient.Delete(new User() { user_id = "my_id" });
+usersClient.Archive("100300231"); // with intercom generated user's id
+usersClient.Archive(new User() { email = "example@example.com" });
+usersClient.Archive(new User() { user_id = "my_id" });
+```
+
+**Permanently delete a user**
+```cs
+usersClient.PermanentlyDeleteUser("100300231"); // with intercom generated user's id
 ```
 
 **Update User's LastSeenAt (multiple ways)**
@@ -493,6 +508,15 @@ conversationsClient.View("100300231");
 conversationsClient.View("100300231", displayAsPlainText: true);
 ```
 
+**List all conversations**
+```cs
+conversationsClient.ListAll();
+
+Dictionary<String, String> parameters = new Dictionary<string, string>();
+parameters.Add("order", "asc");
+conversationsClient.ListAll(parameters);
+```
+
 **Create AdminConversationsClient instance**
 ```cs
 AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("MyPersonalAccessToken"));
@@ -520,6 +544,20 @@ Conversation conversation =
             messageType: AdminConversationReply.ReplyMessageType.COMMENT,
             body: "this is a reply body"));
 ```
+
+**Reply to user's last conversation**
+```cs
+Conversation reply =
+    adminConversationsClient.ReplyLastConversation(
+        new AdminLastConversationReply()
+        {
+            admin_id = "12434",
+            message_type = "comment",
+            body = "replying to last conversation",
+            intercom_user_id = "5911bd8bf0c7446d2d1d045d"
+        });
+```
+
 
 **Create UserConversationsClient instance**
 ```cs

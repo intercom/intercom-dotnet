@@ -6,6 +6,7 @@ using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
+using Intercom.Factories;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -13,15 +14,22 @@ namespace Intercom.Clients
 {
 	public class EventsClient : Client
 	{
-		private const String COMPANIES_RESOURCE = "events";
+		private const String EVENTS_RESOURCE = "events";
 
-		public EventsClient (Authentication authentication)
-			: base (INTERCOM_API_BASE_URL, COMPANIES_RESOURCE, authentication)
+		public EventsClient (RestClientFactory restClientFactory)
+			: base (EVENTS_RESOURCE, restClientFactory)
 		{
 		}
 
+		[Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use EventsClient(RestClientFactory restClientFactory)")]
+        public EventsClient(Authentication authentication)
+            : base(INTERCOM_API_BASE_URL, EVENTS_RESOURCE, authentication)
+        {
+        }
+
+        [Obsolete("This constructor is deprecated as of 3.0.0 and will soon be removed, please use EventsClient(RestClientFactory restClientFactory)")]
         public EventsClient(String intercomApiUrl, Authentication authentication)
-            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, COMPANIES_RESOURCE, authentication)
+            : base(String.IsNullOrEmpty(intercomApiUrl) ? INTERCOM_API_BASE_URL : intercomApiUrl, EVENTS_RESOURCE, authentication)
         {
         }
 

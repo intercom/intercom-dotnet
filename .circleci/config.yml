@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2-sdk
+      
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Unit Tests
+          command: dotnet test src/Intercom.Tests/Intercom.Tests.csproj
+
+      - run:
+          name: Integ Tests
+          command: dotnet test src/Intercom.Tests.Integration/Intercom.Tests.Integration.csproj
