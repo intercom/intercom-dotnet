@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <ReleaseVersion>3.0.0</ReleaseVersion>
-    <PackageId>Intercom.Dotnet.Client</PackageId>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <ReleaseVersion>3.1.0</ReleaseVersion>
+    <PackageId>Mdc.Intercom.DotNetCore</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/intercom/intercom-dotnet/master/src/assets/Intercom.png</PackageIconUrl>
     <Owners>Intercom</Owners>
     <PackageProjectUrl>https://github.com/intercom/intercom-dotnet</PackageProjectUrl>
-    <Summary>The official Intercom API client library for .NET</Summary>
-    <Title>Intercom Dotnet Client</Title>
-    <Description>The official Intercom API client library for .NET</Description>
+    <Summary>This is the full copy of the official Intercom API client library for .NET but published into NuGet feed</Summary>
+    <Title>Intercom Dotnet Client with dotnetcore support</Title>
+    <Description>The fork of the official Intercom API client library for .NET with net standard support published into NuGet feed</Description>
     <PackOnBuild>true</PackOnBuild>
+    <Version>3.1.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Copyright>Intercom.io</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="RestSharp" Version="106.5.4" />
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 </Project>
