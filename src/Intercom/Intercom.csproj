@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
-    <ReleaseVersion>3.1.0</ReleaseVersion>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <ReleaseVersion>2.1.2</ReleaseVersion>
     <PackageId>Mdc.Intercom.DotNetCore</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/intercom/intercom-dotnet/master/src/assets/Intercom.png</PackageIconUrl>
     <Owners>Intercom</Owners>
     <PackageProjectUrl>https://github.com/intercom/intercom-dotnet</PackageProjectUrl>
-    <Summary>This is the full copy of the official Intercom API client library for .NET but published into NuGet feed</Summary>
+    <Summary>The digitaldjpool fork of the Intercom API client library for .NET Core</Summary>
     <Title>Intercom Dotnet Client with dotnetcore support</Title>
-    <Description>The fork of the official Intercom API client library for .NET with net standard support published into NuGet feed</Description>
+    <Description>The fork of the official Intercom API client library for .NET Standard 2.0</Description>
     <PackOnBuild>true</PackOnBuild>
-    <Version>3.1.0</Version>
+    <Version>2.1.2-djp-01</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression></PackageLicenseExpression>
     <Copyright>Intercom.io</Copyright>
