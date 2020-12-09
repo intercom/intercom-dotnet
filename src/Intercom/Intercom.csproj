@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <ReleaseVersion>2.1.2</ReleaseVersion>
-    <PackageId>Mdc.Intercom.DotNetCore</PackageId>
+    <PackageId>Intercom.Dotnet.Client</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/intercom/intercom-dotnet/master/src/assets/Intercom.png</PackageIconUrl>
     <Owners>Intercom</Owners>
     <PackageProjectUrl>https://github.com/intercom/intercom-dotnet</PackageProjectUrl>
