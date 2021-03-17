@@ -14,66 +14,57 @@ using Moq;
 
 namespace Intercom.Test
 {
-    [TestFixture()]
+    [TestFixture]
     public class UserClientTest  : TestBase
     {
         private UsersClient usersClient;
 
-        public UserClientTest() { }
-
-        private void SetupMock(RestClient restClient = null)
+        [SetUp]
+        protected void SetupMock()
         {
             var auth = new Authentication(AppId, AppKey);
-            if (restClient == null)
-            {
-                var restClientMock = new Mock<RestClient>();
-                restClient = restClientMock.Object;
-            }
-            var restClientFactoryMock = new Mock<RestClientFactory>(new object[] { auth });
+            var restClientMock = new Mock<RestClient>();
+            var restClient = restClientMock.Object;
+            var restClientFactoryMock = new Mock<RestClientFactory>(auth);
             restClientFactoryMock.Setup(x => x.RestClient).Returns(restClient);
             var restClientFactory = restClientFactoryMock.Object;
             usersClient = new UsersClient(restClientFactory);
         }
 
-        [Test()]
+        [Test]
         public void Create_WithNull_ThrowException()
         {
-            SetupMock();
             Assert.Throws<ArgumentNullException>(() => usersClient.Create(null));
         }
 
-        [Test()]
+        [Test]
         public void Create_NoUserIdOrEmail_ThrowException()
         {
-            SetupMock();
             Assert.Throws<ArgumentException>(() => usersClient.Create(new User()));
         }
 
-        [Test()]
+        [Test]
         public void Archive_NoIdOrUserIdOrEmail_ThrowException()
         {
-            SetupMock();
             Assert.Throws<ArgumentException>(() => usersClient.Archive(new User()));
         }
 
-        [Test()]
+        [Test]
         public void PermanentlyDeleteUser_NoId_ThrowException()
         {
-            SetupMock();
             Assert.Throws<ArgumentNullException>(() => usersClient.PermanentlyDeleteUser(null));
         }
 
-        [Test()]
+        [Test]
         public void Update_NoIdOrUserIdOrEmail_ThrowException()
         {
-            SetupMock();
             Assert.Throws<ArgumentException>(() => usersClient.Update(new User()));
         }
 
-        [Test()]
+        [Test]
         public void View_ByStringId_ReturnsObjectAsExpected()
         {
-            var userId = "id";
+            const string userId = "id";
             var restClientMock = new Mock<RestClient>();
             var restResponse = new RestResponse()
             {
@@ -82,7 +73,14 @@ namespace Intercom.Test
             };
             restClientMock.Setup(x => x.Execute(It.IsAny<IRestRequest>())).Returns(restResponse);
             var restClient = restClientMock.Object;
-            SetupMock(restClient);
+            
+            // customized rest client
+            var auth = new Authentication(AppId, AppKey);
+            var restClientFactoryMock = new Mock<RestClientFactory>(auth);
+            restClientFactoryMock.Setup(x => x.RestClient).Returns(restClient);
+            var restClientFactory = restClientFactoryMock.Object;
+            usersClient = new UsersClient(restClientFactory);
+            
             Assert.AreEqual(userId, usersClient.View(userId).user_id);
         }
     }

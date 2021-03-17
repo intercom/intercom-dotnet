@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Intercom;
 using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
@@ -116,8 +117,6 @@ namespace Intercom.Clients
         {
             Guard.AgainstNullAndEmpty(nameof(id), id);
                 
-            }
-
             ClientResponse<User> result = null;
             result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;

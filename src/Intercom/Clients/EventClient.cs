@@ -71,23 +71,21 @@ namespace Intercom.Clients
 
 		public Events List (Dictionary<String, String> parameters)
 		{
-            if (parameters == null) 
             Guard.AgainstNull(nameof(parameters), parameters);
             Guard.AgainstEmpty(nameof(parameters), parameters);
 
-            var missingRequiredParameters = !parameters.ContainsKey(Constants.INTERCOM_USER_ID)
-                                            && !parameters.ContainsKey(Constants.USER_ID)
-                                            && !parameters.ContainsKey(Constants.EMAIL);
-            if (!parameters.Any ()) 
-				throw new ArgumentException (String.Format ("'parameters' argument should include at least {0}, or {1}, or {2} parameter.", Constants.INTERCOM_USER_ID, Constants.USER_ID, Constants.EMAIL));
-			}
+            if (!parameters.ContainsKey (Constants.INTERCOM_USER_ID) &&
+                !parameters.ContainsKey (Constants.USER_ID) &&
+                !parameters.ContainsKey (Constants.EMAIL)) {
+	            throw new ArgumentException (String.Format ("'parameters' argument should include at least {0}, or {1}, or {2} parameter.", Constants.INTERCOM_USER_ID, Constants.USER_ID, Constants.EMAIL));
+            }
 
-			if (!parameters.Contains (new KeyValuePair<string, string> (Constants.TYPE, "user"))) {
-                parameters.Add (Constants.TYPE, "user");
-			}
+            if (!parameters.Contains (new KeyValuePair<string, string> (Constants.TYPE, "user"))) {
+	            parameters.Add (Constants.TYPE, "user");
+            }
 				
-            ClientResponse<Events> result = Get<Events>(parameters: parameters);
-            
+			ClientResponse<Events> result = null;
+			result = Get<Events> (parameters: parameters);
 			return result.Result;
 		}
 	}
