@@ -74,19 +74,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse<T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "GET", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: GET, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", exception); 
             }
 
             return clientResponse;
@@ -113,19 +111,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
+                throw new IntercomException("An exception occurred " + $"while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body: {body}", exception); 
             }
 
             return clientResponse;
@@ -153,19 +149,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body-Type: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, typeof(T)), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body-Type: {typeof(T)}", exception); 
             }
 
             return clientResponse;
@@ -192,19 +186,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}, Body: {4}",
-                        "POST", client.BaseUrl, RESRC, resource, body), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}, Body: {body}", exception); 
             }
 
             return clientResponse;
@@ -232,19 +224,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse <T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", exception); 
             }
 
             return clientResponse;
@@ -266,19 +256,17 @@ namespace Intercom.Core
                 IRestResponse response = client.Execute(request);
                 clientResponse = HandleResponse<T>(response);
             }
-            catch(ApiException ex)
+            catch(ApiException)
             {
-                throw ex;
+                throw;
             }
-            catch (JsonConverterException ex)
+            catch (JsonConverterException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new IntercomException(String.Format("An exception occurred " +
-                        "while calling the endpoint. Method: {0}, Url: {1}, Resource: {2}, Sub-Resource: {3}",
-                        "POST", client.BaseUrl, RESRC, resource), ex); 
+                throw new IntercomException($"An exception occurred while calling the endpoint. Method: POST, Url: {client.BaseUrl}, Resource: {RESRC}, Sub-Resource: {resource}", exception); 
             }
         
             return clientResponse;
@@ -318,11 +306,8 @@ namespace Intercom.Core
         protected virtual void AddHeaders(IRestRequest request, 
                                           Dictionary<String, String> headers)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
-            if (headers == null)
-                throw new ArgumentNullException(nameof(headers));
+            Guard.AgainstNull(nameof(request), request);
+            Guard.AgainstNull(nameof(headers), headers);
 
             foreach (var header in headers)
                 request.AddParameter(header.Key, header.Value, ParameterType.HttpHeader);
@@ -331,11 +316,8 @@ namespace Intercom.Core
         protected virtual void AddParameters(IRestRequest request, 
                                              Dictionary<String, String> parameters)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
-            if (parameters == null)
-                throw new ArgumentNullException(nameof(parameters));
+            Guard.AgainstNull(nameof(request), request);
+            Guard.AgainstNull(nameof(parameters), parameters);
 
             foreach (var parameter in parameters)
                 request.AddParameter(parameter.Key, parameter.Value, ParameterType.QueryString);
@@ -343,15 +325,13 @@ namespace Intercom.Core
 
         protected virtual void AddBody(IRestRequest request, String body)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
+            Guard.AgainstNull(nameof(request), request);
+            
             if (!String.IsNullOrEmpty(body))
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
         }
 
-        protected virtual ClientResponse<T> HandleResponse<T>(IRestResponse response)
-			where T: class
+        protected virtual ClientResponse<T> HandleResponse<T>(IRestResponse response) where T: class
         {
             ClientResponse<T> clientResponse = null;
             int statusCode = (int)response.StatusCode;

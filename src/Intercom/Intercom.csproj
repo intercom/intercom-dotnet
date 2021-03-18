@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ReleaseVersion>2.1.2</ReleaseVersion>
     <PackageId>Intercom.Dotnet.Client</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/intercom/intercom-dotnet/master/src/assets/Intercom.png</PackageIconUrl>
@@ -11,14 +11,14 @@
     <Title>Intercom Dotnet Client with dotnetcore support</Title>
     <Description>The fork of the official Intercom API client library for .NET Standard 2.0</Description>
     <PackOnBuild>true</PackOnBuild>
-    <Version>2.1.2-djp-01</Version>
+    <Version>2.1.2-djp-02</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression></PackageLicenseExpression>
     <Copyright>Intercom.io</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="RestSharp" Version="106.5.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 </Project>

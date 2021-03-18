@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Intercom;
 using Intercom.Clients;
 using Intercom.Core;
 using Intercom.Data;
@@ -46,10 +47,7 @@ namespace Intercom.Clients
 
         public User Create(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            Guard.AgainstNull(nameof(user), user);
 
             if (String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
             {
@@ -63,10 +61,7 @@ namespace Intercom.Clients
 
         public User Update(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            Guard.AgainstNull(nameof(user), user);
 
             if (String.IsNullOrEmpty(user.id) && String.IsNullOrEmpty(user.user_id) && string.IsNullOrEmpty(user.email))
             {
@@ -105,11 +100,8 @@ namespace Intercom.Clients
 
         public User View(Dictionary<String, String> parameters)
         {
-            if (parameters == null)
-            {
-                throw new ArgumentNullException(nameof(parameters));
-            }
-
+            Guard.AgainstNull(nameof(parameters), parameters);
+            
             if (!parameters.Any())
             {
                 throw new ArgumentException("'parameters' argument should include user_id parameter.");
@@ -123,11 +115,8 @@ namespace Intercom.Clients
 
         public User View(String id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
+            Guard.AgainstNullAndEmpty(nameof(id), id);
+                
             ClientResponse<User> result = null;
             result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
             return result.Result;
@@ -135,10 +124,7 @@ namespace Intercom.Clients
 
         public User View(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            Guard.AgainstNull(nameof(user), user);
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             ClientResponse<User> result = null;
@@ -207,10 +193,7 @@ namespace Intercom.Clients
 
         public User Archive(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            Guard.AgainstNull(nameof(user), user);
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             ClientResponse<User> result = null;
@@ -245,10 +228,7 @@ namespace Intercom.Clients
 
         public User Archive(String id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
 
             ClientResponse<User> result = null;
             result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
@@ -263,10 +243,7 @@ namespace Intercom.Clients
 
         public User UpdateLastSeenAt(String id, long timestamp)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
 
             if (timestamp <= 0)
             {
@@ -281,15 +258,9 @@ namespace Intercom.Clients
 
         public User UpdateLastSeenAt(User user, long timestamp)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            if (timestamp <= 0)
-            {
-                throw new ArgumentException("'timestamp' argument should be bigger than zero.");
-            }
+            Guard.AgainstNull(nameof(user), user);
+            
+            Guard.AgainstNegativeAndZero(nameof(timestamp), timestamp);
 
             String body = String.Empty;
 
@@ -322,10 +293,7 @@ namespace Intercom.Clients
 
         public User UpdateLastSeenAt(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
+            Guard.AgainstNull(nameof(user), user);
 
             String body = String.Empty;
 
@@ -345,10 +313,7 @@ namespace Intercom.Clients
 
         public User IncrementUserSession(String id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, new_session = true });
@@ -358,20 +323,9 @@ namespace Intercom.Clients
 
         public User IncrementUserSession(String id, List<String> companyIds)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            if (companyIds == null)
-            {
-                throw new ArgumentNullException(nameof(companyIds));
-            }
-
-            if (!companyIds.Any())
-            {
-                throw new ArgumentException("'companyIds' shouldnt be empty.");
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
+            Guard.AgainstNull(nameof(companyIds), companyIds);
+            Guard.AgainstEmpty(nameof(companyIds), companyIds);
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, new_session = true, companies = companyIds.Select(c => new { id = c }) });
@@ -381,65 +335,39 @@ namespace Intercom.Clients
 
         public User RemoveCompanyFromUser(String id, List<String> companyIds)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            if (companyIds == null)
-            {
-                throw new ArgumentNullException(nameof(companyIds));
-            }
-
-            if (!companyIds.Any())
-            {
-                throw new ArgumentException("'companyIds' shouldnt be empty.");
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
+            Guard.AgainstNull(nameof(companyIds), companyIds);
+            Guard.AgainstEmpty(nameof(companyIds), companyIds);
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = id, companies = companyIds.Select(c => new { id = c, remove = true }) });
             result = Post<User>(body);
+            
             return result.Result;
         }
 
         public User RemoveCompanyFromUser(User user, List<String> companyIds)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            if (String.IsNullOrEmpty(user.id))
-            {
-                throw new ArgumentException("'user.id' is null.");
-            }
-
-            if (companyIds == null)
-            {
-                throw new ArgumentNullException(nameof(companyIds));
-            }
-
-            if (!companyIds.Any())
-            {
-                throw new ArgumentException("'companyIds' shouldnt be empty.");
-            }
+            Guard.AgainstNull(nameof(user), user);
+            Guard.AgainstNullAndEmpty("user.id", user.id);
+            Guard.AgainstNull(nameof(companyIds), companyIds);
+            Guard.AgainstEmpty(nameof(companyIds), companyIds);
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { id = user.id, companies = companyIds.Select(c => new { id = c, remove = true }) });
             result = Post<User>(body);
+            
             return result.Result;
         }
 
         public User PermanentlyDeleteUser(String id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+            Guard.AgainstNullAndEmpty(nameof(id), id);
 
             ClientResponse<User> result = null;
             String body = JsonConvert.SerializeObject(new { intercom_user_id = id });
             result = Post<User>(resource: PERMANENT_DELETE_RESOURCE, body: body);
+            
             return result.Result;
         }
 
@@ -464,7 +392,9 @@ namespace Intercom.Clients
                 }).ToList();
             }
             else
+            {
                 companies = null;
+            }
 
             var body = new
             {
