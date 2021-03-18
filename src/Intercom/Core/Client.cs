@@ -306,30 +306,18 @@ namespace Intercom.Core
         protected virtual void AddHeaders(IRestRequest request, 
                                           Dictionary<String, String> headers)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
-
-            if (headers == null)
-            {
-                throw new ArgumentNullException(nameof(headers));
-            }
+            Guard.AgainstNull(nameof(request), request);
+            Guard.AgainstNull(nameof(headers), headers);
 
             foreach (var header in headers)
-            {
                 request.AddParameter(header.Key, header.Value, ParameterType.HttpHeader);
-            }
         }
 
         protected virtual void AddParameters(IRestRequest request, 
                                              Dictionary<String, String> parameters)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
-            if (parameters == null)
-                throw new ArgumentNullException(nameof(parameters));
+            Guard.AgainstNull(nameof(request), request);
+            Guard.AgainstNull(nameof(parameters), parameters);
 
             foreach (var parameter in parameters)
                 request.AddParameter(parameter.Key, parameter.Value, ParameterType.QueryString);
@@ -337,30 +325,21 @@ namespace Intercom.Core
 
         protected virtual void AddBody(IRestRequest request, String body)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
-
+            Guard.AgainstNull(nameof(request), request);
+            
             if (!String.IsNullOrEmpty(body))
-            {
                 request.AddParameter("application/json", body, ParameterType.RequestBody);
-            }
         }
 
         protected virtual ClientResponse<T> HandleResponse<T>(IRestResponse response) where T: class
         {
             ClientResponse<T> clientResponse = null;
-            var statusCode = (int)response.StatusCode;
+            int statusCode = (int)response.StatusCode;
 
             if (statusCode >= 200 && statusCode < 300)
-            {
                 clientResponse = HandleNormalResponse <T>(response) as ClientResponse<T>;
-            }
             else
-            {
                 clientResponse = HandleErrorResponse <T>(response) as ClientResponse<T>;
-            }
 
             AssertIfAnyErrors(clientResponse);
 

@@ -68,8 +68,8 @@ namespace Intercom.Clients
                 throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to update a user.");
             }
 
-            ClientResponse<User> result = Post<User>(Transform(user));
-
+            ClientResponse<User> result = null;
+            result = Post<User>(Transform(user));
             return result.Result;
         }
 
@@ -348,6 +348,7 @@ namespace Intercom.Clients
 
         public User RemoveCompanyFromUser(User user, List<String> companyIds)
         {
+            Guard.AgainstNull(nameof(user), user);
             Guard.AgainstNullAndEmpty("user.id", user.id);
             Guard.AgainstNull(nameof(companyIds), companyIds);
             Guard.AgainstEmpty(nameof(companyIds), companyIds);

@@ -36,7 +36,6 @@ namespace Intercom.Clients
 		public Event Create (Event @event)
 		{
             Guard.AgainstNull(nameof(@event), @event);
-            if (string.IsNullOrEmpty(@event.event_name))
             
             if (!@event.created_at.HasValue)
             {
