@@ -17,9 +17,21 @@
     <RepositoryUrl>https://github.com/digitaldjpool/intercom-dotnet</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup Label="Source linking and PDB">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <DebugType Condition="'$(DebugType)' == ''">embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'" Label="Required for deterministic build">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Label="Source linking to step into Release code with source code"/>
   </ItemGroup>
   
   <ItemGroup>
