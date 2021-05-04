@@ -1,15 +1,27 @@
-![Build Status](https://www.myget.org/BuildSource/Badge/intercom-dotnet?identifier=9009384b-3f0e-4d23-aa53-3bac173f29bb)
-
 # intercom-dotnet
 
-.NET bindings for the [Intercom API](https://developers.intercom.io/reference)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-dotnet.png?style=shield)](https://circleci.com/gh/intercom/intercom-dotnet)
+[![nuget](https://img.shields.io/nuget/v/Intercom.Dotnet.Client)](https://www.nuget.org/packages/Intercom.Dotnet.Client)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
 
- - [Installation](#add-a-dependency)
- - [Resources](#resources)
- - [Authorization](#authorization)
- - [Usage](#usage)
- - [Todo](#todo)
- - [Pull Requests](#pull-requests)
+> .NET bindings for the [Intercom API](https://developers.intercom.io/reference)
+
+## Project Updates
+
+### Maintenance
+
+We're currently building a new team to provide in-depth and dedicated SDK support.
+
+In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
+
+We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
+
+- [Installation](#add-a-dependency)
+- [Resources](#resources)
+- [Authorization](#authorization)
+- [Usage](#usage)
+- [Todo](#todo)
+- [Pull Requests](#pull-requests)
 
 ## Add a dependency
 
@@ -35,7 +47,6 @@ Resources this API supports:
 Each of these resources is represented through the dotnet client by a Class as `ResourceClient`.
 
 **E.g.**: for **users**, you can use the `UsersClient`. For **segments**, you can use `SegmentsClient`.
-
 
 ## Authorization
 
@@ -63,17 +74,20 @@ UsersClient usersClient = new UsersClient(factory);
 
 ### Users
 
-**Create UsersClient instance**
+#### Create UsersClient instance
+
 ```cs
 UsersClient usersClient = new UsersClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create user**
+#### Create user
+
 ```cs
 User user = usersClient.Create(new User() { user_id = "my_id", name = "first last" });
 ```
 
-**View a user (by id, user_id or email)**
+#### View a user (by id, user_id or email)
+
 ```cs
 User user = usersClient.View("100300231");
 User user = usersClient.View(new User() { email = "example@example.com" });
@@ -81,15 +95,17 @@ User user = usersClient.View(new User() { id = "100300231" });
 User user = usersClient.View(new User() { user_id = "my_id" });
 ```
 
-**Update a user with a company**
+#### Update a user with a company
+
 ```cs
 User user = usersClient.Update(new User() {
                                email = "example@example.com",
                                companies = new List<Company>() {
                                            new Company() { company_id = "new_company" } } });
-```                 
+```
 
-**Update user's custom attributes**
+#### Update user's custom attributes
+
 ```cs
 Dictionary<string, object> customAttributes = new Dictionary<string, object>();
 customAttributes.Add("total", "100.00");
@@ -101,8 +117,9 @@ user.custom_attributes = customAttributes;
 user = usersClient.Update(user);
 ```
 
-**List users and iterating through them**
-<br>Limited to up to 10k records, if you want to list more records please use the Scroll API
+#### List users and iterating through them
+
+Limited to up to 10k records, if you want to list more records please use the Scroll API
 
 ```cs
 Users users = usersClient.List();
@@ -111,33 +128,38 @@ foreach(User u in users.users)
     Console.WriteLine(u.email);
 ```
 
-**List users by Tag, Segment, Company**
+#### List users by Tag, Segment, Company
+
 ```cs
 Dictionary<String, String> parameters = new Dictionary<string, string>();
 parameters.Add("segment_id", "57553e93a32843ca09000277");
 Users users = usersClient.List(parameters);
 ```
 
-**List users via the Scroll API**
+#### List users via the Scroll API
+
 ```cs
 Users users = usersClient.Scroll();
 String scroll_param_value = users.scroll_param;
 Users users = usersClient.Scroll(scroll_param_value);
 ```
 
-**Delete a user**
+#### Delete a user
+
 ```cs
 usersClient.Archive("100300231"); // with intercom generated user's id
 usersClient.Archive(new User() { email = "example@example.com" });
 usersClient.Archive(new User() { user_id = "my_id" });
 ```
 
-**Permanently delete a user**
+#### Permanently delete a user
+
 ```cs
 usersClient.PermanentlyDeleteUser("100300231"); // with intercom generated user's id
 ```
 
-**Update User's LastSeenAt (multiple ways)**
+#### Update User's LastSeenAt (multiple ways)
+
 ```cs
 User user = usersClient.UpdateLastSeenAt("100300231");
 User user = usersClient.UpdateLastSeenAt(new User() { id = "100300231" });
@@ -145,7 +167,8 @@ User user = usersClient.UpdateLastSeenAt("100300231", 1462110718);
 User user = usersClient.UpdateLastSeenAt(new User() { id = "100300231" }, 1462110718);
 ```
 
-**Increment User's Session**
+#### Increment User's Session
+
 ```cs
 usersClient.IncrementUserSession(new User() { id = "100300231" });
 usersClient.IncrementUserSession("100300231", new List<String>() { "company_is_blue" }});
@@ -153,34 +176,39 @@ usersClient.IncrementUserSession("100300231", new List<String>() { "company_is_b
 // You can also update a User's session by updating a User record with a "new_session = true" attribute
 ```
 
-**Removing User's companies**
+#### Removing User's companies
+
 ```cs
 User user = usersClient.RemoveCompanyFromUser("100300231", new List<String>() { "true_company" });
 ```
 
-*** 
+***
 
 ### Contacts
 
-**Create ContactsClient instance**
+#### Create ContactsClient instance
+
 ```cs
 ContactsClient contactsClient = new ContactsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create a contact**
+#### Create a contact
+
 ```cs
 Contact contact = contactsClient.Create(new Contact() { });
 Contact contact = contactsClient.Create(new Contact() { name = "lead_name" });
 ```
 
-**View a contact (by id, or user_id)**
+#### View a contact (by id, or user_id)
+
 ```cs
 Contact contact = contactsClient.View("100300231");
 Contact contact = contactsClient.View(new Contact() { id = "100300231" });
 Contact contact = contactsClient.View(new Contact() { user_id = "my_lead_id" });
 ```
 
-**Update a contact (by id, or user_id)**
+#### Update a contact (by id, or user_id)
+
 ```cs
 Contact contact = contactsClient.Update(
                     new Contact()
@@ -190,8 +218,10 @@ Contact contact = contactsClient.Update(
                     });
 ```
 
-**List contacts and iterate through them**
+#### List contacts and iterate through them
+
 Limited to up to 10k records, if you want to list more records please use the Scroll API
+
 ```cs
 Contacts contacts = contactsClient.List();
 
@@ -199,25 +229,30 @@ foreach (Contact c in contacts.contacts)
     Console.WriteLine(c.email);
 ```
 
-**List contacts by email**
+#### List contacts by email
+
 ```cs
 Contacts contacts = contactsClient.List("email@example.com");
 ```
 
-**List contacts via Scroll API**
+#### List contacts via Scroll API
+
 ```cs
 Contacts contacts = contactsClient.Scroll();
 String scroll_param_value = contacts.scroll_param;
 Contacts contacts = contactsClient.Scroll(scroll_param_value);
 ```
 
-**Convert a contact to a User**
+#### Convert a contact to a User
+
 Note that if the user does not exist they will be created, otherwise they will be merged.
+
 ```cs
 User user = contactsClient.Convert(contact, new User() { user_id = "120" });
 ```
 
-**Delete a contact**
+#### Delete a contact
+
 ```cs
 contactsClient.Delete("100300231");
 contactsClient.Delete(new Contact() { id = "100300231" });
@@ -228,44 +263,52 @@ contactsClient.Delete(new Contact() { user_id = "my_id" });
 
 ### Visitors
 
-**Create VisitorsClient instance**
+#### Create VisitorsClient instance
+
 ```cs
 VisitorsClient visitorsClient = new VisitorsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**View a visitor**
+#### View a visitor
+
 ```cs
 Visitor visitor = VisitorsClient.View("573479f784c5acde6a000575");
 ```
 
-**View a visitor by user_id**
+#### View a visitor by user_id
+
 ```cs
 Dictionary<String, String> parameters = new Dictionary<string, string>();
 parameters.Add("user_id", "16e690c0-485a-4e87-ae98-a326e788a4f7");
 Visitor visitor = VisitorsClient.View(parameters);
 ```
 
-**Update a visitor**
+#### Update a visitor
+
 ```cs
 Visitor visitor = VisitorsClient.Update(visitor);
 ```
 
-**Delete a visitor**
+#### Delete a visitor
+
 ```cs
 Visitor visitor = VisitorsClient.Delete(visitor);
 ```
 
-**Convert to existing user**
+#### Convert to existing user
+
 ```cs
 Visitor visitor = VisitorsClient.ConvertToUser(visitor, user);
 ```
 
-**Convert to new user**
+#### Convert to new user
+
 ```cs
 Visitor visitor = VisitorsClient.ConvertToUser(visitor, new User(){ user_id = "25" });
 ```
 
-**Convert to contact**
+#### Convert to contact
+
 ```cs
 Visitor visitor = VisitorsClient.ConvertToContact(visitor);
 ```
@@ -274,18 +317,21 @@ Visitor visitor = VisitorsClient.ConvertToContact(visitor);
 
 ### Companies
 
-**Create CompanyClient instance**
+#### Create CompanyClient instance
+
 ```cs
 CompanyClient companyClient = new CompanyClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create a company**
+#### Create a company
+
 ```cs
 Company company = companyClient.Create(new Company());
 Company company = companyClient.Create(new Company() { name = "company_name" });
 ```
 
-**View a company**
+#### View a company
+
 ```cs
 Company company = companyClient.View("100300231");
 Company company = companyClient.View(new Company() { id = "100300231" });
@@ -293,7 +339,8 @@ Company company = companyClient.View(new Company() { company_id = "my_company_id
 Company company = companyClient.View(new Company() { name = "my_company_name" });
 ```
 
-**Update a company**
+#### Update a company
+
 ```cs
 Company company = companyClient.Update(
                     new Company()
@@ -303,13 +350,16 @@ Company company = companyClient.Update(
                     });
 ```
 
-**List companies**
-<br>Limited to up to 10k records, if you want to list more records please use the Scroll API
+#### List companies
+
+Limited to up to 10k records, if you want to list more records please use the Scroll API
+
 ```cs
 Companies companies = companyClient.List();
 ```
 
-**List companies via Scroll API**
+#### List companies via Scroll API
+
 ```cs
 Companies companies = companyClient.Scroll();
 String scrollParam = companies.scroll_param;
@@ -319,7 +369,8 @@ foreach (Company c in companies.companies)
     Console.WriteLine(c.name);
 ```
 
-**List a Company's registered users**
+#### List a Company's registered users
+
 ```cs
 Users users = companyClient.ListUsers(new Company() { id = "100300231" });
 Users users = companyClient.ListUsers(new Company() { company_id = "my_company_id" });
@@ -329,18 +380,21 @@ Users users = companyClient.ListUsers(new Company() { company_id = "my_company_i
 
 ### Admins
 
-**Create AdminsClient instance**
+#### Create AdminsClient instance
+
 ```cs
 AdminsClient adminsClient = new AdminsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**View an admin**
+#### View an admin
+
 ```cs
 Admin admin = adminsClient.View("100300231");
 Admin admin = adminsClient.View(new Admin() { id = "100300231" });
 ```
 
-**List admins**
+#### List admins
+
 ```cs
 Admins admins = adminsClient.List();
 ```
@@ -349,27 +403,32 @@ Admins admins = adminsClient.List();
 
 ### Tags
 
-**Create TagsClient instance**
+#### Create TagsClient instance
+
 ```cs
 TagsClient tagsClient = new TagsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create a tag**
+#### Create a tag
+
 ```cs
 Tag tag = tagsClient.Create(new Tag() { name = "new_tag" });
 ```
 
-**List tags**
+#### List tags
+
 ```cs
 Tags tags = tagsClient.List();
 ```
 
-**Delete a tag**
+#### Delete a tag
+
 ```cs
 tagsClient.Delete(new Tag() { id = "100300231" });
 ```
 
-**Tag User, Company or Contact**
+#### Tag User, Company or Contact
+
 ```cs
 tagsClient.Tag("new_tag", new List<Company>() { new Company(){ company_id = "blue" } });
 tagsClient.Tag("new_tag", new List<Company>() { new Company(){ id = "5911bd8bf0c7223d2d1d045d" } });
@@ -377,7 +436,8 @@ tagsClient.Tag("new_tag", new List<Contact>() { new Contact(){ id = "5911bd8bf0c
 tagsClient.Tag("new_tag", new List<User>() { new User(){ id = "5911bd8bf0c7446d2d1d045d", email = "example@example.com", user_id = "25" } });
 ```
 
-**Untag User, Company or Contact**
+#### Untag User, Company or Contact
+
 ```cs
 tagsClient.Untag("new_tag", new List<Company>() { new Company(){ company_id = "1000_company_id" } });
 tagsClient.Untag("new_tag", new List<Contact>() { new Contact(){ id = "5911bd8bf0c7223d2d1d045d" } });
@@ -388,18 +448,21 @@ tagsClient.Untag("new_tag", new List<User>() { new User(){ user_id = "1000_user_
 
 ### Segments
 
-**Create SegmentsClient instance**
+#### Create SegmentsClient instance
+
 ```cs
 SegmentsClient segmentsClient = new SegmentsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**View a segment (by id)**
+#### View a segment (by id)
+
 ```cs
 Segment segment = segmentsClient.View("100300231");
 Segment segment = segmentsClient.View(new Segment() { id = "100300231" });
 ```
 
-**List segments**
+#### List segments
+
 ```cs
 Segments segments = segmentsClient.List();
 ```
@@ -408,12 +471,14 @@ Segments segments = segmentsClient.List();
 
 ### Notes
 
-**Create NotesClient instance**
+#### Create NotesClient instance
+
 ```cs
 NotesClient notesClient = new NotesClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create a note (by User, body and admin_id)**
+#### Create a note (by User, body and admin_id)
+
 ```cs
 Note note = notesClient.Create(
     new Note() {
@@ -425,12 +490,14 @@ Note note = notesClient.Create(
 Note note = notesClient.Create(new User() { email = "example@example.com" }, "this is a new note", "100300231_admin_id");
 ```
 
-**View a note**
+#### View a note
+
 ```cs
 Note note = notesClient.View("2001");
 ```
 
-**List User's notes**
+#### List User's notes
+
 ```cs
 Notes notes = notesClient.List(new User() { id = "100300231"});
 
@@ -442,17 +509,20 @@ foreach (Note n in notes.notes)
 
 ### Events
 
-**Create EventsClient instance**
+#### Create EventsClient instance
+
 ```cs
 EventsClient eventsClient = new EventsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create an event**
+#### Create an event
+
 ```cs
 Event ev = eventsClient.Create(new Event() { user_id = "1000_user_id", email = "user_email@example.com", event_name = "new_event", created_at = 1462110718  });
 ```
 
-**Create an event with Metadata (Simple, MonetaryAmounts and RichLinks)**
+#### Create an event with Metadata (Simple, MonetaryAmounts and RichLinks)
+
 ```cs
 Metadata metadata = new Metadata();
 metadata.Add("simple", 100);
@@ -463,7 +533,8 @@ metadata.Add("richlink", new Metadata.RichLink("www.example.com", "value1"));
 Event ev = eventsClient.Create(new Event() { user_id = "1000_user_id", email = "user_email@example.com", event_name = "new_event", created_at = 1462110718, metadata = metadata  });
 ```
 
-**List events by user**
+#### List events by user
+
 ```cs
 Events events = eventsClient.List(new User() { user_id = "my_id" });
 ```
@@ -472,17 +543,20 @@ Events events = eventsClient.List(new User() { user_id = "my_id" });
 
 ### Counts
 
-**Create CountsClient instance**
+#### Create CountsClient instance
+
 ```cs
 CountsClient countsClient = new CountsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Get AppCount**
+#### Get AppCount
+
 ```cs
 AppCount appCount = countsClient.GetAppCount();
 ```
 
-**Get Specific Counts**
+#### Get Specific Counts
+
 ```cs
 ConversationAppCount conversationAppCount = countsClient.GetConversationAppCount();
 ConversationAdminCount conversationAdminCount = countsClient.GetConversationAdminCount();
@@ -497,18 +571,21 @@ UserTagCount userTagCount = countsClient.GetUserTagCount();
 
 ### Conversations
 
-**Create ConversationsClient instance**
+#### Create ConversationsClient instance
+
 ```cs
 ConversationsClient conversationsClient = new ConversationsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**View any type of conversation**
+#### View any type of conversation
+
 ```cs
 conversationsClient.View("100300231");
 conversationsClient.View("100300231", displayAsPlainText: true);
 ```
 
-**List all conversations**
+#### List all conversations
+
 ```cs
 conversationsClient.ListAll();
 
@@ -517,12 +594,14 @@ parameters.Add("order", "asc");
 conversationsClient.ListAll(parameters);
 ```
 
-**Create AdminConversationsClient instance**
+#### Create AdminConversationsClient instance
+
 ```cs
 AdminConversationsClient adminConversationsClient = new AdminConversationsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create Admin initiated Conversation**
+#### Create Admin initiated Conversation
+
 ```cs
 AdminConversationMessage admin_message =
     adminConversationsClient.Create(new AdminConversationMessage(
@@ -534,7 +613,8 @@ AdminConversationMessage admin_message =
             body: "this is an email body"));
 ```
 
-**Create Admin initiated Conversation's reply**
+#### Create Admin initiated Conversation's reply
+
 ```cs
 Conversation conversation =
     adminConversationsClient.Reply(
@@ -545,7 +625,8 @@ Conversation conversation =
             body: "this is a reply body"));
 ```
 
-**Reply to user's last conversation**
+#### Reply to user's last conversation
+
 ```cs
 Conversation reply =
     adminConversationsClient.ReplyLastConversation(
@@ -558,13 +639,14 @@ Conversation reply =
         });
 ```
 
+#### Create UserConversationsClient instance
 
-**Create UserConversationsClient instance**
 ```cs
 UserConversationsClient userConversationsClient = new UserConversationsClient(new Authentication("MyPersonalAccessToken"));
 ```
 
-**Create User initiated Conversation**
+#### Create User initiated Conversation
+
 ```cs
 UserConversationMessage user_message =
     userConversationsClient.Create(
@@ -573,7 +655,8 @@ UserConversationMessage user_message =
             body: "this is a user's message body"));
 ```
 
-**Create User initiated Conversation's reply**
+#### Create User initiated Conversation's reply
+
 ```cs
 Conversation conversation =
     userConversationsClient.Reply(
@@ -599,8 +682,8 @@ Not yet supported by these bindings.
 
 ## Pull Requests
 
-* **Add tests!** Your patch won't be accepted if it doesn't have tests.
-* **Document any change in behaviour.** Make sure the README and any other relevant documentation are kept up-to-date.
-* **Create topic branches.** Don't ask us to pull from your master branch.
-* **One pull request per feature.** If you want to do more than one thing, send multiple pull requests.
-* **Send coherent history.** Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before sending them to us.**
+- **Add tests!** Your patch won't be accepted if it doesn't have tests.
+- **Document any change in behaviour.** Make sure the README and any other relevant documentation are kept up-to-date.
+- **Create topic branches.** Don't ask us to pull from your master branch.
+- **One pull request per feature.** If you want to do more than one thing, send multiple pull requests.
+- **Send coherent history.** Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before sending them to us.
