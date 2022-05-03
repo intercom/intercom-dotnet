@@ -41,6 +41,10 @@ namespace Intercom.Converters.AttributeConverters
                     result = GetList<Segment>(jobject, "segments");
                 else if (objectType == typeof(List<ConversationPart>))
                     result = GetList<ConversationPart>(jobject, "conversation_parts");
+                else if (objectType == typeof(List<Article>))
+                    result = GetList<Article>(jobject, "articles");
+                else if (objectType == typeof(List<Contact>))
+                    result = GetList<Contact>(jobject, "contacts");
 
                 return result;
             }

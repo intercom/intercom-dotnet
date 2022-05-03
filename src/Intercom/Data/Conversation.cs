@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Intercom.Clients;
 using Intercom.Converters.AttributeConverters;
+using Intercom.Converters.ClassConverters;
 using Intercom.Core;
 using Intercom.Data;
 using Intercom.Exceptions;
@@ -11,8 +12,10 @@ namespace Intercom.Data
 {
     public class Conversation : Model
     {
-        public long created_at { get; set; }
-        public long updated_at { get; set; }
+        public DateTimeOffset? created_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
+        public DateTimeOffset? updated_at { get; set; }
+        [JsonConverter(typeof(DateTimeOffsetJsonConverter))]
         public long? waiting_since { get; set; }
         public long? snoozed_until { get; set; }
         public Assignee assignee { get; set; }

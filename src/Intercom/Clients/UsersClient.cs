@@ -16,6 +16,7 @@ namespace Intercom.Clients
 {
     public class UsersClient : Client
     {
+        [Obsolete("User Object Model removed as of Intercom API v2.0, please use ContactsClient instead.")]
         // TODO: Implement paging
         private static class UserSortBy
         {
