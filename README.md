@@ -31,6 +31,7 @@ Resources this API supports:
 - [Notes](#notes)
 - [Conversations](#conversations)
 - [Counts](#counts)
+- [Articles](#Articles) *Intercom API 2.0+*
 
 Each of these resources is represented through the dotnet client by a Class as `ResourceClient`.
 

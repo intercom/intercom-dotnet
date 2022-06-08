@@ -44,7 +44,18 @@ namespace Intercom.Data
 
             return result;
         }
+        public void NewOrModifiedArticles(DateTime marker)
+        {
+            List<Article> articles = new List<Article>();
 
+            foreach (Article article in data)
+            {
+                if (article.created_at < marker || article.updated_at < marker)
+                {
+                    data.Remove(article);
+                }
+            }
+        }
         public void RemoveDraftArticles()
         {
             List<Article> articles = new List<Article>();

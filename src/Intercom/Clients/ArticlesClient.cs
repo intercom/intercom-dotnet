@@ -10,8 +10,8 @@ using Newtonsoft.Json;
 
 namespace Intercom.Clients
 {
+    [Obsolete("Articles Object Model can only be used with Intercom API v2.0 or greater.")]
     public class ArticlesClient : Client
-
     {
         private const String ARTICLES_RESOURCE = "articles";
 
@@ -120,6 +120,38 @@ namespace Intercom.Clients
             return result.Result;
         }
 
+        public ArticlesMultiLanguage GetArticlesML(ArticleMultiLanguage article)
+        {
+            if (article == null)
+            {
+                throw new ArgumentNullException(nameof(article));
+            }
+
+            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            ClientResponse<ArticlesMultiLanguage> result = null;
+            parameters.Add("per_page", "150");
+
+            if (!String.IsNullOrEmpty(article.id))
+            {
+                result = Get<ArticlesMultiLanguage>(resource: ARTICLES_RESOURCE + Path.DirectorySeparatorChar + article.id);
+            }
+            else if (!String.IsNullOrEmpty(article.title))
+            {
+                parameters.Add(Constants.TITLE, article.title);
+                result = Get<ArticlesMultiLanguage>(parameters: parameters);
+            }
+            else if (!String.IsNullOrEmpty(article.state))
+            {
+                result = Get<ArticlesMultiLanguage>(parameters: parameters);
+            }
+            else
+            {
+                throw new ArgumentException("you need to provide either 'article.id', to view an article.");
+            }
+
+            return result.Result;
+        }
+
         public Article View(Article article)
         {
             if (article == null)
@@ -150,7 +182,31 @@ namespace Intercom.Clients
             }
             return result.Result;
         }
+        public ArticleMultiLanguage ViewML(ArticleMultiLanguage article)
+        {
+            if (article == null)
+            {
+                throw new ArgumentNullException(nameof(article));
+            }
 
+            Dictionary<String, String> parameters = new Dictionary<string, string>();
+            ClientResponse<ArticleMultiLanguage> result = null;
+
+            if (!String.IsNullOrEmpty(article.id))
+            {
+                result = Get<ArticleMultiLanguage>(resource: ARTICLES_RESOURCE + Path.DirectorySeparatorChar + article.id);
+            }
+            else if (!String.IsNullOrEmpty(article.title))
+            {
+                parameters.Add(Constants.TITLE, article.title);
+                result = Get<ArticleMultiLanguage>(parameters: parameters);
+            }
+            else
+            {
+                throw new ArgumentException("you need to provide either 'article.id',  to view an article.");
+            }
+            return result.Result;
+        }
         public Articles List()
         {
             ClientResponse<Articles> result = null;
