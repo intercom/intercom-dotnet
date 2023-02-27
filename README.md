@@ -29,6 +29,10 @@ We'll communicate all relevant updates as we build this new team and support str
 
 Run the nuget command for installing the client as `Install-Package Intercom.Dotnet.Client`
 
+## Supported Platforms
+
+* [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) or greater
+
 ## Resources
 
 Resources this API supports:
