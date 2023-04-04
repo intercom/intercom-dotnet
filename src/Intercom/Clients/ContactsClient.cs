@@ -94,8 +94,12 @@ namespace Intercom.Clients
             } else if (!String.IsNullOrEmpty (contact.user_id)) {
                 parameters.Add (Constants.USER_ID, contact.user_id);
                 result = Get<Contact> (parameters: parameters);
+            }
+             else if (!String.IsNullOrEmpty(contact.email)) {
+                 parameters.Add(Constants.EMAIL, contact.email);
+                 result = Get<Contact>(parameters: parameters);
             } else {
-                throw new ArgumentException ("you need to provide either 'contact.id', 'contact.user_id' to view a contact.");
+                throw new ArgumentException ("you need to provide either 'contact.id', 'contact.user_id', or 'contact.email' to view a contact.");
             }
 
             return result.Result;
