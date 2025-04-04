@@ -401,7 +401,9 @@ namespace Intercom.Core
         protected ClientResponse<T> HandleNormalResponse<T>(IRestResponse response)
 			where T : class
         {
-            return new ClientResponse<T>(response: response, result: Deserialize<T>(response.Content));
+            ClientResponse<T> result = new ClientResponse<T>(response: response, result: Deserialize<T>(response.Content));
+
+            return result;
         }
 
         protected void AssertIfAnyErrors<T>(ClientResponse<T> response)
