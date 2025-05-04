@@ -115,10 +115,10 @@ namespace Intercom.Clients
                 throw new ArgumentException("'parameters' argument should include user_id parameter.");
             }
 
-            ClientResponse<User> result = null;
+            ClientResponse<Users> result = null;
 
-            result = Get<User>(parameters: parameters);
-            return result.Result;
+            result = Get<Users>(parameters: parameters);
+            return result.Result.users.FirstOrDefault();
         }
 
         public User View(String id)
@@ -141,28 +141,26 @@ namespace Intercom.Clients
             }
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
-            ClientResponse<User> result = null;
 
             if (!String.IsNullOrEmpty(user.id))
             {
-                result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id);
-            }
-            else if (!String.IsNullOrEmpty(user.user_id))
+                return Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id).Result;
+            } 
+            
+            if (!String.IsNullOrEmpty(user.user_id))
             {
                 parameters.Add(Constants.USER_ID, user.user_id);
-                result = Get<User>(parameters: parameters);
+                return Get<Users>(parameters: parameters).Result.users.FirstOrDefault();
             }
-            else if (!String.IsNullOrEmpty(user.email))
+            
+            if (!String.IsNullOrEmpty(user.email))
             {
                 parameters.Add(Constants.EMAIL, user.email);
-                result = Get<User>(parameters: parameters);
+                return Get<Users>(parameters: parameters).Result.users.FirstOrDefault();;
             }
-            else
-            {
-                throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
-            }
-
-            return result.Result;
+            
+            throw new ArgumentException("you need to provide either 'user.id', 'user.user_id', 'user.email' to view a user.");
+            
         }
 
         public Users List()
