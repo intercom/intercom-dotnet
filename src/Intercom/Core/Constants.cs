@@ -11,7 +11,10 @@ namespace Intercom.Core
         public const String USER_ID = "user_id";
         public const String ADMIN_ID = "admin_id";
 		public const String COMPANY_ID = "company_id";
-		public const String SEGMENT_ID = "segment_id";
+        public const String ARTICLE_ID = "article_id";
+        public const String TITLE = "title";
+        public const String STATE = "state";
+        public const String SEGMENT_ID = "segment_id";
         public const String REMOTE_COMPANY_ID = "remote_company_id";
         public const String INTERCOM_USER_ID = "intercom_user_id";
         public const String UPDATE_LAST_REQUEST_AT = "update_last_request_at";

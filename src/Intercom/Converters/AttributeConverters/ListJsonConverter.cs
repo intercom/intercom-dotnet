@@ -41,6 +41,14 @@ namespace Intercom.Converters.AttributeConverters
                     result = GetList<Segment>(jobject, "segments");
                 else if (objectType == typeof(List<ConversationPart>))
                     result = GetList<ConversationPart>(jobject, "conversation_parts");
+                else if (objectType == typeof(List<Article>))
+                    result = GetList<Article>(jobject, "articles");
+                else if (objectType == typeof(List<ArticleMultiLanguage>))
+                    result = GetList<Article>(jobject, "articles");
+                else if (objectType == typeof(List<ArticleContent>))
+                    result = GetListArticlesML(jobject, "articles_content");
+                else if (objectType == typeof(List<Contact>))
+                    result = GetList<Contact>(jobject, "contacts");
 
                 return result;
             }
@@ -78,6 +86,29 @@ namespace Intercom.Converters.AttributeConverters
         {
             var value = jobject.GetValue(key);
             var result = (JsonConvert.DeserializeObject(value.ToString(), typeof(T[])) as T[]).ToList();
+            return result;
+        }
+
+        private List<ArticleContent> GetListArticlesML(JObject jobject, String key)
+        {
+            List<ArticleContent> result = new List<ArticleContent>();
+
+            foreach (JObject articleml in jobject["children"])
+            {
+                ArticleContent resultArticle = new ArticleContent();
+                resultArticle.locale = articleml["root"].ToString();
+                resultArticle.title = articleml["title"].ToString();
+                resultArticle.description = articleml["description"].ToString();
+                resultArticle.body = articleml["body"].ToString();
+                resultArticle.author_id = articleml["author_id"].ToString();
+                resultArticle.state = articleml["state"].ToString();
+                resultArticle.created_at = articleml["created_at"].ToObject<DateTimeOffset>();
+                resultArticle.updated_at = articleml["updated_at"].ToObject<DateTimeOffset>();
+                resultArticle.url = articleml["url"].ToString();
+                resultArticle.type = articleml["article_content"].ToString();
+
+                result.Add(resultArticle);
+            }
             return result;
         }
     }
