@@ -57,7 +57,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Conversation> result = null;
-            result = Get<Conversation>(resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Conversation>(resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;
         }
 

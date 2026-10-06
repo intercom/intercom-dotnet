@@ -129,7 +129,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;
         }
 
@@ -145,7 +145,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(user.id))
             {
-                result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id);
+                result = Get<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(user.id));
             }
             else if (!String.IsNullOrEmpty(user.user_id))
             {
@@ -217,7 +217,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(user.id))
             {
-                result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + user.id);
+                result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(user.id));
             }
             else if (!String.IsNullOrEmpty(user.user_id))
             {
@@ -251,7 +251,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<User> result = null;
-            result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Delete<User>(resource: USERS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;
         }
 

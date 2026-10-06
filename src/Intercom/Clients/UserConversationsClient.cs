@@ -45,7 +45,7 @@ namespace Intercom.Clients
 
             ClientResponse<Conversation> result = null;
             String body = Serialize<UserConversationReply>(reply);
-            result = Post<Conversation>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + reply.conversation_id + Path.DirectorySeparatorChar + REPLY_RESOURCE);
+            result = Post<Conversation>(body, resource: CONVERSATIONS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(reply.conversation_id) + Path.DirectorySeparatorChar + REPLY_RESOURCE);
             return result.Result;
         }
 

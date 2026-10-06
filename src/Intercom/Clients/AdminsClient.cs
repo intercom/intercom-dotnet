@@ -65,7 +65,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Admin> result = null;
-            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;
         }
 
@@ -81,7 +81,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Admin> result = null;
-            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + admin.id);
+            result = Get<Admin> (resource: ADMINS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(admin.id));
             return result.Result;  
         }
     }

@@ -81,7 +81,7 @@ namespace Intercom.Clients
             };
 
             ClientResponse<Segment> result = null;
-            result = Get<Segment>(parameters: parameters, resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Segment>(parameters: parameters, resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;
         }
 
@@ -104,7 +104,7 @@ namespace Intercom.Clients
             };
 
             ClientResponse<Segment> result = null;
-            result = Get<Segment>(parameters: parameters, resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + segment.id);
+            result = Get<Segment>(parameters: parameters, resource: SEGMENTS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(segment.id));
             return result.Result;  
         }
     }

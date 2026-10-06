@@ -62,7 +62,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Visitor> result = null;
-            result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;       
         }
 
@@ -78,7 +78,7 @@ namespace Intercom.Clients
 
             if (!String.IsNullOrEmpty(visitor.id))
             {
-                result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
+                result = Get<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(visitor.id));
             }
             else if (!String.IsNullOrEmpty(visitor.user_id))
             {
@@ -124,7 +124,7 @@ namespace Intercom.Clients
 
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             ClientResponse<Visitor> result = null;
-            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + visitor.id);
+            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(visitor.id));
             return result.Result;       
         }
 
@@ -136,7 +136,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Visitor> result = null;
-            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Delete<Visitor>(resource: VISITORS_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;           
         }
 
