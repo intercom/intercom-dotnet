@@ -143,7 +143,7 @@ namespace Intercom.Clients
             }
 
             ClientResponse<Note> result = null;
-            result = Get<Note>(resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + id);
+            result = Get<Note>(resource: NOTES_RESOURCE + Path.DirectorySeparatorChar + EncodePathSegment(id));
             return result.Result;       
         }
 

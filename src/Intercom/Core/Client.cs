@@ -310,6 +310,14 @@ namespace Intercom.Core
             return request;
         }
 
+        protected static String EncodePathSegment(String id)
+        {
+            if (String.IsNullOrEmpty(id) || id == "." || id == "..")
+                throw new ArgumentException("The id cannot be used as a path segment.", nameof(id));
+
+            return Uri.EscapeDataString(id);
+        }
+
         protected virtual IRestClient BuildClient()
         {
             return _restClientFactory.RestClient;
