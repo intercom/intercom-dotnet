@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <ReleaseVersion>3.0.0</ReleaseVersion>
+    <Version>2.1.2</Version>
+    <Authors>Intercom</Authors>
     <PackageId>Intercom.Dotnet.Client</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/intercom/intercom-dotnet/master/src/assets/Intercom.png</PackageIconUrl>
     <Owners>Intercom</Owners>
@@ -10,15 +11,10 @@
     <Summary>The official Intercom API client library for .NET</Summary>
     <Title>Intercom Dotnet Client</Title>
     <Description>The official Intercom API client library for .NET</Description>
-    <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="106.12.0" />
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 </Project>
